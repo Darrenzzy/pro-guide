@@ -1,3 +1,128 @@
+
+任务模版:
+重构后台4.0
+20190111
+1、洋小秘版本4.0重构
+
+I、  layui 数据表格引入 （100%）
+II、 数据 model 增删改查 初始化（100%）
+III、 控制器迁移 （10%）
+
+下周工作计划
+ 1、完成管理员列表， 角色管理  日志管理  1.5天
+ 2、文章管理 分类，0.5天
+ 3、投票系统，（奖品， 日志， 僵尸， 投票查询）1天
+ 4、客服系统，（客服，日志，问题， 接待，公司）1天
+   
+ 
+ 在admin_user表中加字段 group_id 
+
+资金管理：短信未完成
+
+user_detail user _ member 问题要全部解决
+
+
+表 admin_user 加字段 group_id 
+
+
+2.28
+去掉空格
+$sort = trim($sort);
+
+
+2.16
+前端页面跳转 跳转上一页
+ window.location.href = history.go(-1);
+
+
+1.15 
+
+1:前端layui总结：
+数据表格中编辑删除，不起作用，原因是一开始没有导入标记 （lay-filter）
+<table class="layui-hide" id="member"  lay-filter="test"></table>
+
+2：疑问： 为什么有时候对象方法使用数组作为参数传递就会不成功，（最后转为json才解决传递参数问题）
+
+3：
+
+
+1.10
+数组去空、去重处理
+array_unique(array_filter())
+
+
+1.9开通https顺序：
+
+1：现在阿里云开通安全组，
+2：再添加443端口，
+3：宝塔上添加放行记录
+
+1.7
+php 配置文件php.ini文件的动态设置与获取
+ini_get正好和ini_set相反
+
+防止sql注入的PHP函数：
+addslashes（）
+stripslashes（）
+
+
+1.5
+我自己的电脑启动项目流程：
+
+sudo nginx 
+sudp php-fpm start
+数据库
+pg_ctl -D /Users/darren/postgresql/data -l logfile start
+
+
+1.3
+秒杀架构设计理念
+限流，削峰（消息队列）（异步处理），内存缓存（减少对数据库的读写io，），可扩展（做负载均衡集群）
+
+实现日志切割脚本：
+#!/bin/bash
+#Rotate the Nginx logs to prevent a single logfile from consuming too much disk space. 
+LOGS_PATH=/usr/local/nginx/logs
+YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+mv ${LOGS_PATH}/access.log ${LOGS_PATH}/access_${YESTERDAY}.log
+mv ${LOGS_PATH}/error.log ${LOGS_PATH}/error_${YESTERDAY}.log
+## 向 Nginx 主进程发送 USR1 信号。USR1 信号是重新打开日志文件
+kill -USR1 $(cat /usr/local/nginx/logs/nginx.pid)
+
+将上面的脚本开启到crontab中，每天来运行
+
+
+12.31
+shell生产32位随机密码
+date | md5sum |cut -c-32
+
+12.29
+实现php类的多继承：trait
+<?php
+trait myTrait{
+  function traitMethod1(){}
+  function traitMethod2(){}
+}
+//然后是调用这个traits,语法为：
+class myClass{
+  use myTrait;
+}
+//这样就可以通过use myTraits，调用Traits中的方法了，比如：
+$obj = new myClass();
+$obj-> traitMethod1 ();
+$obj-> traitMethod2 (); 
+
+
+
+composer 工作原理：
+1：加载文件 vendor/composer/autoload_real.php文件
+2：实例化类Composer\Autoload\ClassLoader
+该类实现了：读取目录下所有文件，返回class目录映射关系
+
+接下来加载类与文件的对应关系,将其放到内存内；
+核心语句：使用php提供的函数spl_autoload_register注册loadClass方法
+
+
 12.21
 redis: 有序集（key score member）且不允许重复的成员
 zset
@@ -63,6 +188,15 @@ set  +H
  file_exists($file);
  mkdir($dir,0777,true);
           
+
+
+12.12 yii框架
+
+//        $results = yii::$app->db->createcommand("select oid,nickname,password,username,headpic from user where oid=" . $user_id)->queryone();
+//
+//        $result_self = yii::$app->db->createcommand("select oid,nickname,password,username,headpic from user where oid=" . $self_id)->queryone();
+
+
 
 12.6
      #合并数组 去空去重，
@@ -209,11 +343,7 @@ PHP posix_getpid 取得当前服务器进程号
 少说几句话，做事走走心，不要傻不拉几
 哎
 
-
-9.17
-
-//        while(true){
-//            $flag_mark = $
+ 
 10.18
 
  static function reqAddGroup($group_id, $user_ids, $invite_id, $way)

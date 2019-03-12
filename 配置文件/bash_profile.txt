@@ -1,0 +1,131 @@
+source ~/.profile
+
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+#自定义快捷命令
+alias ppsql='psql -U postgres'
+alias rrm='rm -rf '
+alias sss_bash_profile='source ~/.bash_profile'
+alias pps='ps -ef |grep '
+alias tf='tail -f '
+alias laa='ls -all'
+alias ll='ls -all'
+alias kk='ls -all'
+alias cc='clear'
+alias ls='ls -G'
+alias vimbash_pro='vim ~/.bash_profile'
+alias ppc='php cli.php'
+alias cdnginx= 'cd /usr/local/nginx/conf'
+alias varlog='cd /usr/local/var/log'
+alias mamplog='/Applications/MAMP/logs'
+
+
+#ssh快速链接
+alias sshtengxun='ssh root@58.87.71.104'
+alias sshxiangce='ssh root@47.100.56.225'
+alias sshxihe='ssh root@47.52.75.114'
+alias sshlivaway='ssh superadmin@47.96.231.54'
+
+#项目使用快捷操作
+alias otc='cd /Users/darren/projects/otc_php'
+alias qianbao='cd /Users/darren/projects/otceasy_php'
+alias shop='/Users/darren/projects/projectmc'
+alias api='cd /Users/darren/projects/WechatApi'
+alias kafkaconfig='/usr/local/etc/kafka'
+alias ppt='php think '
+alias hupu='/Users/darren/projects/yxm/hupu'
+alias hope='/Users/darren/projects/hope'
+
+export PATH=$PATH:/usr/local/sbin
+export PGDATA=/Users/darren/postgresql/data
+export PATH=/usr/local/pgsql/bin:$PATH
+export PTOOLSPATH=/Users/darren/src/phalcon-devtools/
+export PATH=/usr/local/openresty/nginx/sbin:$PATH
+export PATH=/Users/darren/src/kafka2.11-1.1.1/bin:$PATH
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
+export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin 
+export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
+export PATH=/Users/darren/go/src/github.com/hyperledger/fabric/release/darwin-amd64/bin:$PATH
+export PATH=$PATH:/usr/local/mysql/bin
+export PATH=$PATH:/Users/darren/src/icomet-master
+export PATH=$PATH:/usr/local/nginx/sbin
+export PATH=$PATH:/usr/local/ssdb
+export PATH=$PATH:/Users/darren/src/redis-5/src
+export DISPLAY=:0
+
+#消息slack配置
+export slack_hooks_key='TC71U9HV3/BC6TA6YM8/v1iTKq0im3xUkFV7xKk9pEEE'
+
+#交易所使用环境变量
+export otc_db_host='127.0.0.1'
+export otc_db_port='3306'
+export otc_db_username='root'
+export otc_db_password='root'
+export otc_db_proxy_url='http://127.0.0.1:8081/postgres'
+export otc_db_name='shop'
+
+export otc_db_2_host='127.0.0.1'
+export otc_db_2_port='5432'
+export otc_db_2_username='postgres'
+export otc_db_2_password='aaaa'
+export otc_db_2_name='otc_development2'
+export db_password='aaaa'
+export db_name='otc_php'
+
+
+export otc_notify_host='http://otc_php.com'
+export otc_kafka_topic='otc-dev'
+export otc_kafka_group='zzynew2'
+export otc_trade_host='engine.com'
+export otc_kafka_server_endpoints='localhost:9092,localhost:9093,localhost:9094'
+
+export otc_aws_ses_smtp_username='AKIAI6NLQHZC3NPRZTGQ'
+export otc_aws_ses_smtp_password='Au+Hc6J+Jd0zNsaOANf3Ht+i+DGzgfDL2N2O5RoZbY/x'
+
+
+#市商使用环境变量
+export coin_otc_api_key='yk1MX1ST5s13416N1moun6Xn1514J2'
+export coin_otc_secret_key='r15OlDyJYC3GZ417sQ6istjQP148g2'
+export coin_otc_account_host='otc_php.com'
+export coin_aws_ses_smtp_password='Au+Hc6J+Jd0zNsaOANf3Ht+i+DGzgfDL2N2O5RoZbY/x'
+export coin_aws_ses_smtp_region='email-smtp.us-east-1.amazonaws.com'
+export coin_aws_ses_smtp_username='AKIAI6NLQHZC3NPRZTGQ'
+export coin_smtp_send_from_name='Wangcai.io'
+export coin_smtp_send_from_address='test_noreply@wangcai.io'
+
+export connect_db_host='127.0.0.1'
+export connect_db_port=5432
+export connect_db_username='postgres'
+export connect_db_password='aaaa'
+export connect_db_name='coin_development'
+
+#钱包受用环境变量
+export otceasy_db_host='127.0.0.1'
+export otceasy_db_port=5432
+export otceasy_db_username='postgres'
+export otceasy_db_password='aaaa'
+export otceasy_db_name='otceasy_development'
+
+export otceasy_notify_host='http://otceasy.com'
+
+
+#EOS项目开发
+#alias cleos='docker exec -it eosio /opt/eosio/bin/cleos --url http://127.0.0.1:7777 --wallet-url http://127.0.0.1:5555'
+
+alias cleos='docker-compose -f /Users/darren/projects/eos/Docker/docker-compose.yml exec keosd /opt/eosio/bin/cleos -u http://nodeosd:8889 --wallet-url http://localhost:8900'
+
+
+alias keosd='docker exec -i keosd /opt/eosio/bin/cleos  --wallet-url http://127.0.0.1:8900  -u http://mainnet.eoscalgary.io  '
+alias noeos='docker exec -i nodeos /opt/eosio/bin/cleos -u http://127.0.0.1:8889 --wallet-url http://127.0.0.1:8889' 
+
+
+
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+  [ -r "$file" ] && source "$file"
+done
+unset file
+
+

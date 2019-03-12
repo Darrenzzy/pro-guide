@@ -1,9 +1,15 @@
     学习笔记
+
+截取字符串 substr('string',0,1)
+
+判断字符串位置存在与否
+strstr('string','key') 返回关键字以后的字符串
+
+if(strpos($img,'1')!==false)  返回真假
  
 利用命令grep在文件中搜索字符串
 grep -rni broker.address.family /
  ps -ef | grep nginx
-
 
 
 下载包命令
@@ -139,11 +145,20 @@ done <"${config_file}"
 3. shell脚本的while和if else使用
 4. 轮询目录中的目录，并做其他命令操作
 
+
+
+
+
+
+
+
 12.27
 shell rm命令：
 rm -r :删除目录
 rm -f : 删除文件
 -i ：执行前做个提醒
+查看cpu数量：
+cat /proc/cpuinfo| grep "processor"| wc -l
 
 
 12.5 ls ll 时间排序
@@ -688,7 +703,7 @@ nginx相关路径
 
 /usr/local/Cellar/nginx/1.8.0 （安装路径）
 
- 重启（如果端口小鱼1000则需要在前面加sudo）
+ 重启（如果端口小于1000则需要在前面加sudo）
 # 重新加载配置|重启|停止|退出 
 
 
@@ -784,8 +799,8 @@ netstat -antp
 appledeiMac-2:nginx apple$ which php-fpm
 /usr/local/bin/php-fpm
 
-使用到git熟悉命令：
-Command line instructions
+
+使用到git熟悉命令： 
 
 Git global setup
 git config --global user.name "张振宇"
@@ -802,33 +817,47 @@ git push -u origin master
 Existing folder
 cd existing_folder
 git init
+添加远程仓库地址
 git remote add origin https://code.365yf.cc/zhangzhenyu/test.git
 git add .
 git commit -m "Initial commit"
-git push -u origin master
+git push -u origin master  （加-u  项指定一个默认主机，这样后面就可以直接用push）
+git push <远程主机名> <本地分支名>:<远程分支名>
 
 Existing Git repository
 cd existing_repo
 git remote rename origin old-origin
 git remote add origin https://code.365yf.cc/zhangzhenyu/test.git
 git push -u origin --all
-git push -u origin --tags
 
 它会在解决冲突后生成一个原来冲突的备份
 git config --global mergetool.keepBackup false
 
+查看本地所有分支
+git branch  
+查看所有分支
+git branch -a  
+创建分支
+git branch new   \\ git checkout -b new  等效
+删除本地分支
+branch -d old  
+删除远程分支
+git push origin --delete zzy-test
 
-流程
-git add .
- git commit -m ”同步dev“
-git push -u origin Darren
+git remote -v 查看远程版本库信息
+
+git fetch 《remote》 远程拉取代码
+
+重置当前分支
+git reset --hard origin/master
+
+git拉取远程分支到本地分支或者创建本地新分支
+git checkout origin/remoteName -b localName
 
 安装配置包时候报出未安装信息：
 Package endroid/qrcode is abandoned, you should avoid using it. Use endroid/qr-code instead.
 Package phpoffice/phpexcel is abandoned, you should avoid using it. Use phpoffice/phpspreadsheet instead.
 记录一下~
-
-
 
 查看phalcon版本信息
 appledeiMac-2:phalcon-devtools apple$ phalcon -v
@@ -923,7 +952,7 @@ pg_ctl -D /Users/darren/postgresql/data -l logfile start
 或者手动启动：
 pg_ctl -D /Users/darren/postgresql/data start
 
-启动 
+启动 (brew流程)
 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 停止
 pg_ctl stop
