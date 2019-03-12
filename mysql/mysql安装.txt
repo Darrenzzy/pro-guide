@@ -1,0 +1,9 @@
+项目中没有使用到,(选择性安装)
+
+mysql安装
+wget https://downloads.mariadb.org/interstitial/mariadb-10.0.17/source/mariadb-10.0.17.tar.gz/from/http%3A//ftp.yz.yamagata-u.ac.jp/pub/dbms/mariadb
+tar -zxvf mariadb-10.0.17.tar.gz
+cd mariadb-10.0.17
+cmake .
+make
+sudo make install

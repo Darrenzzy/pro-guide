@@ -1,0 +1,86 @@
+仅生产环境安装，开发环境不用安装
+
+postgres-xl安装指南
+官网 http://www.postgresql.org
+下载地址 http://cznic.dl.sourceforge.net/project/postgres-xl/Releases/Version_9.2rc/postgres-xl-v9.2-src.tar.gz
+
+#  安装依赖包
+yum install -y perl-ExtUtils-Embed readline-devel zlib-devel jade  opensp xsltproc  flex bison docbook*
+# 解压
+tar -zxvf  postgres-xl-v9.2-src.tar.gz
+cd postgres-xl
+./configure
+gmake
+gmake install
+
+将 /usr/local/pgsql/bin 加入到PATH变量中
+创建 postgres  用户
+adduser postgres
+创建目录
+mkdir /usr/local/system/postgresql
+chown postgres /usr/local/system/postgresql
+# 切换到postgres用户
+su - postgres
+cd /usr/local/system/postgresql
+所有机器相互之间ssh登陆无密码
+
+以上操作为所有机器公共操作，用户的操作目录都在/usr/local/system/postgresql下
+
+
+# 初始化gtm, 必须是独立机器
+initgtm -Z gtm -D data_gtm
+ 启动
+ gtm_ctl -Z gtm start -D ./data_gtm
+
+切换到gtm_proxy的机器， 
+initgtm -Z  gtm_proxy -D ./data_gtm_proxy
+更改配置文件
+vi ./data_gtm_proxy/gtm_proxy.conf
+修改gtm
+gtm_host='gtm机器ip'
+gem_port 要改为gtm的端口，默认是6666
+gtm_ctl start -Z gtm_proxy -D ./data_gtm_proxy
+
+切换到data的机器
+initdb -D ./data --nodename yipai
+
+启动
+
+pg_ctl start -D ./data -Z coordinator -l logfile
+
+ pg_ctl start -D ./data -Z datanode -l logfile
+
+优化？
+
+$ sysctl -w kernel.shmmax=17179869184
+$ sysctl -w kernel.shmall=4194304
+
+
+进入contrib/pgxc_ctl
+make
+make install
+
+mkdir /usr/local/system/postgresql/pgxc_home
+pgxc_ctl --home /usr/local/system/postgresql/pgxc_home
+第一次运行
+pgxc_ctl
+输入
+prepare
+ctrl+ d退出
+
+export PGXC_CTL_HOME=/usr/local/system/postgresql/pgxc_home
+export PATH=$PATH:/usr/local/pgsql/bin
+加入/home/postgres/.bashrc
+初始化
+编辑
+pgxc_ctl init all
+pgxc_ctl start all
+
+增加节点第4个节点
+ pgxc_ctl add datanode master datanode4 node4 15432 20012 /usr/local/system/postgresql/data none
+
+10.161.64.36 node0
+10.144.227.76 node1
+10.161.43.224 node2
+10.161.48.61 node3
+10.251.136.201 node4

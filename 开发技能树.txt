@@ -1,0 +1,44 @@
+开发开发技能树
+
+HTML
+	手写常见标签和内容布局，dom模型
+
+javascript
+	js原生语法
+	json，数组，字符串，时间等常见函数操作
+    jquery，vue，事件回调，异步
+
+
+css
+   常见定位布局，boostrap框架
+
+db
+	编译安装，参数调优
+	ddl
+	评估sql影响，优化sql查询 
+
+redis
+   不同数据结构的适用场景
+   主从配置，诊断
+
+php
+  字符串，数组，pdo，json，类型转换
+  类，对象，动态方法，动态属性
+  异步原理
+  fpm和php优化
+  性能诊断优化
+  phalcon mvc原理和调用方式
+  xphalcon功能和开发
+  
+linux
+	权限，文件系统，系统参数配置
+    硬盘管理 逻辑卷管理
+
+mac
+   brew 
+   安装，权限
+   常见软件安装
+
+协议
+   tcp协议，udp协议，http协议
+   抓包分析

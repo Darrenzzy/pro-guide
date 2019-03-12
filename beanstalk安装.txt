@@ -1,0 +1,11 @@
+Beanstalk，是一个高性能、轻量级的分布式内存队列系统，最初设计的目的是想通过后台异步执行耗时的任务来降低高容量Web应用系统的页面访问延迟。
+在我们的项目中，在耗时的场景下，例如上传文件，删除信息，批量更新，消息通知等情况使用到了beanstalk
+
+https://github.com/kr/beanstalkd.git
+
+[beanstalk服务启动命令]
+#beanstalkd -l 0.0.0.0 -p 11300 -b /Users/apple/projects/data/beanstalkd -V
+
+
+客户端（可选安装）
+https://github.com/ptrofimov/beanstalk_console

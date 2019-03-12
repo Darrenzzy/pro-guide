@@ -1,0 +1,20 @@
+[开发环境介绍]
+
+安装环境前先确认是否已安装xcode，没有则安装，安装xcode可以解决后面安装软件时的大部分依赖问题
+
+使用的软件有
+sourcetree  Mac下的git可视化客户端
+charles   抓包工具，用于查看手机客户端与服务器交互数据是否正常
+istat menu  MAC系统扩展工具，方便查看当前电脑内网IP，内存，CPU,电脑温度等信息
+phpstorm   统一使用的php开发IDE
+phalcon    项目使用的PHP开发框架
+redis      Key-Value数据库,项目中作为一级缓存,由于性能原因,没有使用保存数据到磁盘功能
+ssdb 	   和reds类似的Key-Value数据库,项目中作为二级缓存,接口调用和redis一致,启用了保存数据到磁盘功能
+postgres   公司项目使用的关系型数据库
+sublime    前端开发工具,编写js,css时使用
+web服务     nginx + php-fpm
+
+注意: sourcetree ,charles, istat menu, phpstorm 公司都有买license, 支持正版软件  
+
+开发环境安装顺序如下：  
+nginx > ssdb > postgres > php

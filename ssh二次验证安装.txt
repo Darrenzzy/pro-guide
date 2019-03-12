@@ -1,0 +1,3 @@
+ssh二次验证安装
+ yum install google-authenticator pam-devel
+ http://www.haiyun.me/archives/centos-ssh-google-authenticator.html

@@ -1,0 +1,161 @@
+------------------------- kafka 安装 -------------------------
+安装kafka前需先安装jdk
+yum install java
+ 
+
+使用说明具体详见http://kafka.apache.org/quickstart
+
+
+编译安装kafka
+***********注意！！***********
+若你是mac系统，请同样使用编译安装，尽量不用brew安装，原因：1，版本旧  2，个别配置与官网配置不一致，导致不能很好进行高级消费。
+*********************************
+
+*********************************
+/Users/apple/Downloads/kafka_2.11-1.1.0/bin/kafka-run-class.sh: line 252: [[: 10 2018-07-17: syntax error in expression (error token is "2018-07-17")
+[0.002s][warning][gc] -Xloggc is deprecated. Will use -Xlog:gc:/Users/star/Downloads/kafka_2.11-1.1.0/bin/../logs/zookeeper-gc.log instead.
+Unrecognized VM option 'PrintGCDateStamps'
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+*********************************
+解决方法：
+https://github.com/apache/kafka/commit/e9f86c3085fa8b65e77072389e0dd147b744f117
+修改文件 /bin/kafka-run-class.sh
+JAVA_MAJOR_VERSION=$($JAVA -version 2>&1 | sed -E -n 's/.* version "([^.-]*).*"/\1/p')
+改为:
+JAVA_MAJOR_VERSION=$($JAVA -version 2>&1 | sed -E -n 's/.* version "([0-9]*).*$/\1/p')
+
+
+
+1 安装kafka
+	首先从官网获取安装包  （网址 http://kafka.apache.org/downloads）
+	这里目前选用最新 kafka_2.11-1.1.1.tgz 版本
+	wget http://mirrors.shuosc.org/apache/kafka/1.1.1/kafka_2.11-1.1.1.tgz
+    tar -xzf kafka_2.11-1.1.0.tgz
+2 在src目录中解压，打开进入kafka_2.11-1.1.1文件
+3 开始启动kafka，首先需要启动zookeeper（zookeeper安装说明在下面）
+
+   tips：为方便快捷，需要将kafka中bin目录加载到环境变量中 打开~/.bash_profile 
+   添加一条   export PATH=/Users/apple/src/kafka-2.11-1.1.1/bin:$PATH
+   保存退出，source ~/.bash_profile
+
+开始命令：（每次开机都要启动1：zookeeper ，2： kafka ）
+
+（以下kafka中conf里面的配置文件都已copy到/usr/local/etc/kafka/目录下，方便管理 ）
+	启动zookeeper系统
+	zookeeper-server-start.sh /usr/local/etc/kafka/zookeeper.properties
+	启动kafka系统
+	kafka-server-start.sh /usr/local/etc/kafka/server.properties
+
+新建topic
+ kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 3 --topic zzy6 
+
+参数说明：
+#--zookeeper是集群列表，可以指定所有节点，也可以指定为部分列表
+#--replication-factor 为复制数目，数据会自动同步到其他broker上，防止某个broker宕机数据丢失
+#--partitions 一个topic可以切分成多个partition，一个消费者可以消费多个partition，但一个partition只能被一个消费者消费
+
+
+生产消息
+kafka-console-producer.sh --broker-list localhost:9092 --topic new_topic
+
+kafka-console-producer.sh --broker-list 172.16.1.136:9092,172.16.1.137:9092,172.16.1.138:9092 --topic wutuobang_test
+消费消息
+kafka-console-consumer.sh --zookeeper localhost:2181   --from-beginning  --topic new_topic
+
+查看当前全部topic
+kafka-topics.sh --list --zookeeper localhost:2181
+
+查看当前主题详细信息
+kafka-topics.sh --zookeeper 127.0.0.1:2181  --describe --topic new_topic
+
+查看全部主题信息
+kafka-topics.sh --describe --zookeeper localhost:2181
+
+查看consumer group列表（新版命令）
+kafka-consumer-groups.sh --new-consumer --bootstrap-server 127.0.0.1:9092 --list
+查看consumer group列表（老命令）
+kafka-consumer-groups.sh --zookeeper 127.0.0.1:2181 --list
+
+删除主题：
+kafka-topics.sh --delete --zookeeper localhost:2181 --topic new_topic  
+删除 消费者组
+kafka-consumer-groups.sh --zookeeper 127.0.0.1:2181 --delete --group <group-name>
+
+查看某个组中的topic信息  
+kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092  --describe --group kafka_otc
+
+kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --describe --group kafka_otc | tail -1 | awk '{print $1" "$4" "$5" "$6}'
+ kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092  --describe --group kafka_otc | tail -60 | awk '{print $5}'
+ --describe --group $group | tail -1 | awk '{print $}'
+
+
+查看kafka进程号
+    ps ax | grep -i 'kafka\.Kafka' | awk '{print $1}'
+
+
+
+
+
+------------------------- 搭建Kafka broker集群------------------------- 
+
+修改config/server.properties文件 复制此配置文件分别为server-1.properties，server-2.properties，server-3.properties 
+
+
+//准备三份用于启动kafka服务的配置
+cp server.properties server-0.properties
+cp server.properties server-1.properties
+cp server.properties server-2.properties
+三份配置中都要修改以下
+broker.id=0(三个配置中分别修改为0,1,2)
+port=9092(三个配置中分别修改为9092,9093,9094)
+log.dirs=/tmp/kafka-logs-0(三个配置中分别修改为/tmp/kafka-logs-0,/tmp/kafka-logs-1,/tmp/kafka-logs-2)
+num.partitions=3 (都设置为3，即每个topic默认三个partition)
+
+
+配置完毕后，令开启三个终端 开启kafka
+kafka-server-start.sh /usr/local/etc/kafka/server-1.properties
+kafka-server-start.sh /usr/local/etc/kafka/server-2.properties
+kafka-server-start.sh /usr/local/etc/kafka/server-3.properties
+
+最后就可以在php中使用kafka了~~
+
+
+	 
+
+安装zookeeper (若已经安装kafka，则其包内带有zookeeper在 src/kafka2.11-1.1.1/libs目录中，若想独立安装，可以参考下面流程 )
+wget http://mirrors.cnnic.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
+tar zxvf zookeeper-3.4.6.tar.gz
+cd zookeeper-3.4.6
+cp -rf conf/zoo_sample.cfg conf/zoo.cfg
+cd conf
+vim zoo.cfg
+修改zook.cfg里头的dataDir （数据路径这里配置路径为dataDir=/usr/local/var/lib/zookeeper）
+
+
+重要kafka配置参数中文说明
+http://debugo.com/kafka-params/
+https://www.cnblogs.com/weixiuli/p/6413109.html
+Kafka集群生产/消费的负载均衡(Rebalance)测试
+https://blog.csdn.net/cjf_wei/article/details/57121845
+
+
+
+--------------- kafka php客户端安装(php-rdkafka) --------------
+1.安装 librdkafka
+git clone https://github.com/edenhill/librdkafka
+cd librdkafka
+./configure
+make
+sudo make install
+
+2.安装php-rdkafka
+git clone https://github.com/arnaud-lb/php-rdkafka.git
+cd php-rdkafka
+phpize
+./configure
+make all -j 5
+sudo make install
+
+vi /usr/local/lib/php.ini
+加入 extension=rdkafka.so

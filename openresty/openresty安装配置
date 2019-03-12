@@ -1,0 +1,21 @@
+
+MAC下载源码编译安装
+
+地址
+https://openresty.org/cn/download.html
+(https://openresty.org/download/openresty-1.13.6.2.tar.gz)
+
+tar -xzvf openresty-1.13.6.2.tar.gz
+
+然后进入目录 开始编译安装
+
+可以指定各种选项（在mac中编译如下）
+
+openresty最后成功编译安装的配置信息
+./configure --with-cc-opt="-I/usr/local/opt/openssl/include/ -I/usr/local/opt/pcre/include/" --with-ld-opt="-L/usr/local/opt/openssl/lib/ -L/usr/local/opt/pcre/lib/" --with-http_drizzle_module --with-http_iconv_module --with-http_postgres_module
+
+注意：
+配置文件（./configure）运行出错可以到 build/nginx-1.13.6.2/objs/autoconf.err 找到
+
+最后  make&& make install
+

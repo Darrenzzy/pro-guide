@@ -1,0 +1,33 @@
+fdisk /dev/vdb
+n
+p
+1
+w
+后面默认回车
+
+查看fdisk -l
+/dev/vdb1    有这个说明分区成功
+
+
+
+1. 普通挂载
+mkfs.ext4 /dev/vdb1
+vim /etc/fstab
+添加
+/dev/vdb1 /usr/local/system ext4 defaults 0 0
+mkdir /usr/local/system
+mount /dev/vdb1 /usr/local/system
+
+
+
+2. 大容量机器挂载
+yum install lvm2 -y
+pvcreate /dev/vdb1
+vgcreate mygroup /dev/vdb1
+vgchange -ay mygroup
+lvcreate -n data -l 100%FREE mygroup
+mkfs.ext4 /dev/mygroup/data
+mkdir /usr/local/system
+vim /etc/fstab 
+添加 /dev/mygroup/data /usr/local/system ext4 defaults 0 0
+mount -a

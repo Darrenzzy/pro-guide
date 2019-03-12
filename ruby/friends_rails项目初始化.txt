@@ -1,0 +1,42 @@
+1: 拉取代码
+   git clone git@git.365yf.com:sh_server/friends_rails.git
+
+#默认已安装Postgres数据库，ssdb, redis
+2: 安装项目需要的gem
+   bundle install
+   #如果提示没有bundle命令，需要先安装
+   gem install bundle
+
+3: 进入项目目录
+   cd ./friends_rails
+   #创建数据库
+   rake db:create
+   #运行迁移文件
+   rake db:migrate
+   #初始化ssdb
+   rake data:ssdb_init
+   #启动ssdb
+   rake data:ssdb
+   #启动redis
+   rake data:redis
+
+   #创建后台管理员账户
+   rake data:create_admin_manager
+   #导入省份数据
+   rake data:import_province
+   #导入省份经纬度
+   rake data:import_latitude
+
+   #加载缓存
+   rake data:load_all_cache
+
+4: 启动项目
+   cd ./friends_rails
+   thin start -d
+
+5: 重启项目
+   cd ./friends_rails
+   thin restart
+
+tips:
+   macos: bundle install 安装nokogiri的时候报错libxml2版本太低，安装一个支持的版本即可；不要安装最新的libxml2，太高版本也不支持

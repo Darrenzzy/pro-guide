@@ -1,0 +1,434 @@
+12.21
+redis: 有序集（key score member）且不允许重复的成员
+zset
+
+哈希存储：Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象
+集合：Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据
+
+String——字符串
+Hash——字典
+List——列表
+Set——集合
+Sorted Set——有序集合
+
+
+12.17实现sql注入的基本：
+关键语句：
+  $key = "or 1=1 --";
+  即可实现注入手段
+
+12.13
+php字符串比较忽略大小写进行比较：
+  strcasecmp()
+这是不忽略大小写：strcmp（）
+
+
+php时间戳转换
+ strval(date('m-d H:i', time()));
+
+
+12.12
+数据库创建索引：
+create index manager_id_on_groups on groups(manager_id);
+
+
+绿色上网
+启动SSR：
+/etc/init.d/shadowsocks-r start
+退出SSR：
+/etc/init.d/shadowsocks-r stop
+重启SSR：
+/etc/init.d/shadowsocks-r restart
+SSR状态：
+/etc/init.d/shadowsocks-r status
+卸载SSR：
+./shadowsocks-all.sh uninstall
+
+12.10
+
+1，linux中 ！字符 默认被忽略历史命令，到时命令中含有该字符时不起作用
+
+-H Shell：可利用"!"加<指令编号>的方式来执行history中记录的指令。
+
+例如:
+echo "Reboot your instance!"
+会报 ！not found
+需要在环境配置中加
+set  +H
+来解决关闭忽略命令
+
+
+2：php 检查目录和检查文件是否存在 创建目录
+ is_dir($dir)
+ file_exists($file);
+ mkdir($dir,0777,true);
+          
+
+12.6
+     #合并数组 去空去重，
+  implode(',', array_unique(array_filter(array_merge($user_ids, $add_user_ids))));
+
+
+12.3
+linux中读写 执行 chmod 命令
+-rw------- (600)      只有拥有者有读写权限。
+-rw-r--r-- (644)      只有拥有者有读写权限；而属组用户和其他用户只有读权限。
+-rwx------ (700)     只有拥有者有读、写、执行权限。
+-rwxr-xr-x (755)    拥有者有读、写、执行权限；而属组用户和其他用户只有读、执行权限。
+-rwx--x--x (711)    拥有者有读、写、执行权限；而属组用户和其他用户只有执行权限。
+-rw-rw-rw- (666)   所有用户都有文件读、写权限。
+-rwxrwxrwx (777)  所有用户都有读、写、执行权限。
+
+
+2:检索所有文件中匹配的字符串(find)
+我一般使用: grep -nri key_word ./*
+grep -i pattern files ：不区分大小写地搜索。默认情况区分大小写， 
+
+grep -l pattern files ：只列出匹配的文件名， 
+
+grep -L pattern files ：列出不匹配的文件名， 
+
+grep -w pattern files ：只匹配整个单词，而不是字符串的一部分（如匹配‘magic’，而不是‘magical’）， 
+
+grep -C number pattern files ：匹配的上下文分别显示[number]行， 
+
+grep pattern1 | pattern2 files ：显示匹配 pattern1 或 pattern2 的行， 
+
+grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。 
+
+
+
+12.1 今天重新安装nginx 开始报错openssl找不到
+于是发现是路径没有写对，在configuer时候 后面加了 ./configure  --with-openssl=/usr/local/opt/openssl/bin  就解决了路径问题
+再次make后，又报错,  方案 : make clean  解决
+后面直接成功
+
+
+Configuration summary
+  + using system PCRE library
+  + using OpenSSL library: /usr/local/opt/openssl
+  + using system zlib library
+
+  nginx path prefix: "/usr/local/nginx"
+  nginx binary file: "/usr/local/nginx/sbin/nginx"
+  nginx modules path: "/usr/local/nginx/modules"
+  nginx configuration prefix: "/usr/local/nginx/conf"
+  nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
+  nginx pid file: "/usr/local/nginx/logs/nginx.pid"
+  nginx error log file: "/usr/local/nginx/logs/error.log"
+  nginx http access log file: "/usr/local/nginx/logs/access.log"
+  nginx http client request body temporary files: "client_body_temp"
+  nginx http proxy temporary files: "proxy_temp"
+  nginx http fastcgi temporary files: "fastcgi_temp"
+  nginx http uwsgi temporary files: "uwsgi_temp"
+  nginx http scgi temporary files: "scgi_temp"
+
+
+
+
+11.28
+PHP posix_getpid 取得当前服务器进程号
+
+10.18
+
+ static function reqAddGroup($group_id, $user_ids, $invite_id, $way)
+    {
+        if (isBlank($group_id) || isBlank($user_ids) || isBlank($invite_id)) {
+            return [ERROR_CODE_FORM, GROUP_ADD_STATUS_FAIL, '参数错误',''];
+        }
+        $user_ids = explode(',', $user_ids);
+
+        $group = \Groups::findFirstById($group_id);
+
+        if (isBlank($group)) {
+            return [ERROR_CODE_FAIL, GROUP_ADD_STATUS_FAIL, '群不存在',''];
+        }
+
+        if ($group->people_num >= 500) {
+            return [ERROR_CODE_FAIL, GROUP_ADD_STATUS_FAIL, '该群已满',''];
+        }
+
+        if (GROUP_STATUS_ON != $group->status) {
+            return [ERROR_CODE_FAIL, GROUP_ADD_STATUS_FAIL, '该群不可用',''];
+        }
+
+        #申请加群
+        if ($way == GROUP_ASK_USER) {
+            $cond = ['group_id' => $group_id, 'user_id' => $user_ids[0]];
+            $in_group = \GroupUsers::findFirstBy($cond);
+            if (isPresent($in_group)) {
+                return [ERROR_CODE_SUCCESS,'', '你已在群内', ['url' => 'app://groups/direct?group_id=' . $group_id]];
+
+            }
+
+            $result = GroupUsers::notifyTimeLock($user_ids, $group);
+            if ($result == 'exist') {
+                return [ERROR_CODE_FAIL, '','群主在审核中', ''];
+
+            }
+        }
+
+        $cond = ['group_id' => $group_id, 'user_id' => $invite_id];
+        $in_group = \GroupUsers::findFirstBy($cond);
+        if (isBlank($in_group)) {
+
+            $tip = $way == GROUP_ADD_USER ? '你不在群内' : '二维码失效';
+            return [ERROR_CODE_FAIL, '', $tip, ''];
+        }
+
+        #默认数百状态
+        $status = GROUP_ADD_STATUS_FAIL;
+
+        #判断是否群主邀请或不需要验证，直接邀请成功
+        if ($group->isVerifyStatusOff() || ($group->isManager($invite_id) && $way == GROUP_ADD_USER) ) {
+            self::addUsers($user_ids, $group, $invite_id, $way, true);
+
+            #重定义群名称/群头像
+            $group->updateGroupName($invite_id);
+
+            $status = GROUP_ADD_STATUS_SUCCESS;
+        } else {
+            #非群主邀请，需要群主审核
+            $result = GroupUsers::notifyTimeLock($user_ids, $group);
+            if ($result != 'exist') {
+                GroupPush::noticeManageAgree($invite_id, $group, $user_ids, $way);
+            }
+
+            \GroupPush::tipNeedManageAgree($group, $invite_id, $way);
+            $status = GROUP_ADD_STATUS_WAIT;
+        }
+
+        $reason = self::$GROUP_ADD_STATUS_TEXT[$status];
+        return [ERROR_CODE_SUCCESS, $status, $reason,''];
+    }
+
+9.18
+社会一小步，没有同情，没有怜悯，你强任你行，你弱就闭嘴，
+这都是闲的，导致大家发生争执
+以后多一事不如少一事
+少说几句话，做事走走心，不要傻不拉几
+哎
+
+
+9.17
+
+//        while(true){
+//            $flag_mark = $
+10.18
+
+ static function reqAddGroup($group_id, $user_ids, $invite_id, $way)
+    {
+        if (isBlank($group_id) || isBlank($user_ids) || isBlank($invite_id)) {
+            return [ERROR_CODE_FORM, GROUP_ADD_STATUS_FAIL, '参数错误',''];
+        }
+        $user_ids = explode(',', $user_ids);
+
+        $group = \Groups::findFirstById($group_id);
+
+        if (isBlank($group)) {
+            return [ERROR_CODE_FAIL, GROUP_ADD_STATUS_FAIL, '群不存在',''];
+        }
+
+        if ($group->people_num >= 500) {
+            return [ERROR_CODE_FAIL, GROUP_ADD_STATUS_FAIL, '该群已满',''];
+        }
+
+        if (GROUP_STATUS_ON != $group->status) {
+            return [ERROR_CODE_FAIL, GROUP_ADD_STATUS_FAIL, '该群不可用',''];
+        }
+
+        #申请加群
+        if ($way == GROUP_ASK_USER) {
+            $cond = ['group_id' => $group_id, 'user_id' => $user_ids[0]];
+            $in_group = \GroupUsers::findFirstBy($cond);
+            if (isPresent($in_group)) {
+                return [ERROR_CODE_SUCCESS,'', '你已在群内', ['url' => 'app://groups/direct?group_id=' . $group_id]];
+
+            }
+
+            $result = GroupUsers::notifyTimeLock($user_ids, $group);
+            if ($result == 'exist') {
+                return [ERROR_CODE_FAIL, '','群主在审核中', ''];
+
+            }
+        }
+
+        $cond = ['group_id' => $group_id, 'user_id' => $invite_id];
+        $in_group = \GroupUsers::findFirstBy($cond);
+        if (isBlank($in_group)) {
+
+            $tip = $way == GROUP_ADD_USER ? '你不在群内' : '二维码失效';
+            return [ERROR_CODE_FAIL, '', $tip, ''];
+        }
+
+        #默认数百状态
+        $status = GROUP_ADD_STATUS_FAIL;
+
+        #判断是否群主邀请或不需要验证，直接邀请成功
+        if ($group->isVerifyStatusOff() || ($group->isManager($invite_id) && $way == GROUP_ADD_USER) ) {
+            self::addUsers($user_ids, $group, $invite_id, $way, true);
+
+            #重定义群名称/群头像
+            $group->updateGroupName($invite_id);
+
+            $status = GROUP_ADD_STATUS_SUCCESS;
+        } else {
+            #非群主邀请，需要群主审核
+            $result = GroupUsers::notifyTimeLock($user_ids, $group);
+            if ($result != 'exist') {
+                GroupPush::noticeManageAgree($invite_id, $group, $user_ids, $way);
+            }
+
+            \GroupPush::tipNeedManageAgree($group, $invite_id, $way);
+            $status = GROUP_ADD_STATUS_WAIT;
+        }
+
+        $reason = self::$GROUP_ADD_STATUS_TEXT[$status];
+        return [ERROR_CODE_SUCCESS, $status, $reason,''];
+    }->get(STOP_MARK_COMSUME);
+//            info('consumer_flag_mark : ',$flag_mark,'@@@@',$parm);
+//
+//            if($flag_mark == 0 && $flag_mark != ''){
+//                info('这是关闭的节奏');
+//                break;
+//            }
+//            info(getmypid(),'*****',posix_getpid());
+//            info(date('H:i:s'));
+//            sleep(2);
+//
+//        }
+
+9.15
+
+ $no = shell_exec("ps ax| grep -i 'order_details'  | grep -v grep | awk '{print $1}'");
+            if (!isBlank($no)) {
+                exec("kill -9 " . $no);
+            }
+            exec("nohup php " . APP_ROOT . "cli.php order_details start >> log/redis_orders.log 2>&1 &");
+
+
+
+#no=`ps ax| grep -i 'order_details' |grep ${file}  | grep -v grep | awk '{print $1}'`
+#if [ -n "$no" ]; then
+#    kill -9 $no
+#fi
+
+
+9.14
+//        $kafkaid = shell_exec("ps ax | grep -i kafka| grep -v 'restart' | grep -v grep |grep -v 'stop' |grep -v 'tail'  |grep -v 'product'  |grep -v 'src/kafka'  | awk '{print $1}'");
+//        if(!isBlank($kafkaid)){
+//            $arrs = explode("\n",$kafkaid);
+//            foreach ($arrs as $arr){
+//                if(!isBlank($arr)){
+//                    exec("kill -9 " . $arr);
+//                }
+//            }
+//        }
+
+
+9.11
+市商 ：监控重启措施，完善运行手册
+  
+
+9.5
+学习model中存储数据方式：ssdb/redis 切换，
+仅限xphalcon ：在model中配置方法放回存储路径  ssdb://127.0.0.1:8888 redis://127.0.0.1:6379
+
+ #该函数返回此model要存储的方式 ssdb或者redis 在basemodel中会判断该函数，调用存储方式地址
+    static function getFastCacheEndpoint($id)
+    {
+        $endpoints = 'redis://127.0.0.1:6379';
+        return $endpoints;
+    }
+
+9.4
+服务器端错误日志位置：
+tail -f /usr/local/system/log/error.log
+
+梁哥的api  app_key
+
+http://ex.haobtc.io/api/commission?page=1&sid=21sca5a66a22a9dcd55317da7efe874e1f737&code=test&client=web&dno=3318138278&t=1536072675071&h=a7885372a067bf913d494f30bed2546a
+
+9.3
+老铁，找你帮忙啦，写一个sql语句：
+
+就是一个表里，原本关系是一对一：user表对这个某某某表  user中的id 对应这个某某某表里的user_id （一对一的关系）      
+但是目前存在很多两条user_id 在这个某某某表里，
+
+我想做一个SQL语句，把所有多出来的这一条数据在某某某表中删掉，且删除的是某某某表id较小的那一条。
+
+最后结果就是查出来 user表对应某某某表  是id对user_id 一对一关系，
+
+用这个sql查询结果返回0条就行：
+select * from user_commission p1,user_commission p2 where p1.user_id=p2.user_id and p1.id!=p2.id;
+ 
+delete from user_commission 
+where user_id in 
+(select user_id from user_commission group by user_id having count(user_id) > 1) 
+and id not in (select Max(id) from user_commission group by user_id having count(user_id )>1);
+
+现在两个表  user  和user_record
+user 里的id  在user_record里 字段名叫做  user_id
+原本关系是user 的id对应 user_record 表里的user_id 一一对应， 现在user_record表里，有部分数据，是存在两条user_id
+
+目标是删除user_record 里多余的记录， 而且要删除重复中，id较小的那条数据。
+
+  
+  select * from user_record p1,user_record p2 where p1.user_id=p2.user_id and p1.id!=p2.id;
+8.29
+任务：给网站目录授权，创建目录
+
+Bt-Panel: http://47.100.56.225:8888
+username: adppdytw
+password: 73fbfbae
+
+
+8.28
+今天在本机上运行了一个原来的网站项目，部署上去，发现服务器配置一直不对，导致网站不能访问，
+在网上找来找去，终于找到一个合适的nginx/conf
+server {
+             listen 80;
+             server_name wutuobang.com;
+             set $root /Users/apple/projects/photo_album2/public;
+
+             location ~ .*\.(gif|jpg|jpeg|bmp|png|ico|txt|js|css)$
+             {
+                 root $root;
+             }
+             location / {
+                 root    $root;
+                 index    index.html index.php;
+                 if ( -f $request_filename) {
+                     break;
+                 }
+                 if ( !-e $request_filename) {
+                     rewrite ^(.*)$ /index.php/$1 last;
+                     break;
+                 }
+             }
+             location ~ .+\.php($|/) {
+                 fastcgi_pass 127.0.0.1:9002;
+                 fastcgi_split_path_info ^((?U).+.php)(/?.+)$;    # 支持path_info
+                 fastcgi_param PATH_INFO $fastcgi_path_info;
+                 fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                 fastcgi_param    SCRIPT_FILENAME    $root$fastcgi_script_name;
+                 include        fastcgi_params;
+             }
+
+    }
+
+
+
+8.3
+今天运行机器人，一直显示下单失败，和参数错误
+
+解释下：要看日志，下单失败，可能是下单后发到撮合引擎，但是撮合那边的交易对与当前下单的不匹配，导致下单失败，只需剪当前下单交易对修改为撮合引擎那边有的即可  修改位置： getAvailableCoinTrades() 其中只需要在result中写入需要交易的对，即可~   $result = ['BTC_CNY' => 'bitcoin'];
+
+参数错误 ：我的坑是在下单时，存入数据库时候，核验数据规格上出了错，是在后台配置当前交易对要精确位数的事情，我这里做了限制，导致最后的数据为0
+是空的，所以报错。解决是在后台将交易对的精度进行修改，改为小数点后四位，保存，再下单，就没有错了。
+
+
+8.6 
+今天使用phalcon-ext mail扩展，当我composer update后，发现其中的类不能实例化，一直显示not found，导致不能使用这个扩展，
+从网上找来找去都没有得到解决。索性我就删除vender目录，重新安装，后来发现是可以用的。
+最后经过排查，发现我之前修改过config文件，因为xphalcon配置环境变量的事情，因此修改过后，发现是没问题的。

@@ -1,0 +1,25 @@
+1 页面中的js, css 一定要抽取来
+2 js代码也要注重封装,代码重用,
+3 navigator.userAgent 获取手机ua信息
+4 var url = "/wx/users/mobile_auth?back_url=" + encodeURIComponent("/wx/messages/show?uid=" + uid);  encodeURIComponent()对url中的参数编码
+5 css 压缩 http://tool.lu/css/
+5 解决ios不能点击的问题 在对应css中加 cursor: pointer;
+6 安卓页面缓存问题:在访问页面对应的url中加时间戳
+7 微信上传图片,不要调用相机，因为低端机会有卡死的情况
+8 css 资源要拆开，每一个页面用一个单独的css文件,这样可以减少资源的加载。
+9 先隐藏后显示
+10 引进css方法weixin_css(), 引进js方法weixin_js()
+11 block_begin block_end block_holder
+12 nginx 开启对所有文件压缩 => gzip_types *;
+13 label标签中不要放两个下拉框select,因为ios会出现只会选择第一个下拉列表框的bug
+14 juicer 解析服务器返回的json中的html标签是只会做第一步解析,不能完全解析为html标签，比如<br/>,在页面上不能换行。这是可以取已经在页面上布好的数据替换。相当于做了二次替换。
+15 获取页面某一元素的绝对X,Y坐标，可以用offset()方法：(用于解决ios弹框问题)
+	var X = $('#DivID').offset().top;
+	var Y = $('#DivID').offset().left;
+	获取相对(父元素)位置:
+	var X = $('#DivID').position().top;
+	var Y = $('#DivID').position().left;
+ 	1.使用position()方法时事实上是把该元素当绝对定位来处理，获取的是该元素相当于最近的一个拥有绝对或者相对定位的父元素的偏移位置
+	2.使用position()方法时如果其所有的父元素都为默认定位（static）方式，则其处理方式和offset()一样，是当前窗口的相对偏移
+	3.使用offset()方法不管该元素如何定位，也不管其父元素如何定位，都是获取的该元素相对于当前视口的偏移
+	4.使用position()方法时，自身的padding,margin值忽略，父元素的padding，margin保存！

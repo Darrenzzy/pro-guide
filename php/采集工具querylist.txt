@@ -1,0 +1,36 @@
+#QueryList 4.0
+参考文档地址：https://doc.querylist.cc/site/index/doc/2
+
+##环境要求
+  PHP >= 7.0
+
+##安装
+  执行composer命令:  composer require jaeger/querylist
+
+##插件安装
+1.PhantomJS - 采集JS动态渲染的页面
+参考文档地址：https://doc.querylist.cc/site/index/doc/40
+
+1.1安装
+    composer require jaeger/querylist-phantomjs
+    然后还需要去PhantomJS官网下载对应你电脑系统的PhantomJS二进制文件，放到电脑任意路径，下面会用到这个路径,
+    下载页面直达：http://phantomjs.org/download.html
+
+  #mac
+    安装:
+    # wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip
+    # unzip phantomjs-2.1.1-macosx.zip
+
+  #linux
+    #解压依赖： yum install -y bzip2
+    安装：
+    # wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+    # tar -xjvf phantomjs-2.1.1-linux-x86_64.tar.bz2
+
+
+  将解压文件移到路径(/usr/local/phantomjs)下:
+  # mv phantomjs-2.1.1-**  /usr/local/phantomjs
+  把路径(/usr/local/phantomjs/bin)配置环境变量中：
+  在终端下测试Phantomjs。你应该会看到如下输出：
+  #phantomjs -v
+    2.1.1

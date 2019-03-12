@@ -1,0 +1,16 @@
+php: http://cn2.php.net/distributions/php-7.2.1.tar.gz
+
+redis: 4.0.9 http://download.redis.io/releases/redis-4.0.9.tar.gz
+
+ssdb: git@github.com:ideawu/ssdb.git
+      git checkout master
+
+phpredis: git@github.com:phpredis/phpredis.git
+          git checkout master
+
+phpssdb:  git@github.com:jonnywang/phpssdb.git
+          git checkout php7
+
+phalcon: 3.2.x  https://github.com/phalcon/cphalcon/archive/v3.2.x.tar.gz
+
+安装mysql客户端: yum install -y mariadb.x86_64 mariadb-libs.x86_64

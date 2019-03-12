@@ -1,0 +1,53 @@
+所有的model都继承自BaseModel
+如果model没有对应的数据表，则需要添加static $_only_cache = true;
+说明数据保存在内存缓存中
+
+查数据一般方法
+Users::findById(1);
+Users::findByIds(array(1,2,3))
+
+//取一条数据
+ModelName::findFirstById()
+
+foreach (\Users::findForeach() as $user) {
+	echo $user->id;	
+}
+
+复杂数据查询
+ModelName::find(array('conditions'=>'id=:id: AND username=:username:', 'bind'=>array('id'=>100, 'username'=>'xiaowang'), 'order'=>'id desc', 'limit'=>''));
+
+查询用数据库字段名,例如使用username查询,通过性别字段sex查询
+ModelName::findByUserName()
+ModelName::findBySex()
+
+查询带翻页
+ModelName::findPagination(array('conditions'=>'id=:id:'), $page, $per_page);
+
+添加数据
+$user = Users::findById(1);
+$user->username = 'username';
+$user->sex = 1;
+$user->save();			//更新数据也可以使用save方法，内部自动判断是添加还是更新
+
+删除数据
+$user = Users::findById(1);
+$user->delete();
+
+model都具有调用异步处理功能
+操作如下：
+先在Users Model里定义需要异步调用的静态方法
+static function updateName($user){
+	....
+}
+调用：
+Users::delay()->updateName(array('id'=>'1'， 'username'=>'new username'));
+
+项目约定
+表名（Model名字），名称加+复数 例：Users，Musics
+字段名，username,nickname,
+
+数据库字段以_at结尾的，代表时间戳，使用_at_text可以取文本
+例如:Users表有字段created_at，
+created_at  int 	//1459912004
+自动转换为文本模式		
+created_at_text		//2016-04-06 11:06:44

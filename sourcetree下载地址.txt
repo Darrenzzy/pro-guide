@@ -1,0 +1,2 @@
+sourcetree下载地址
+http://downloads.atlassian.com/software/sourcetree/SourceTree_2.0.5.2.dmg

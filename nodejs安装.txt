@@ -1,0 +1,5 @@
+nodejs安装
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash
+#export NVM_DIR="/Users/wolftail/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

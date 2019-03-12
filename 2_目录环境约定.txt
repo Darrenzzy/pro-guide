@@ -1,0 +1,37 @@
+目录环境约定
+开发人员只看开发环境，生产环境忽略
+
+[生产环境]
+lunix下  都使用的是centos 6.5 64版本
+依赖库使用yum安装
+
+生产环境软件源码和数据都放在/usr/local/system 目录下
+这个目录尽量使用lvm进行mount
+依赖库使用yum安装
+
+[开发环境]
+统一使用apple mac机
+软件源码统一放在当前系统账户的HOME目录下的src目录里,例:当前用户是apple,则源码目录为/Users/apple/src
+
+依赖库使用brew(包管理工具)安装
+安装brew 官网 http://brew.sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+开发的项目目录统一放在 ~/projects/下
+
+rvm 安装命令
+\curl -sSL https://get.rvm.io | bash
+
+以下必须手工编译安装，参照对应的安装指南
+nginx php postgres mysql
+
+xxx项目命名规则为例：
+ios项目  xxx_ios
+安卓项目  xxx_android
+php项目  xxx_php
+rails项目 xxx_rails
+
+mac环境变量配置文件为 ~/.bash_profile
+linux 环境变量配置文件为 /etc/profile
+使用source命令立即生效, 比如
+source /etc/profile

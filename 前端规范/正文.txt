@@ -1,0 +1,67 @@
+0.本规范可修改、添加、希望能大家一起制定前端规范。
+
+1.新建一个HTML文件，需要新建对应的CSS文件。
+2.CSS class的命名使用BEM命名规范，连接符使用_(下划线)连接，不能使用拼音命名，尽可能的命名清晰。（类似：.page_header_nav ）
+3.CSS布局使用Flex布局来进行布局，因为Flex布局可以兼容网页、weex、小程序、RN等，应用只需要写一次布局，就可以三端通用。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+文件说明：
+  （Utils）文件夹主要包含了一些常用的工具函数，其中中index.js、Regexp.js、String.js为主要文件，其他都是辅助文件，在index.js中有引入。
+  （html模板）为常用前端模板、需要使用可复制，模板中css/normalize.css文件为初始化统一浏览器样式，不要添加其他代码，公用css可自行新建文件。
+  （setrem.js）是为了设置H5页面的全局单位为rem，示例：750px==7.5rem，以750设计稿为准，可自行选择引入。
+  （常用的CSS命名.txt）一些常用css命名。
+
+参考文档：
+  移动web开发屏幕尺寸：https://cloud.tencent.com/community/article/646185
+  Flex布局语法：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+ 
+NodeJs及Js框架:
+  Vue服务端渲染: https://zh.nuxtjs.org/
+  基于Vue的PWA解决方案: https://lavas.baidu.com/
+  百度ECharts图表: http://echarts.baidu.com/index.html
+  Chart.js图表: http://www.bootcss.com/p/chart.js/
+  React全家桶: https://reactjs.org/ react-router: https://reacttraining.com/react-router/ redux: https://redux.js.org/
+  Vue全家桶:https://cn.vuejs.org/v2/guide/ Vue-router: https://router.vuejs.org/zh-cn/ Vuex: https://vuex.vuejs.org/zh-cn/
+  React-Native中文: http://reactnative.cn/docs/0.50/getting-started.html
+  Weex文档: http://weex.apache.org/cn/
+
+UI框架:
+  Bootstrap中文网: http://www.bootcss.com/
+  Bootstrap可视化拖拽布局: http://www.bootcss.com/p/layoutit/#
+  Amaze UI: http://amazeui.org/
+  Element UI: http://element-cn.eleme.io/#/zh-CN
+  SUI Mobile: http://m.sui.taobao.org/
+  ZUI: http://zui.sexy/#/
+  WeUI: http://jqweui.com/components
+  iView UI: https://www.iviewui.com/
+  muse-ui: http://www.muse-ui.org/#/popup
+  layui: http://www.layui.com/
+
+
+
+
+
+
+
+
+
+
+

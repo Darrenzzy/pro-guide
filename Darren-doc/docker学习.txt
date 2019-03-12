@@ -1,0 +1,111 @@
+9.26学习docker
+
+
+1 查看docker镜像（images）后可以导出导入镜像以供下次使用
+
+docker save  contos：7 > /usr/local....
+导出：
+docker load < /usr/loacl....
+
+2检查网络 
+docker network inspect eosdev
+
+查看自己eos钱包账户中的公私钥匙
+keosd wallet private_keys -n my {钱包账户密码}
+
+my
+PW5KdgUK9jNajQZu4SSyys1BuQvcJBVvpMnm55AQJtCRcicrFMnUj
+
+darren
+PW5JgSoSimTbyYeVTBTSHBx8junY3TvT91qqucgRPpPH9sdY1LzdJ
+
+Private key: 5K1rNVJLtbc75fGxyqirTM6yTiLSAAxWzy2s3tMMAiKBEbChSyH
+Public key: EOS7JLqVDbfAw2nXGj7w5vrKz3LjMEZzhKnEkaG5PMqFmi6tXN2Hm
+
+
+Private key: 5J7UPHH365YVbxDvdskvy8RQHJuhtAuEWvYdNhoHrnr4wAkTt8X
+Public key: EOS6r98RvvTRuU2Q1grnoQ52kZaPfD1c9hoRXsfu4LiofEts6zYci
+
+docker run -d -p 80:80 --name webserver nginx
+$ docker stop webserver
+$ docker rm webserver
+
+删除docker所有的容器
+docker rm $(docker ps -aq)
+
+docker image ls
+
+
+java环境运行 
+1首先检查 mvn -v是否有
+2. 检查java-jdk 安装稳定版本
+3. 使用jar运行  后面按照手册进行即可
+
+4.使用war运行 ：先下载tomcat，然后cd bin shutdown.sh /startup.sh
+
+可以把bin目录放到PATH中，方便以后操作
+在运行之前，在webapps目录中放入 在项目中mvn package 打包好的war包，放入当前web目录，
+然后就可以start运行了。
+
+
+sudo npm install
+
+npm要从官网下载安装！！！
+brew install yarn
+
+npx install-peerdeps --dev eslint-config-airbnb-base
+
+
+npm install -g eslint-plugin-react
+
+
+部署第一个fabric-Samples网络 
+
+先拉取代码后 git clone https://github.com/hyperledger/fabric-samples.git
+将下载的bootsrat。sh 拷贝过来，然后安装 sh bootstrap.sh  （测出需要等待很久）
+
+创建网络
+
+启动脚本 
+第一步，生成必要文件，执行命令：
+
+luoxiaohui:fabric-samples luoxiaohui$ cd first-network/
+luoxiaohui:first-network luoxiaohui$ ./byfn.sh -m generate
+
+第二步，启动网络，执行命令：
+luoxiaohui:first-network luoxiaohui$ ./byfn.sh -m up
+
+
+10.13
+铸币之后发到一个地址，通过调智能合约后，分达到几个账户中，
+
+1. Neptune(web client): admin project，应该是管理员后台界面
+2. Interface(web server): 后台接口，Bet, Ram, Token, User, Applicant, etc
+3. Saturn-IOS(wallet client): wallet app
+4. Saturn-Android(wallet client): wallet app
+5. Jupite(fabric config): 区块链网络，网络配置相关
+6. SampleDapp: sample dapp
+7. FutureBureau(chain code): 未来局chaincode
+8. Earth(chain code): chaincode for blockchain token and user management.
+9. Venus: no idea
+10. DappJupiter: 与Jupiter区别？
+11. Uranus: 区块链浏览器
+12. GZH: empty 
+
+1  智能合约 earth 基础上， 
+2 dapp  ：api
+
+一周任务：
+chaincode 智能合约   earth
+
+server interface  
+
+docker stop $(docker ps -a -q) //  stop停止所有容器
+
+docker rmi $(docker images -q)//删除所有镜像
+
+
+eos启动关闭
+docker start eosio
+docker stop eosio
+

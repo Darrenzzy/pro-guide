@@ -1,0 +1,88 @@
+
+zookeeper集群配置：
+vim /usr/local/system/src/kafka_2.11-1.1.1/config/zookeeper.properties
+添加： 
+tickTime=2000
+initLimit=10
+syncLimit=5 
+server.1=192.168.81.168:2888:3888
+server.2=192.168.81.167:2888:3888
+
+
+2888端口：表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；
+3888端口：表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口
+
+根据集群数量写上server对应ip   （这里server.x中的x是一个数字，与myid文件中的id是一致的）
+
+保存退出
+wq！
+
+
+此处注意！！
+在每个集群服务器的日志目录下要创建添加：集群标识号
+目录在配置文件中 dataDir 所示，默认是：/tmp/zookeeper
+echo 1 > /tmp/zookeeper/myid
+echo 2 > /tmp/zookeeper/myid
+....
+分别在集群服务器中创建对应标识的文件，
+
+/usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1
+
+配置完毕后：
+启动zookeeper集群
+ /usr/local/system/src/kafka_2.11-1.1.1/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.1/config/zookeeper.properties  >> /usr/local/system/src/kafka_2.11-1.1.1/logs/zookeeper.log &
+
+
+ /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/config/zookeeper.properties  >> /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/logs/zookeeper.log &
+启动kafka 
+/usr/local/system/src/kafka_2.11-1.1.1/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.1/config/server.properties >> /usr/local/system/src/kafka_2.11-1.1.1/logs/kafka.log &
+
+
+/usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/config/server.properties >> /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/logs/kafka.log &
+
+
+
+
+查看日志是否启动成功
+tail -f /usr/local/system/src/kafka_2.11-1.1.1/logs/zookeeper.log
+
+tail -f /usr/local/system/src/kafka_2.11-1.1.1/logs/kafka.log
+
+
+tail -f /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/logs/zookeeper.log
+
+tail -f /usr/local/system/src/kafka_2.11-1.1.1_two/kafka_2.11-1.1.1/logs/kafka.log
+
+创建主题（在leader集群中创建，其他集群会自动创建）
+kafka-topics.sh --create --zookeeper 192.168.81.168:2181,192.168.81.167:2181,192.168.81.167:2182 --replication-factor 3 --partitions 3 --topic test5 
+
+
+
+ 生产消息
+./kafka-console-producer.sh --broker-list 192.168.81.167:9092,192.168.81.168:9092 --topic test4
+
+
+从不同服务器消费消息
+kafka-console-consumer.sh --zookeeper 192.168.81.168:2181   --from-beginning  --topic test2
+
+kafka-console-consumer.sh --zookeeper 192.168.81.167:2181   --from-beginning  --topic test2
+
+  
+kafka-console-consumer.sh --bootstrap-server 192.168.81.167:9092 --from-beginning --topic test4
+
+ 查看当前主题 
+kafka-topics.sh --list --zookeeper localhost:2181
+查看当前主题详细信息
+kafka-topics.sh --zookeeper 127.0.0.1:2181  --describe --topic topic-name
+ 
+
+ 查看运行的broker
+  ps -ef | grep config/server
+ 查看运行的zookeep
+  ps -ef | grep config/zookeep
+
+ ps aux |grep kafka
+
+
+
+

@@ -1,0 +1,77 @@
+#开发环境(Mac机)
+#所有安装的软件源码放在~/src目录下
+#所有的开发项目源码放在~/projects目录下
+#安装brew(Mac机的包管理工具)
+xcode-select --install
+
+#安装brew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+#Mac安装依赖
+brew install readline freetype libpng jpeg mhash openssl re2c ImageMagick bison autoconf ffmpeg ImageMagick pcre zlib
+
+
+#mac 编译参数
+./configure --with-pgsql --with-pdo-mysql --with-pdo-pgsql --with-openssl=/usr/local/opt/openssl/ --enable-zip --enable-mbstring --enable-fpm --enable-opcache  --with-curl --with-libedit=/usr/local/opt/libedit  --enable-pcntl   --enable-sysvmsg  --with-zlib-dir=/usr/local/opt/zlib   --with-gd --with-jpeg-dir=/usr/local/opt/jpeg/  --with-png-dir=/usr/local/opt/libpng/ --with-freetype-dir=/usr/local/opt/freetype --with-iconv=/usr/local/opt/libiconv/  --enable-bcmath --with-gmp
+
+make
+sudo make install
+
+编译如果报错信息:
+checking for xml2-config path... /usr/bin/xml2-config
+checking whether libxml build works... no
+configure: error: build test failed.  Please check the config.log for details.
+1: brew install libxml2
+如果还报错
+2: 编译时加入下面选项:
+--with-libxml-dir=/usr/local/Cellar/libxml2/x.x.x(对应的版本号)/
+
+报错:
+configure: error: Unable to locate gmp.h
+brew install gmp
+
+
+
+## 注意
+如果遇到找不到openssl的库运行
+brew link openssl --force
+再make试试
+
+
+如果mac出现以下错误
+Undefined symbols for architecture x86_64:
+  "_PKCS5_PBKDF2_HMAC", referenced from:
+      _zif_openssl_pbkdf2 in openssl.o
+  "_TLSv1_1_client_method", referenced from:
+      _php_openssl_setup_crypto in xp_ssl.o
+  "_TLSv1_1_server_method", referenced from:
+      _php_openssl_setup_crypto in xp_ssl.o
+  "_TLSv1_2_client_method", referenced from:
+      _php_openssl_setup_crypto in xp_ssl.o
+  "_TLSv1_2_server_method", referenced from:
+      _php_openssl_setup_crypto in xp_ssl.o
+
+vi Makefile
+查找到以下字符串 EXTRA_LIBS开始
+EXTRA_LIBS = -lresolv -lltdl -liconv-lm -lxml2 -lcurl -lssl -lcrypto
+将-lssl -lcrypto删除，再后面再追加
+/usr/local/opt/openssl/lib/libssl.dylib /usr/local/opt/openssl/lib/libcrypto.dylib
+
+#以下错误
+Undefined symbols for architecture x86_64:
+  "_libiconv", referenced from:
+      _do_convert in gdkanji.o
+      _zif_iconv_substr in iconv.o
+      _zif_iconv_mime_encode in iconv.o
+      _php_iconv_string in iconv.o
+      __php_iconv_strlen in iconv.o
+      __php_iconv_strpos in iconv.o
+      __php_iconv_appendl in iconv.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [sapi/cli/php] Error 1
+处理方式：
+这是由于查找不到libiconv导致的错误。
+vi Makefile
+查找EXTRA_LIBS,删除里面所有的-liconv，在最后添加 /usr/local/Cellar/libiconv/1.15/lib/libiconv.dylib，即libiconv的地址。
+libiconv文件可以通过find ~ -iname libiconv找到。

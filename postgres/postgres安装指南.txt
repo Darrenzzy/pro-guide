@@ -1,0 +1,143 @@
+postgres 安装指南
+
+必须先安装readline
+#mac
+brew install readline
+#linux
+yum install -y readline-devel zlib-devel
+#wget https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
+wget https://ftp.postgresql.org/pub/source/v10.4/postgresql-10.4.tar.gz
+tar -zxvf postgresql-10.4.tar.gz
+cd postgresql-10.4
+./configure
+make
+sudo make install
+
+
+
+【生产环境配置参数】
+sudo vi /etc/profile
+加入路径：
+PATH=$PATH:/usr/local/pgsql/bin:/usr/local/sbin/
+让/etc/profile文件修改后立即生效:
+source /etc/profile
+
+
+【开发环境配置参数】
+vi ~/.bash_profile
+加入
+export PGDATA=/Users/apple/postgresql/data
+export PATH=/usr/local/pgsql/bin:$PATH
+
+生效
+source ~/.bash_profile
+
+
+
+
+编译安装成功后，接下来要做的就是创建一个普通用户，因为默认超级用户（root）不能启动postgresql，所以需要创建一个普通用户来启动数据库，执行以下命令创建用户：
+useradd postgres
+#切换用户
+su -u postgres
+
+初始化数据库
+initdb
+
+问题: initdb: invalid locale settings; check LANG and LC_* environment variables
+解决
+LC_ALL="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+
+启动数据库
+pg_ctl start
+
+#  创建超级用户postgres
+createuser postgres -s (创建最高权限用户，相当于mysql里的root账户)
+#设置密码
+\password postgres
+
+设置完密码需要把pg_hba.conf配置的METHOD由trust改为md5，然后重启
+
+# 通过项目脚本创建数据库
+php cli.php db create 
+
+
+进入到客户端
+psql -U postgres
+
+常用命令
+\l    		#显示所有数据
+\c dbname    	#连接到dbname的数据库
+\q 		#退出客户端
+\d 		#所有当前库所有的表
+\d tablename    #查看tablename的表字段
+\password #设置密码
+设置完密码需要把pg_hba.conf配置的METHOD由trust改为md5，然后重新加载一下配置文件才能生效
+
+
+
+主从配置
+1.确保主机器archive打开，将rsync配成服务器
+2.在从机器上使用rsync开始同步archive文件，同步结束后，开启crontab 一分钟同步一次！！！！
+3.在从机器运行pg_basebackup 开始复制基础备份
+pg_basebackup -D ./data -Fp -Xs -v -P -h {ip}  -U postgres
+4.在从机器data下，创建recovery.conf，添加primary和restore_dir信息
+5.从机器启动pg_ctl start
+6.看日志发现切到stream同步后，关闭crontrab对应的任务，主从完成
+
+
+
+
+recovery.conf
+
+restore_command = 'cp /usr/local/system/postgresql/remote_archive/%f %p'
+standby_mode = on
+primary_conninfo = 'host=x.x.x.x user=postgres'		
+trigger_file = '/usr/local/system/postgresql/data/postgres.trigger'
+
+
+rsync配置
+主机器
+vi /etc/rsyncd.conf
+uid = root
+gid = root
+use chroot = no
+log file = /var/log/rsyncd.log
+pid file = /var/run/rsyncd.pid
+lock file = /var/run/rsync.lock
+ignore errors = no
+exclude =  **/.svn/ .DS_Store
+[root]
+  path = /usr/local/system/postgresql/archive/
+  exclude = **/svn/ .DS_Store .log log/* tmp/* temp/* config/dump.rdb db/sphinx/
+ public/execel
+   read only = yes
+   list = no
+   auth users = postgres
+   secrets file = /etc/rsyncd.users
+
+
+vi /etc/rsyncd.users 
+postgres:is4rsync
+chmod 600 /etc/rsyncd.users 
+
+启动rsync
+rsync --daemon    
+
+
+从服务器
+同步脚本
+vi rsync_db.sh
+#!/bin/bash
+cd /usr/local/system/postgresql
+rsync -rzuP --password-file=./rsync.password  postgres@10.172.26.56::root ./remote_archive/
+
+vi  rsync.password 
+is4rsync
+
+chmod 600  rsync.password 
+
+
+
+
+

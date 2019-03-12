@@ -1,0 +1,8 @@
+1: curl https://sh.rustup.rs -sSf | sh
+
+2: 安装perl,yasm
+
+3: yum install  libudev-devel
+   yum install snappy-devel
+
+4: cmake版本要求3.1以上

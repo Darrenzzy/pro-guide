@@ -1,0 +1,45 @@
+日志收集系统搭建
+linux
+
+yum install yum-utils
+yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+yum install openresty openresty-resty
+
+新建文件log.conf
+
+user root;
+events {
+    worker_connections  1024;
+}
+worker_processes  16;
+
+http {
+    server {
+      listen 80;
+    	server_name _;
+		  access_log off;
+
+	    lua_need_request_body on;       
+	    location / {
+        default_type text/html;
+        content_by_lua_block {
+				  local body = ngx.req.get_body_data()
+				  local file,error = io.open("/usr/local/system/log/production.log", "a+")
+          if file == nil then
+          	ngx.say(error)
+          	return
+				  end
+          file:write(body.."\n")
+          file:close()
+          ngx.say("ok")
+     		}                  
+      }
+   }
+}
+
+运行
+openresty -c `pwd`/log.conf  
+
+项目中，只要config配置即可，实际值通过环境变量配置
+log_endpoint => env('log_endpoint','')
+

@@ -1,0 +1,18 @@
+客户端User-Agent设置规范
+1.由多个键值对组成，注意顺序
+2.键值对之间是有英文空格间隔，键值之间是有/间隔
+3.键值不能出现空格和/。如果有，一律转为_表示
+4.所有字符串都是小写
+5.如果User-Agent覆盖不掉，使用X-User-Agent
+
+键值对列表
+操作系统/版本 上网方式/说明 语言/语言值 时区/时区值 机型/机型值 客户端/版本 接口版本/值 打包时间/时间 环境/值
+
+
+
+ 举例说明
+ 安卓
+ android/5.0 net/wifi language/zh-cn timezone/+8 model/mi5 yueai/1.1.2 api/1.0 build/2016023151212 env/production
+ ios
+ ios/9.2.1 net/4g language/zh-cn timezone/+8 model/iphone6plus yueai/1.2.2 api/1.0 build/2016023151212 env/development
+

@@ -1,0 +1,48 @@
+Git教程
+http://www.bootcss.com/p/git-guide/
+
+Phalcon volt模板文档
+http://phalconphp-zh.readthedocs.org/en/latest/reference/volt.html
+
+Phalcon中文文档
+http://docs.phalconphp.com/zh/latest/reference/views.html#picking-views
+
+Phalcon API文档
+http://api.phalconphp.com
+
+redis命令
+http://redis.readthedocs.org/en/latest/index.html
+http://www.redis.cn/commands.html
+
+ssdb官方网站
+http://ssdb.io/zh_cn/
+
+ssdb的 php api 文档
+http://ssdb.io/docs/zh_cn/php/index.html
+
+ruby手册 
+http://www.kuqin.com/rubycndocument/man/kidou.html
+http://www.kuqin.com/rubycndocument/man/lanstyle_object.html
+
+Postgres 官方文档
+http://www.postgresql.org/docs/9.4/interactive/index.html
+
+postgres数据库
+http://www.yiibai.com/manual/postgresql/app-pg-ctl.html
+http://www.yiibai.com/manual/postgresql/
+
+postgres 入门教程相关系统命令
+http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html
+
+ssdb api
+http://ssdb.io/docs/zh_cn/php/index.html
+http://ssdb.io/zh_cn/   官方网站 
+
+phalcon 数据库操作相关
+http://docs.phalconphp.com/zh/latest/reference/models.html#setting-multiple-databases
+
+Phalcon数据库连接相关
+http://docs.phalconphp.com/zh/latest/reference/db.html
+
+phalcon数据库方法
+http://docs.phalconphp.com/zh/latest/api/Phalcon_Db_AdapterInterface.html
