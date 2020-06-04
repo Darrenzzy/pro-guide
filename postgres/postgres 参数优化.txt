@@ -1,0 +1,69 @@
+postgres 参数优化
+
+
+sysctl.conf
+
+net.ipv4.tcp_max_tw_buckets = 500000
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_max_syn_backlog = 819200
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.conf.lo.arp_announce=2
+kernel.shmall = 2097152
+kernel.shmmax = 2147483648
+kernel.shmmni = 4096
+kernel.sem = 250 512000 100 2048
+fs.file-max = 6815744
+fs.aio-max-nr = 1048576
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 4194304
+ 
+
+ 追加/etc/pam.d/login
+
+session    required     /lib64/security/pam_limits.so
+
+
+/etc/sysctl.conf
+vm.swappiness = 0
+kernel.shmmax=135497418752
+net.core.rmem_max = 4194304
+net.core.wmem_max = 4194304
+net.core.rmem_default = 262144
+net.core.wmem_default = 262144
+net.ipv4.ip_local_port_range = 9000 65535
+kernel.sem = 50100 64128000 50100 1280
+vm.dirty_background_bytes = 102400000
+vm.dirty_ratio = 80
+vm.nr_hugepages = 102352
+vm.dirty_background_ratio = 10  # 表示当脏页比例达到了内存的10%，系统触发background flush线程刷脏页
+vm.dirty_ratio = 20  # 当脏页比例达到20%，用户进程在调用write时，会触发flush磁盘的操作。  
+vm.dirty_writeback_centisecs = 50  #  background flush线程的唤醒间隔(单位：百分之一秒)
+vm.dirty_expire_centisecs = 6000  # background flush线程将存活时间超过该值的脏页刷盘（类似LRU）(单位：百分之一秒)
+
+
+/etc/security/limits.conf
+* soft nofile 1020000
+* hard nofile 1020000
+* soft nproc 655360
+* hard nproc 655360
+* soft stack unlimited
+* hard stack unlimited
+* soft   memlock    250000000
+* hard   memlock    250000000
+
+
+postgresql.conf 优化
+
+fsync off
+huge_pages = try
+synchronous_commit = off
+full_page_writes = off
+shared_buffers = 12GB #(20%内存)
+work_mem = 64MB
+effective_cache_size = 32GB #(50%内存)
+commit_delay = 200
+commit_siblings = 10
+wal_buffers = 256kB

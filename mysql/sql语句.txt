@@ -1,0 +1,59 @@
+常用语句：
+
+UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
+
+UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson' 
+
+
+join
+
+SELECT Persons.id, Persons.LastName, Persons.FirstName, Orders.id,Orders.OrderNo,Orders.Pid
+FROM Persons
+INNER JOIN Orders
+ON Persons.id = Orders.Pid
+
+
+SELECT column-names
+  FROM table-name
+ WHERE column-name IN (values) 
+
+
+ 修改原来索引结构
+ alter table tableName add index indexName(columnName,sync_status);
+
+删除字段
+alter table play_level_god_accept drop column grab_switch5;
+
+ 数据库创建索引：
+  create index manager_id_on_groups on groups(manager_id);  
+   
+   查看数据库索引
+    SHOW INDEX FROM table_name
+
+ 强制索引
+ ....FROM search FORCE INDEX (search_time) WHERE....
+
+ --创建聚集索引
+create CLUSTERED INDEX 索引名称 ON 表名(字段名)
+
+--创建非聚集索引
+create NONCLUSTERED INDEX 索引名称 ON 表名(字段名)
+
+
+ mysql like模糊查询提高效率的奇葩方法！不知道有没有人这么干过？
+一张表大概40万左右的数据，用like模糊查询title字段，很慢，title字段已经建立了索引，mysql 对 someTitle% 这样的模糊查询在有索引的前提下是很快的。
+所以下面这两台sql语句差别就很大了 
+$sql1 = "...... title like someTitle%" (话费0.001秒)
+$sql2 = "...... title like %someTitle%" (话费0.8秒)
+这两句的效率相差了800倍，这很可观啊。
+所以我有个想法：在不用分词的方法的前提下，把存储的title字段，加一个特别的前缀，比如"im_prefix"，比如一条记录的title="我是标题党"，那么存储的时候就存储为"im_prefix我是标题党"。
+
+
+mysql 高效模糊查询 代替like  locate(substr,str)
+查询效率比如果： table.field like '%AAA%' 可以改为 locate ('AAA' , table.field) > 0
+
+索引与优化like查询
+
+1. like %keyword    索引失效，使用全表扫描。但可以通过翻转函数+like前模糊查询+建立翻转函数索引=走翻转函数索引，不走全表扫描。
+2. like keyword%    索引有效。
+3. like %keyword% 索引失效，也无法使用反向索引。

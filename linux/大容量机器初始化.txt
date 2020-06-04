@@ -1,0 +1,35 @@
+大容量机器初始化
+
+
+yum install  -y readline-devel libevent-devel zlib-devel iptraf libmcrypt libmcrypt-devel mcrypt mhash openssl-devel curl-devel bison autoconf libxml2-devel libedit-devel ImageMagick re2c pcre-devel  pcre-devel libpng-devel libjpeg-devel freetype-devel gcc gcc-g++ git parted lvm2
+
+
+
+分批命令, 将磁盘格式化为GPT, 所有空间都划分成一个分区
+parted /dev/vdb
+mktable gpt
+mkpart primary 0 -1
+toggle 1 lvm
+quit
+
+
+
+一次命令
+parted /dev/vdb mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vdc mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vdd mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vde mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vdf mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vdg mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vdh mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+parted /dev/vdi mktable gpt mkpart primary 2048s  100% toggle 1 lvm 
+
+pvcreate /dev/vdb1 /dev/vdc1  /dev/vdd1 /dev/vde1 /dev/vdf1 /dev/vdg1 /dev/vdh1 /dev/vdi1 
+vgcreate mygroup /dev/vdb1 /dev/vdc1  /dev/vdd1 /dev/vde1 /dev/vdf1 /dev/vdg1 /dev/vdh1 /dev/vdi1 
+vgchange -ay mygroup
+lvcreate -l+100%FREE  mygroup  -n  data
+mkfs.xfs /dev/mygroup/data
+改/etc/fstab
+/dev/mygroup/data /usr/local/system xfs defaults 0 0
+
+

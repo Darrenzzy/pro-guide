@@ -1,0 +1,19 @@
+导出:
+
+mysqldump -u root -h 127.0.0.1 -P 3306 -p
+   --complete-insert=TRUE
+   --compact
+   --default-character-set=latin1
+   --skip-quote-names
+   --no-create-info
+   --ignore-table=otceasy_production.schema_migrations
+   --ignore-table=otceasy_production.provinces
+   --ignore-table=otceasy_production.phone_segs
+   --ignore-table=otceasy_production.districts
+   --ignore-table=otceasy_production.cities
+   otceasy_production
+   > otceasy_production.sql
+
+
+
+导入: psql -U postgres -d otceasy_production -f otceasy_development.sql

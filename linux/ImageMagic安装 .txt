@@ -1,0 +1,18 @@
+生产环境
+yum install ImageMagick
+yum install ImageMagick-devel
+
+安装imageMagick的php扩展
+pecl install imagick
+
+
+方法二: 源码编译安装（最新版本）
+wget https://imagemagick.org/download/ImageMagick.tar.gz
+
+tar xvzf ImageMagick.tar.gz
+./configure
+make
+make install 
+
+测试命令:检测是否已安装 
+/usr/local/bin/convert logo: logo.gif

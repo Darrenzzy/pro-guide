@@ -1,0 +1,56 @@
+
+MAC下载源码编译安装
+
+地址
+https://openresty.org/cn/download.html
+(https://openresty.org/download/openresty-1.13.6.2.tar.gz)
+
+下载到资源目录 ~/src 中
+tar -xzvf openresty-1.13.6.2.tar.gz
+
+解压后进入目录 开始编译安装
+
+可以指定各种选项（在mac中编译如下）
+
+openresty最后成功编译安装的配置信息
+./configure --with-cc-opt="-I/usr/local/opt/openssl/include/ -I/usr/local/opt/pcre/include/" --with-ld-opt="-L/usr/local/opt/openssl/lib/ -L/usr/local/opt/pcre/lib/" --with-http_drizzle_module --with-http_iconv_module --with-http_postgres_module
+
+
+
+注意：
+提示错误：./configure: error: the ngx_drizzle addon requires the libdrizzle library.
+
+解决办法：
+http://openresty.org/download/drizzle7-2011.07.21.tar.gz
+tar xzvf drizzle7-2011.07.21.tar.gz
+cd drizzle7-2011.07.21/
+./configure --without-server
+make libdrizzle-1.0
+make install-libdrizzle-1.0
+
+
+配置文件（./configure）运行出错可以到 build/nginx-1.13.6.2/objs/autoconf.err 找到
+
+最后  make&& make install
+
+
+主配置文件 和 虚拟主机文档（postgres_vhost）
+
+注意！ 查看postgres是否配置成功！ 可以检查openresty错误日志 在 log/error.log下
+
+
+
+安装好之后要记得把环境变量加上，使用起来更方便:
+export PATH=/usr/local/openresty/nginx/sbin:$PATH
+导入到~/.bash_profile中，重启
+--启动
+openresty
+--停止
+openresty -s stop
+--重启
+openresty -s reload
+--检验openresty配置是否正确
+openresty -t
+
+
+
