@@ -23,7 +23,32 @@ strTotal:=strings.Join(strArrayOld,"-")
  
 //explode
 strArrayNew:=strings.Split(strTotal,"-")
-6214832177101495
+
+
+string转float64
+s := "3.1415926535"
+f, _ := strconv.ParseFloat(s, 8)
+fmt.Printf("%T, %v\n", f, f)
+
+float to string
+ 1:fmt.Sprintf("%g", v.MaxLimit),
+ 2:strconv.FormatFloat(v.DealAmount, 'g', -1, 64)
+
+
+string转成int： 
+int, err := strconv.Atoi(string)
+string转成int64： 
+int64, err := strconv.ParseInt(string, 10, 64)
+int转成string： 
+string := strconv.Itoa(int)
+int64转成string： 
+string := strconv.FormatInt(int64,10)
+
+
+字符串替换：
+strings.Replace(strings.Trim(fmt.Sprint(users), "[]"), " ", ",", -1),
+
+
 
 修改字符串：
 func main() {
@@ -115,16 +140,6 @@ uint64
 
 注意：这些类型的变量之间不允许互相赋值或操作
 
-string转成int： 
-int, err := strconv.Atoi(string)
-string转成int64： 
-int64, err := strconv.ParseInt(string, 10, 64)
-int转成string： 
-string := strconv.Itoa(int)
-int64转成string： 
-string := strconv.FormatInt(int64,10)
-
-
 channl的发送和接收
 data := <- a // read from channel a  
 a <- data // write to channel a
@@ -209,9 +224,6 @@ fmt.Println(s)
 //你可以使用 Fprintf 来格式化并输出到 io.Writers而不是 os.Stdout。
 fmt.Fprintf(os.Stderr, "an %s\n", "error")
 
-
-字符串替换：
-strings.Replace(strings.Trim(fmt.Sprint(users), "[]"), " ", ",", -1),
 
 redis 整型自增
   bs, err := redis.Int64(redisAuth.Do("INCRBY", keyA))

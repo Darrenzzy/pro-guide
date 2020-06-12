@@ -1,4 +1,9 @@
 # linux 常用总结
+5.9
+Linux如何查看IO读写很高(yum install sysstat)
+iostat -x 1 10
+找到 IO 占用高的进程
+iotop -oP
 3.1
 命令:ls -lrt
 -l     use a long listing format  以长列表方式显示（详细信息方式）
