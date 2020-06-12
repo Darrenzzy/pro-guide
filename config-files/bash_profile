@@ -17,13 +17,14 @@ alias dockerps='docker ps -a  --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{
 
 #golang 相关
 alias go-guide='/Users/darren/go/src/build-web-application-with-golang/zh'
-alias godeploy='/Users/darren/go/src/deploy'
+alias go-deploy='/Users/darren/go/src/deploy'
 alias govendor='/Users/darren/go/src/vendor/laoyuegou.pb'
 alias gateway='/Users/darren/go/src/iceberg/gateway'
 alias gosrc='/Users/darren/go/src'
 alias goss='/Users/darren/go/src/gitlab.corp.laoyuegou.com/go'
 alias gotest='/Users/darren/go/src/testgo'
 alias pbgen="protoc --go_out=plugins=irpc:. *.proto"
+alias pbg="protoc --go_out=plugins=grpc:. *.proto"
 alias pbgenswagger="pbgen && swagger generate spec -o ./$(basename $(pwd)).json"
 
 #ssh快速链接
@@ -60,6 +61,9 @@ alias ppc='php cli.php'
 alias varlog='cd /usr/local/var/log'
 alias mamplog='/Applications/MAMP/logs'
 alias 查的='cd '
+alias dul='du -d 1 -h' #查看当前目录下所有目录大小
+alias wgetfile='wget --no-check-certificate --content-disposition '
+alias curlfile='curl  -LJO '
 
 
 # 公司项目
@@ -71,10 +75,13 @@ alias hui-proxy='ssh land@172.16.164.40 ' #./jumpto zentao-pms-p-01
 alias log_lyg='ssh land@172.16.163.58' #'./jumpto vpcplayground_01' oxpp后台
 alias order_php_ssh_lyg='ssh land@172.16.164.209' # './jumpto  vpcplayground_10'
 alias play_admin_lyg_ssh='ssh land@172.16.163.255'  #./jumpto peiwan_om_test
-alias windfall-web='php -S 127.0.0.1:9988 -t /Users/darren/projects/windfall_php/public >> /usr/local/var/log/php7.log 2>&1 &'
-alias order-web='php -S 127.0.0.1:9988 -t /Users/darren/projects/order_php/public >> /usr/local/var/log/php7.log 2>&1 &'
 alias god-web='php -S 127.0.0.1:9998 -t /Users/darren/projects/god_php/public >> /usr/local/var/log/php7.log 2>&1 &'
-
+# lecai
+alias lecai='/Users/darren/go/src/git.digittraders.com/exchange'
+alias gokraaa='/Users/darren/go/src/git.digittraders.com/kratos'
+alias gouser='/Users/darren/go/src/git.digittraders.com/exchange/app/user_center/cmd'
+alias gotest='/Users/darren/go/src/testgo'
+alias goapi='/Users/darren/go/src/git.digittraders.com/exchange/app/user_center/api'
 
 #个人项目使用
 alias ppa='php artisan '
@@ -106,7 +113,10 @@ export GOROOT=/usr/local/go
 #export GOPRIVATE=gitlab.corp.laoyuegou.com
 #export GO111MODULE=auto
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
-export GO111MODULE=off 
+export GO111MODULE=on
+export PATH=$PATH:/Users/darren/go/bin
+export GOPROXY=https://goproxy.cn,direct
+
 
 #快速brew源
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
@@ -164,6 +174,7 @@ function proxy {
     if [[ $1 = "on" ]]; then
         export http_proxy=http://127.0.0.1:8002
         export https_proxy=http://127.0.0.1:8002
+        curl ip.gs
     echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
     
     elif [[ $1 = "off" ]]; then
