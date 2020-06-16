@@ -89,7 +89,7 @@ git log --pretty=oneline
 查看每一次提交的详细内容
 git log --stat --abbrev-commit
 
-清空历史提交记录：
+清空历史提交记录：重置仓库，
 git checkout --orphan latest_branch
 git add -a
 git commit -am 'init'
