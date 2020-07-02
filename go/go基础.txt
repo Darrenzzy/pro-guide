@@ -24,6 +24,11 @@ strTotal:=strings.Join(strArrayOld,"-")
 //explode
 strArrayNew:=strings.Split(strTotal,"-")
 
+字符串截取
+str := "XHelloWorldX"
+content := str[1 : len(str)-1]
+fmt.Println(content)
+
 
 string转float64
 s := "3.1415926535"
