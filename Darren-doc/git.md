@@ -6,7 +6,6 @@ git init
 生成ssh秘钥
 ssh-keygen -t rsa -C "your_email@example.com" -f ~/....
 
-
 拉取指定分支
 git clone -b name http://......
 强制切换分支
@@ -106,6 +105,9 @@ git merge origin/aaa
 
 如果显示拒绝合并和提交时： 在你操作命令后面加--allow-unrelated-histories
 eg:  git merge master --allow-unrelated-histories
+
+仅拉取最新一次提交 只克隆最新的提交记录
+git clone --branch <branch_name> <remote-address> --depth 1
 
 暂存功能
 git stash 将当前所有修改项(未提交的)暂存，压栈。此时代码回到你上一次的提交
