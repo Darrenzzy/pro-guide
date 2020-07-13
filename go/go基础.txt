@@ -6,15 +6,11 @@
 3  interface作为形参接收 到的变量都会逃逸
 4  闭包
 
+随机数：
+rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
+    println(rnd.Int31n(1000000))
+    
 
-解析 elastic 转成字符串 用于放到工具里看问题
-src, _ := query.Source()
-        if bs, err := json.Marshal(src); err == nil {
-            icelog.Infof("### query:%s", string(bs))
-        }
-
-        GET /god_game_qa/peiwan_stats/_search
-{"query": {"bool":{"filter":{"geo_distance":{"distance":"200km","location2":{"lat":31,"lon":121}}},"must":{"range":{"lts":{"from":"2018-11-28T14:07:49.19223357+08:00","include_lower":true,"include_upper":true,"to":"2019-11-28T14:07:49.191619954+08:00"}}}}}}
 
 golang字符串：
 strArrayOld:=[]string{"aa","bb"}

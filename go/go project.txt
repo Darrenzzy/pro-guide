@@ -45,3 +45,35 @@ GL:
         }
     }
 }
+
+一个简单的 log 包
+
+type log struct{}
+
+func (log) Print(v ...interface{}) {
+    s := []interface{}{"[sarama] "}
+    glog.InfoDepth(1, append(s, v...))
+}
+
+func (log) Printf(format string, v ...interface{}) {
+    glog.InfoDepth(1, fmt.Sprintf("[sarama] "+format, v...))
+}
+
+func (log) Println(v ...interface{}) {
+    glog.InfoDepth(1, "[sarama] "+fmt.Sprintln(v...))
+}
+
+
+// 一个简单的 异常捕获
+func NoPanic(fn func()) (err error) {
+    defer func() {
+        if e := recover(); e != nil {
+            err = errors.New(e)
+            stack := make([]byte, 4<<10)
+            length := runtime.Stack(stack, false)
+            glog.Errorf("[PANIC RECOVER] %v %s\n", e, stack[:length])
+        }
+    }()
+    fn()
+    return
+}

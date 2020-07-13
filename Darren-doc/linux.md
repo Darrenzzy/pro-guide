@@ -1,4 +1,11 @@
 # linux 常用总结
+7.12
+压缩目录：
+tar -zcvf test.tar.gz test
+解压 
+tar -zxvf test.tar.gz ./
+
+
 5.9
 Linux如何查看IO读写很高(yum install sysstat)
 iostat -x 1 10
