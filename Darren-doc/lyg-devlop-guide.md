@@ -7,18 +7,18 @@ php artisan opcache:clear
 
 11.20
 访问接口：
-开发环境 API_ROOT = 172.16.164.220:3201
+开发环境 API_ROOT = 172.16....164.220:3201
 
-测试环境 API_ROOT = 172.16.164.248:3201
+测试环境 API_ROOT = 172.16....164.248:3201
 
-STAG 172.16.164.182:3201
+STAG 172.16....164.182:3201
 
-VPC生产环境  API_ROOT = 172.16.163.178:8001
+VPC生产环境  API_ROOT = 172.16....163.178:8001
 
 客户端访问地址
 开发环境 API_ROOT = http://gateway-dev.ly  gou.cc
 
-测试环境 API_ROOT = http://gateway-test.lyg  ou.cc
+测试环境 API_ROOT = http://gateway-test.ly   g  ou.cc
 
 预发布  API_ROOT = http://gateway-stag.ly  gou.cc
 
@@ -141,12 +141,10 @@ PHP order仓库  app/Models/PlayGame.php
 
    删除所有失败任务
    php artisan queue:flush
-
    
    根据订单查对应游戏账户id
    get O:{20190508145129485411129066371}:GameAccount
 
-   
    狗好    id             phone 
     11959048  1896  10000001313 个人常用大神  ab9bc018ef64fcc77fcfa15a6f72378c
     12248261  1992576   10000001086 个人常用大神 9d3e82865336a1e78ed734ca9c3e03eb
