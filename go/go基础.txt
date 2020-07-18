@@ -10,6 +10,11 @@
 rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
     println(rnd.Int31n(1000000))
     
+ascii 码：
+var c rune = 'a'
+var i int = 98
+
+'a'=97 'z'=122 'A'=65  'Z'=90 '0'=48 '9'=57
 
 
 golang字符串：
@@ -117,6 +122,26 @@ func Round(f float64, n int, roundDown bool) float64 {
    3) 时间字符串转时间戳 (string —>  int64)
 
           比上面多一步，formatTime.Unix()即可
+
+
+
+字符串转换：
+/*
+1、func Title(s string) string
+将字符串s每个单词首字母大写返回
+2、func ToLower(s string) string
+将字符串s转换成小写返回
+3、func ToLowerSpecial(_case unicode.SpecialCase, s string) string
+将字符串s中所有字符按_case指定的映射转换成小写返回
+4、func ToTitle(s string) string
+将字符串s转换成大写返回
+5、func ToTitleSpecial(_case unicode.SpecialCase, s string) string
+将字符串s中所有字符按_case指定的映射转换成大写返回
+6、func ToUpper(s string) string
+将字符串s转换成大写返回
+7、func ToUpperSpecial(_case unicode.SpecialCase, s string) string
+将字符串s中所有字符按_case指定的映射转换成大写返回
+
 
 
 rune(int32的别称)
