@@ -1,4 +1,23 @@
 # linux 常用总结
+
+
+8.13
+CentOS 7/Red Hat 7/Aliyun Linux 2 [https://help.aliyun.com/knowledge_detail/175507.html?spm=5176.11065259.1996646101.searchclickresult.57944310ilrqMk]
+在CentOS 7系统中，关于如何开启防火墙，关闭防火墙，查看防火墙运行状态，请参考以下信息：
+开启防火墙
+systemctl start firewalld.service
+关闭防火墙
+systemctl stop firewalld.service
+查看防火墙运行状态
+firewall-cmd --state
+
+
+8.11
+命令行安装 apk
+查到在线设备，根据设备号emulator-5554 安装 app
+./adb devices
+./adb -s emulator-5554 install -t ~/Downloads/honour_wallet.apk
+
 7.12
 压缩目录：
 tar -zcvf test.tar.gz test
@@ -56,28 +75,7 @@ systemctl list-units
  命令
  whereis 文件或者目录名称 
  which 可执行文件名称
-
-7.23
-### supervisor常用命令
-查看程序状态
-sudo supervisorctl status
-读取新增配置（不启动）
-sudo supervisorctl reread
-重启配置更改过的程序
-sudo supervisorctl update
-### 控制所有进程
-sudo supervisorctl start all
-sudo supervisorctl stop all
-sudo supervisorctl restart all
-### 控制指定进程
-sudo supervisorctl stop testgroup:* 
-sudo supervisorctl start testgroup:*
-sudo supervisorctl restart testgroup:*
-sudo supervisorctl stop test
-sudo supervisorctl start test
-sudo supervisorctl restart test
-
-
+ 
 7.12
 将目前目录下的所有档案与子目录的拥有者皆设为 users 群体的使用者 lamport :
 chmod -R lamport:users *

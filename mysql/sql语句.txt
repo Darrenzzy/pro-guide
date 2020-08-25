@@ -1,8 +1,18 @@
 常用语句：
 
+查看MYSQL数据库服务器和数据库字符集
+show variables like '%character%';
+
+查看字段
+show columns from user;
+
+创建数据库
+CREATE DATABASE mydatabase CHARACTER SET utf8
+
 UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
 
-UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson' 
+UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson'
+
 
 
 join
@@ -15,7 +25,7 @@ ON Persons.id = Orders.Pid
 
 SELECT column-names
   FROM table-name
- WHERE column-name IN (values) 
+ WHERE column-name IN (values)
 
 
  修改原来索引结构
@@ -25,8 +35,8 @@ SELECT column-names
 alter table play_level_god_accept drop column grab_switch5;
 
  数据库创建索引：
-  create index manager_id_on_groups on groups(manager_id);  
-   
+  create index manager_id_on_groups on groups(manager_id);
+
    查看数据库索引
     SHOW INDEX FROM table_name
 

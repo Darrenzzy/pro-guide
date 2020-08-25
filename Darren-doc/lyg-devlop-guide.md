@@ -49,20 +49,8 @@ Php artisan  queue:restart
 8.15
 删除服务器发布脚本的缓存目录：
 rm -rf /alidata/neutronbuild.....
-
-8.6
-先查看服务状态，
-sudo service supervisord status
-配置文件位置：vim /etc/supervisor.d/....
-go服务 /home/land/etc/conf.d/.....
-编辑后记得要 supervisorctl reload
-最后在重启任务  supervisorctl restart order-test:
-
-检查任务列表，找到任务名称就可以重启
-supervisorctl status
-重启 任务
-supervisorctl restart brush-prod:
-
+ 
+ 
    7.31
 
 删除下架品类缓存数据

@@ -22,3 +22,45 @@ bin下输出配置信息命令：echo_supervisord_conf
 //配置文件目录：
 /usr/local/etc/supervisor.d
 
+
+8.21
+
+### supervisor常用命令
+查看程序状态
+sudo supervisorctl status
+读取新增配置（不启动）
+sudo supervisorctl reread
+### 控制所有进程
+sudo supervisorctl start all
+sudo supervisorctl stop all
+sudo supervisorctl restart all
+### 控制指定进程
+sudo supervisorctl stop testgroup:*
+sudo supervisorctl start testgroup:*
+sudo supervisorctl restart testgroup:*
+sudo supervisorctl stop test
+sudo supervisorctl restart test
+载入最新的配置文件，停止原有进程并按新的配置启动、管理所有进程：
+supervisorctl reload
+根据最新的配置文件，启动新配置或有改动的进程，配置没有改动的进程不会受影响而重启：
+supervisorctl update
+配置文件位置：vim /etc/supervisor.d/....
+go服务 /home/land/etc/conf.d/.....
+编辑后记得要 supervisorctl reload
+最后在重启任务  supervisorctl restart order-test:
+
+supervis 本身配置文件路径：
+files = /etc/supervisor/conf.d/*.conf
+eg:conf.d/xxx.conf
+[program:follow]
+command=/home/land/beast/bin/follow_linux_amd64 -config-path=/home/land/beast/conf.d/follow.toml -loglevel=INFO
+numprocs=1
+priority=67
+process_name=%(program_name)s_%(process_num)02d
+autostart = true
+autorestart = true
+startsecs = 5
+user = land
+redirect_stderr = true
+stdout_logfile = /alidata/logs/follow.%(process_num)02d.log
+

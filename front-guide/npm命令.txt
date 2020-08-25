@@ -13,3 +13,9 @@ npm uninstall express   卸载模板
 npm update express 更新模板
 
 npm search express 搜索模板
+
+
+npm run build:prod  编译后的存放目录
+vue.config.js=》
+publicPath: '/',
+    outputDir: '../service/view/admin',

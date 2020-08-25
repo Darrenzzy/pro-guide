@@ -29,7 +29,7 @@ export GO111MODULE=on
 export GOPROXY=https://goproxy.cn  or https://goproxy.io
 
 tidy主要用来手动维护项目的包依赖，会检测项目当前的依赖，做相应的依赖添加或移除。
-go mod tidy  
+go mod tidy
 
 依照某个命令 遍历当前目录下所有包
 go [command] ./...
@@ -46,12 +46,3 @@ brew install jq
 brew install protobuf
 
 brew install protoc-gen-go
-
-
-Mac 下编译 Linux 和 Windows 64位可执行程序
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go
-
-Linux 下编译 Mac 和 Windows 64位可执行程序
-CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.go
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go

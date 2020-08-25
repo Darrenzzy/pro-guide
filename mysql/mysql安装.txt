@@ -7,3 +7,11 @@ cd mariadb-10.0.17
 cmake .
 make
 sudo make install
+
+
+配置：
+ command: [
+            '--character-set-server=utf8',
+      '--collation-server=utf8_unicode_ci',
+      ]
+character_set_server、collation_server分别对应server字符集、server字符序
