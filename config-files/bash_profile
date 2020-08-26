@@ -88,20 +88,10 @@ alias ppa='php artisan '
 alias ppt='php artisan tinker '
 
 #redis地址
-alias redis_go_test='redis-cli -h r-bp1c567a657a6e14.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_app_prod='redis-cli -h a5c33907a2e04ca3424.redis.rds.aliyuncs.com -a a5c33907a2e04ca3:LOYOGOU2015redis' #app仓库 的user·库
-alias redis_go_pro_play='redis-cli -h r-bp186cf3f5f82ae4826.redis.rds.aliyuncs.com -a LOYOGOU2016redis' #聊天室和直播
-alias redis_go_product_chatroom='redis-cli -h r-bp186cf3f5f82ae4826.redis.rds.aliyuncs.com -p 6379 -a LOYOGOU2016redis'
-alias redis_order_golang_test='redis-cli -h r-bp1c567a657a6e14.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_order_golang_staging='redis-cli -h r-bp107fc21c97e564.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_go_pro_order='redis-cli -h r-bp1d3973083dd134304.redis.rds.aliyuncs.com -a LOYOGOU2016redis' #大神和订单都在这里
-alias redis_app_test='redis-cli -h 4c6174ac080711e5.m.cnhza.kvstore.aliyuncs.com -a 4c6174ac080711e5:LOYOGOU2015redis '
-alias redis_app_dev='redis-cli -h r-bp1abcbd10071074.redis.rds.aliyuncs.com  -a LOYOGOU2016redis '
-alias redis_gameserver='redis-cli -h r-bp1ve0xf6l1tlwkq20.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_go-orderpay='redis-cli -h  r-bp19a82fc08d5e84320.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
+
 
 ###################### end  alias ###########################
- 
+
 
 
 
@@ -127,7 +117,7 @@ export PATH=/usr/local/openresty/nginx/sbin:$PATH
 export PATH=/Users/darren/src/kafka2.11-1.1.1/bin:$PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
-export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin 
+export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
 export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
 export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:/Users/darren/src/icomet-master
@@ -142,11 +132,11 @@ export DISPLAY=:0
 
 ###################### start  function ###########################
 
- 
+
 function redis-start(){
 redis-server /Users/darren/projects/guide/config-files/redis.conf
 }
- 
+
 
 function sshinit(){
 #遍历添加用户登录时添加本地秘钥
@@ -176,7 +166,7 @@ function proxy {
         export https_proxy=http://127.0.0.1:8002
         curl ip.gs
     echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
-    
+
     elif [[ $1 = "off" ]]; then
         unset http_proxy
         unset https_proxy
