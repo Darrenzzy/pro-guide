@@ -9,7 +9,7 @@
 随机数：
 rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
     println(rnd.Int31n(1000000))
-    
+
 ascii 码：
 var c rune = 'a'
 var i int = 98
@@ -21,7 +21,7 @@ golang字符串：
 strArrayOld:=[]string{"aa","bb"}
 //implode
 strTotal:=strings.Join(strArrayOld,"-")
- 
+
 //explode
 strArrayNew:=strings.Split(strTotal,"-")
 
@@ -40,14 +40,16 @@ float to string
  1:fmt.Sprintf("%g", v.MaxLimit),
  2:strconv.FormatFloat(v.DealAmount, 'g', -1, 64)
 
+float to float
+value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value), 64)
 
-string转成int： 
+string转成int：
 int, err := strconv.Atoi(string)
-string转成int64： 
+string转成int64：
 int64, err := strconv.ParseInt(string, 10, 64)
-int转成string： 
+int转成string：
 string := strconv.Itoa(int)
-int64转成string： 
+int64转成string：
 string := strconv.FormatInt(int64,10)
 
 
@@ -167,7 +169,7 @@ uint64
 注意：这些类型的变量之间不允许互相赋值或操作
 
 channl的发送和接收
-data := <- a // read from channel a  
+data := <- a // read from channel a
 a <- data // write to channel a
 
 内建函数：两个的区别
@@ -175,7 +177,7 @@ var p *[]int = new([]int)      初始化一个指针
 var v []int = make([]int, 10)  初始化一个数据结构以及值
 
 
-go get +  
+go get +
 -d 只下载不安装
 -f 只有在你包含了-u参数的时候才有效，不让-u去验证import中的每一个都已经获取了，这对于本地fork的包特别有用
 -fix 在获取源码之后先运行fix，然后再去做其他的事情
@@ -197,7 +199,7 @@ s := new(Sample)
     fmt.Printf("%+v\n", *s) //  {a:1 str:hello}
     fmt.Printf("%#v\n", *s) // main.Sample{a:1, str:"hello"}
     fmt.Printf("%T\n", *s)   //  main.Sample
-    fmt.Printf("%%\n", s.a) //  %  %!(EXTRA int=1) 
+    fmt.Printf("%%\n", s.a) //  %  %!(EXTRA int=1)
 
 
 择 Printf，其他时候用 Println 就可以了，比如：

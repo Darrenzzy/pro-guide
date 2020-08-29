@@ -1,5 +1,7 @@
 # linux 常用总结
-
+8.28
+ubuntu  apt 自更新 确保资源最新
+sudo apt-get update
 
 8.13
 CentOS 7/Red Hat 7/Aliyun Linux 2 [https://help.aliyun.com/knowledge_detail/175507.html?spm=5176.11065259.1996646101.searchclickresult.57944310ilrqMk]

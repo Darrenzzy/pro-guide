@@ -103,6 +103,9 @@ git push -f origin master
 合并远程分支到本地
 git merge origin/aaa
 
+合并其他分支 多个提交合并为未提交状态
+git merge --squash branch
+
 如果显示拒绝合并和提交时： 在你操作命令后面加--allow-unrelated-histories
 eg:  git merge master --allow-unrelated-histories
 
