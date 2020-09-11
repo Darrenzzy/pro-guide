@@ -125,6 +125,8 @@ func Round(f float64, n int, roundDown bool) float64 {
 
           比上面多一步，formatTime.Unix()即可
 
+// 一天前
+    d, _ := time.ParseDuration("-24h")
 
 
 字符串转换：
