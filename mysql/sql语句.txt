@@ -13,8 +13,6 @@ UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
 
 UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson'
 
-
-
 join
 
 SELECT Persons.id, Persons.LastName, Persons.FirstName, Orders.id,Orders.OrderNo,Orders.Pid
@@ -28,6 +26,8 @@ SELECT column-names
  WHERE column-name IN (values)
 
 
+添加字段
+alter table `msgs` add `sss2` int(11) Default '0' comment '站点 id' ;
  修改原来索引结构
  alter table tableName add index indexName(columnName,sync_status);
 

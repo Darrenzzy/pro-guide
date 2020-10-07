@@ -39,10 +39,7 @@ supervisorctl 中项目的配置文件目录：
 重启 需要先切到home目录下
 supervisorctl update
 
-单元测试：
-go test api/go_test.go -v -run="TestFirst" 
-
-在服务下调用db数据库 ，需要生产sql客户端， 
+在服务下调用db数据库 ，需要生产sql客户端，
 一般跨服务调用，建议用RPC内部接口方式调用
 
 查看当前服务所用分支
@@ -63,10 +60,10 @@ tailf /alidata/logs/live.00.log
 
 配置位置
 /home/land/beast/conf.d/godgame.json
- 
+
  框架内自己的 protoc3 找不到位置：
  解决： 去除系统目录bin下的，
- 应该在/Users/darren/go/src/vendor/iceberg/frame/protoc-gen-go下 
+ 应该在/Users/darren/go/src/vendor/iceberg/frame/protoc-gen-go下
  运行 go build
  生成可执行文件后 mv到 ~/go/bin
  查看which protoc-gen-go

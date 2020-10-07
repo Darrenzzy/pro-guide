@@ -77,3 +77,14 @@ func NoPanic(fn func()) (err error) {
     fn()
     return
 }
+
+
+单元测试其中一个 func：
+go test go_test.go -v -run="TestFirst"
+
+生成test二进制文件
+go test -c
+
+运行test二进制文件
+go test -v -o leetcode.test
+
