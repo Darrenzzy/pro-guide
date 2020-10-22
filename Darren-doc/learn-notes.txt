@@ -1,5 +1,8 @@
     学习笔记
 
+10.21 使用db2struct
+db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --package model --struct tablename -t table_name >table_name.go
+
 12.31 php array
 
 <!-- 用于将一个数组  利用外来的arr的数据 更改其中的键值 并返回， -->
@@ -52,7 +55,7 @@ keys h？？？？
 
 启动撮合引擎  几大步骤
 先启动ssdb和redis （打开撮合引擎目录）
-redis-server /config/redis.conf 
+redis-server /config/redis.conf
 
 ssdb-server -d /config/ssdb.conf
 
@@ -104,7 +107,7 @@ config_file="${root_dir}/app/config/development/environment.ini"
 #开始轮询该文件
 while IFS= read -r line
 do
-    
+
     if [[ ${line} == *"otc_pair ="* ]];then
     #取出要替换的字符串
         pair=$(echo ${line}|awk -F '=' '{print $2}'|sed 's/ //g')
@@ -124,12 +127,12 @@ done <"${config_file}"
 至此完成shell的骚操作，其中关键可利用处我已贴出来，并做了注释，
 
 
-我再列下关键点：  
+我再列下关键点：
 1.sed命令的使用
 2.获取目前目录中文件名
 3. shell脚本的while和if else使用
 4. 轮询目录中的目录，并做其他命令操作
- 
+
 
 
 
@@ -144,7 +147,7 @@ done <"${config_file}"
 > ls -alru # 按访问时间排序
 
 11.30
-钱包 项目部署时需要额外部署icomet  
+钱包 项目部署时需要额外部署icomet
 git地址： https://github.com/ideawu/icomet
 wget --no-check-certificate https://github.com/ideawu/icomet/archive/master.zip
 unzip master.zip
@@ -178,21 +181,21 @@ npm下载指定版本后面直接加版本号即可   npm install -g umi@1.3.11
 9.7
 
 百万级一万几数据库查询，已经添加索引后，查询还是很慢！！
-解决方案： 原来是： order by id desc   
-修改后这么用： order by （id is not null ）desc 
+解决方案： 原来是： order by id desc
+修改后这么用： order by （id is not null ）desc
 2亿条记录查询， 根本都是小问题
 
 9.3
 
-if [ -n "$(echo $1| sed -n "/^[0-9]\+$/p")" ];then  
-    echo "$1 is number."  
-else  
-    echo 'no.'  
-fi 
+if [ -n "$(echo $1| sed -n "/^[0-9]\+$/p")" ];then
+    echo "$1 is number."
+else
+    echo 'no.'
+fi
 
 echo 123123| sed -n "/^[0-9]\+$/p"
 
- 
+
   8.30
 
  市商项目快速开启检测api请求的任务 nohup php cli.php order_details start >> log/redis_orders.log 2>&1 &
@@ -209,7 +212,7 @@ cd $root_dir
 解决： 启动项目，php cli.php env init    php cli.php env start    php cli.php async start    php cli.php db migrate
 主要原因是，新拉的代码，更新了数据库字段，首页读取不到，导致报错。  按上面命令后，可以访问到主页了。
 
-另外：重启电脑后，有时候fpm没有启动，导致otc项目无法使用，这里解决：fpm restart  
+另外：重启电脑后，有时候fpm没有启动，导致otc项目无法使用，这里解决：fpm restart
 
 
 8.23
@@ -235,7 +238,7 @@ https://hooks.slack.com/services/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
 
 8.10
 数据库表结构
-bill 
+bill
 是资金的流水
 balance
 是用户钱包的资产
@@ -249,8 +252,8 @@ php cli.php generate add_connect_weixin_to_product_channels
 增加完文件后，生成数据即可：
 PHP cli.php migrate
 
- 
- 
+
+
 在linux中使用curl在shall中发送请求，
 curl -X POST --data-urlencode 'payload={"channel": "wc_test_server", "username": "bot", "text":"'"${MS}"'"}' https://hooks.slack.com/services/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
 
@@ -279,7 +282,7 @@ firewall-cmd --permanent --add-service=http
 那怎么开启一个端口呢 添加
 
 firewall-cmd --zone=public --add-port=3888/tcp --permanent
- 
+
 查看
 firewall-cmd --zone= public --query-port=80/tcp
 删除
@@ -324,11 +327,11 @@ DevOps 的主要内容是：跟谁共同工作、如何共同工作。它最吸�
 
 7.26
 php安装好swoole后，需要检查命令：
-php --ri swoole 
+php --ri swoole
 
 
 今天遇到的一个问题，就是开机重启后，发现zookeeper服务也在，导致src包里的zookeeper不能正常的启动和关闭。查了半天，不是自己src包里的服务，那想必就是原来安装的brew里面，
-然后仔细  ps aux |grep zookeeper 之后，发现确实是，然后就打开开启预启动目录：cd ~/Library/LaunchAgents/  
+然后仔细  ps aux |grep zookeeper 之后，发现确实是，然后就打开开启预启动目录：cd ~/Library/LaunchAgents/
 一眼看到这个zookeeper 然后果断删除，后面有brew uninstall zookee...  卸载成功后，重新启动电脑，看到已经没有这个服务了，完美解决了
 
 
@@ -352,11 +355,11 @@ tail -f log/trade_worker.log
 
 查看日志正常后开始开启交易所
 cd /Users/apple/projects/otc_php
-检查启动ssdb和redis 
+检查启动ssdb和redis
 php cli.php  env start
 
 检查是否启动ssdb
-pstree |grep ssdb 
+pstree |grep ssdb
 pstree |grep redis
 
 开启后，再开始机器人下单
@@ -367,18 +370,18 @@ pstree |grep redis
 在otc项目下运行这个，（先stop）然后就启动了
  php cli.php env start
 
-  每次使用撮合引擎时候先查看进程在不在！！！redis和ssdb  
+  每次使用撮合引擎时候先查看进程在不在！！！redis和ssdb
 没有就先启动下环境：
  php cli.php env start
 
-(一共3个redis 2个ssdb) 
+(一共3个redis 2个ssdb)
 
 历史操作命令；
-redis-server /usr/local/etc/redis6378.conf 
+redis-server /usr/local/etc/redis6378.conf
  redis-cli -p 6378
 
  ssdb-server -d /usr/local/etc/ssdb8801.conf
- 
+
 http://btc_cny.engine.com/api/market?pair=BTC_CNY
 
 
@@ -389,7 +392,7 @@ scp -r land@118.178.128.61://var/www/env.zhibo.test/app/app.git/modules/app/cont
 scp -r server-1.properties root@47.95.7.124:/usr/local
 
 sudo scp -r -P 55429 zookeeper_kafka_start.sh root@192.168.81.168:/usr/local/system/src/kafka_2.11-1.1.0
- 
+
 
 7.20
 
@@ -404,7 +407,7 @@ sudo launchctl stop io.redis.redis-server
 7.19
 php_sapi_name — 返回 web 服务器和 PHP 之间的接口类型
 
-7.18 
+7.18
 
  composer清理缓存
  rm -rf ~/.composer/cache/
@@ -415,9 +418,9 @@ composer clear-cache
 7月17日
 当有成交量时候打开redis
 127.0.0.1:6378> keys depth*
- 
+
 环境变量中撮合引擎域名(交易撮合引擎域名)
-export trade_host='btc_omg.engine.com'  
+export trade_host='btc_omg.engine.com'
 记着！！！！！！
 要改host文件，要配置环境变量，要
 
@@ -435,7 +438,7 @@ export trade_host='btc_omg.engine.com'
 {"sell":{"user_id":92,"trade_id":63},"buy":{"user_id":99,"trade_id":64}}
 
 
-https://ex.haobtc.io/trade_engine/orders/trade  
+https://ex.haobtc.io/trade_engine/orders/trade
 
 
 7月16号笔记
@@ -453,10 +456,10 @@ func_get_args()
 
 
 启动和停止ssdb服务
-启动：ssdb-server /usr/local/etc/ssdb.conf 
-守护进程启动方式 ssdb-server -d /usr/local/etc/ssdb.conf 
-停止： ssdb-server /usr/local/etc/ssdb.conf -s stop 
-重启：停止： ssdb-server /usr/local/etc/ssdb.conf -s restart 
+启动：ssdb-server /usr/local/etc/ssdb.conf
+守护进程启动方式 ssdb-server -d /usr/local/etc/ssdb.conf
+停止： ssdb-server /usr/local/etc/ssdb.conf -s stop
+重启：停止： ssdb-server /usr/local/etc/ssdb.conf -s restart
 启动客户端:ssdb-cli
 
 支持数据类型
@@ -469,7 +472,7 @@ redis是内存数据库，ssdb是面向硬盘的存储;ssdb默认也没有集群
 它结合了redis和ssdb的优点，实现了基于LFU的热度统计和冷热交换，做到了低成本和高性能的高平衡
 
 目录区别作用：
-/usr/local下一般是你安装软件的目录，这个目录就相当于在windows下的programefiles这个目录 
+/usr/local下一般是你安装软件的目录，这个目录就相当于在windows下的programefiles这个目录
 /opt这个目录是一些大型软件的安装目录，或者是一些服务程序的安装目录
 
 
@@ -482,10 +485,10 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
 关闭：
 pg_ctl -D /usr/local/var/postgres stop -s -m fast
 
-查询端口占用情况  
+查询端口占用情况
 lsof -i:8000
 通过某个进程号显示该进程打开的文件
-lsof -p 11968   
+lsof -p 11968
 列出某个程序进程所打开的文件信息
 lsof -c mysql
 
@@ -499,7 +502,7 @@ ps -ef|grep post  查看系统进程
 php, phpize, php-config /usr/local/opt/php70/bin
 php-fpm /usr/local/opt/php70/sbin/php-fpm   //   /usr/local/opt/php@7.0/sbin/php-fpm  //二级显示  /usr/local/etc/php/7.0/php-fpm.d/
 
-php.ini /usr/local/etc/php/7.0/php.ini 
+php.ini /usr/local/etc/php/7.0/php.ini
    当前配置文件在：  /usr/local/lib/php.ini
 查找 php.ini命令 ： php --ini
 
@@ -549,7 +552,7 @@ nginx相关路径
 /usr/local/Cellar/nginx/1.8.0 （安装路径）
 
  重启（如果端口小于1000则需要在前面加sudo）
-# 重新加载配置|重启|停止|退出 
+# 重新加载配置|重启|停止|退出
 
 
 nginx -s reload|reopen|stop|quit
@@ -564,7 +567,7 @@ nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
 
 redis已安装：
 redis-server /usr/local/etc/redis.conf
- 
+
 
 
 
@@ -581,7 +584,7 @@ Linux 的软件安装目录是也是有讲究的，理解这一点，在对系�
 
 php目录
 /usr/local/etc/pear.conf
-/usr/local/lib/php 
+/usr/local/lib/php
 
 
 
@@ -591,7 +594,7 @@ source ~/.bash_profile   更新环境变量
 
 echo $PATH
 开机启动顺序，执行顺序为：/etc/profile -> (~/.bash_profile | ~/.bash_login | ~/.profile) -> ~/.bashrc -> /etc/bashrc -> ~/.bash_logout
- 
+
 Mac系统的环境变量，加载顺序为：
 /etc/profile /etc/paths ~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc
 
@@ -636,7 +639,7 @@ vi html/t.php
 curl localhost/t.php
 
 每次访问的时候报错502 是因为php没有开启，没有监听
-需要查看下端口9000  
+需要查看下端口9000
 netstat -antp
 然后启动 php-cgi -b 127.0.0.1:9000  以后用fpm不用这个进程管理
 
@@ -670,7 +673,7 @@ Versions:
 
 
 打开php报错提示：
-php-fpm  
+php-fpm
 在配置文件中：/etc/php-fpm.d/www.conf
 display_errors  on
 
@@ -704,10 +707,10 @@ psql -U postgres -d otc_php
 \q：退出
 
 psql查看所有数据库的大小
-select pg_database.datname, pg_database_size(pg_database.datname) AS size from pg_database; 
+select pg_database.datname, pg_database_size(pg_database.datname) AS size from pg_database;
 
  psql查看数据库所有索引  \di
- //相当于mysql的，mysql> show index from test; 
+ //相当于mysql的，mysql> show index from test;
 
 \dt 列出所有表
 
@@ -716,7 +719,7 @@ psql -U postgres -d postgres -h 127.0.0.1 -p 5432
 appledeiMac-2:postgresql-10.4 apple$ which psql
 /usr/local/pgsql/bin/psql
 
-删除数据库： 
+删除数据库：
 [1]在命令行用dropdb命令删除
    dropdb -U postgres demodb,就可以实现数据库的删除
 [2]在psql命令行下删除
@@ -727,7 +730,7 @@ psql -l
 
 号外号外：postgressql  用brew安装
 每次开机启动：
-brew services start postgresql 
+brew services start postgresql
 
 
 安装好 psql 后 开始初始化启动 执行:
@@ -760,7 +763,7 @@ $ rm -rf ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 
 进入 psql 命令行
-psql postgres  
+psql postgres
 
 在初次进入psql后，需要手动创建postgres用户和数据库
 一、创建postgres用户
@@ -796,7 +799,7 @@ ln -s file1 file2
 
 
 7月七日
- 
+
 
  学习模版volt
  {% for i in 0..100 %}
@@ -811,8 +814,8 @@ ln -s file1 file2
 
 使用配置如下 ~/openresty-test
  nginx -p `pwd`/ -c conf/nginx.conf
- 
- 
+
+
 
 
 7月9号
@@ -843,10 +846,10 @@ ln -s file1 file2
 
 
 7月10号
-redis命令  
+redis命令
 
 redis-server
-redis-cli ping 
+redis-cli ping
 
 
 apache相对nginx的优点
@@ -879,22 +882,22 @@ nohup php test/test_kafka_consumer1.php  >> log/kafka.log 2>&1 &
 
 研究Kafka
 分布式的消息系统
- 
+
 kafka节点之间如何复制备份的？
 kafka消息是否会丢失？为什么？
 kafka最合理的配置是什么？
 kafka的leader选举机制是什么？
 kafka对硬件的配置有什么要求？
 kafka的消息保证有几种方式？
- 
+
 
 /usr/local/etc/kafka/
-安装的配置文件位置 
- 
+安装的配置文件位置
+
 kafka数据存储在了(kafka日志)
 /usr/local/var/lib/kafka-logs/
 
- 
+
 新建session，查看kafka的topic
 在kafka的bin目录下：
 执行命令：./kafka-topics --list --zookeeper localhost:2181
@@ -912,16 +915,16 @@ kafka-server-start.sh /usr/local/etc/kafka/server-1.properties
 kafka-server-start.sh /usr/local/etc/kafka/server-2.properties
 kafka-server-start.sh /usr/local/etc/kafka/server-3.properties
 
-/usr/local/system/src/kafka_2.11-1.1.1/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.1/config/server.properties 
+/usr/local/system/src/kafka_2.11-1.1.1/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.1/config/server.properties
 
 新建topic
  tail -f /usr/local/system/src/kafka_2.11-1.1.1/logs/zookeeper.log
  /usr/local/system/src/kafka_2.11-1.1.1/bin/kafka-topics.sh --create --zookeeper 192.168.81.167:2181,192.168.81.168:2181 --replication-factor 2 --partitions 1 --topic test1
 
 
- kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic zzyk 
+ kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic zzyk
  kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 10 --topic otc-dev
-   
+
   #--zookeeper是集群列表，可以指定所有节点，也可以指定为部分列表
   #--replication-factor 为复制数目，数据会自动同步到其他broker上，防止某个broker宕机数据丢失
   #--partitions 一个topic可以切分成多个partition，一个消费者可以消费多个partition，但一个partition只能被一个消费者消费
@@ -930,16 +933,16 @@ kafka-server-start.sh /usr/local/etc/kafka/server-3.properties
 kafka-console-producer.sh --broker-list localhost:9092 --topic otc-dev
 kafka-console-producer.sh --broker-list localhost:9092 --sync --topic zzy0
 
-kafka-console-producer.sh --broker-list 192.168.1.181:9092,192.168.1.181:9093,192.168.1.181:9094  --topic topic_1 
+kafka-console-producer.sh --broker-list 192.168.1.181:9092,192.168.1.181:9093,192.168.1.181:9094  --topic topic_1
 消费消息
 kafka-console-consumer.sh --zookeeper 127.0.0.1:2182   --from-beginning   --topic otc-dev
- 
+
 kafka-console-consumer.sh --bootstrap-server localhost:2181 --from-beginning  --topic LTC-ETH
 
 
 
 
-查看当前全部主题 
+查看当前全部主题
 kafka-topics.sh --list --zookeeper localhost:2181
 查看当前主题详细信息
 kafka-topics.sh --zookeeper 127.0.0.1:2182  --describe --topic zzy10
@@ -958,7 +961,7 @@ kafka-consumer-groups.sh --zookeeper 127.0.0.1:2181 --list
 kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --describe --group  test2
 
 删除主题：
-kafka-topics.sh --delete --zookeeper localhost:2181 --topic zzyk 
+kafka-topics.sh --delete --zookeeper localhost:2181 --topic zzyk
   此时你若想真正删除它，可以如下操作：
 
      （1）登录zookeeper客户端：命令：./bin/zookeeper-client
@@ -975,7 +978,7 @@ kafka-consumer-groups.sh --zookeeper 127.0.0.1:2181 --delete --group <group-name
 
 增加topic分区数
 kafka-topics.sh --zookeeper 127.0.0.1:2181  --alter  --partitions 60 --topic otc-dev
-  
+
 
 重新分区
 kafka-reassign-partitions.sh --zookeeper 127.0.0.1:2181 --topics-to-move-json-file ./top.json  --broker-list  "0,1,2"  --generate
@@ -987,7 +990,7 @@ kafka-consumer-groups.sh --zookeeper 127.0.0.1:2181 --group test2 --describe
 
 kafka-consumer-groups.sh --new-consumer --bootstrap-server 127.0.0.1:9092 --group kafka_otc1 --describe
 
-指定消费组消费信息 
+指定消费组消费信息
 
 分别打开配置文件进行如下修改：
 broker.id=0  #三个broker的id不能相同，因此改为不同的id
@@ -1000,14 +1003,14 @@ zookeeper.connect=192.168.10.152:2181,192.168.10.153:2181,192.168.10.170:2181
 
 备注：要挂到后台使用：（挂载）("2>"表示把标准错误(stderr)重定向，标准输出(stdout)是1。)
 nohup php cli.php kafka start >> log/kafka.log 2>&1 &
- 
+
 nohup  <命令>  >> log/conf.log 2>&1 &
 nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/zookeeper.properties  >> /usr/local/system/src/kafka_2.11-1.1.0/logs/zookeeper.log &
 
 nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server.properties >> /usr/local/system/src/kafka_2.11-1.1.0/logs/service-run.log &
 nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-1.properties >> /usr/local/system/src/kafka_2.11-1.1.0/logs/service-run.log &
 nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-2.properties >> /usr/local/system/src/kafka_2.11-1.1.0/logs/service-run.log &
- 
+
 
 zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/zookeeper.log &
 sleep 10s
@@ -1018,12 +1021,12 @@ kafka-server-start.sh /usr/local/etc/kafka/server-3.properties >> /Users/apple/s
 
 
 上午连接新的服务器搭建kafka集群线上的环境。
-/usr/local/system/src/kafka_2.11-1.1.0/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/zookeeper.properties 
+/usr/local/system/src/kafka_2.11-1.1.0/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/zookeeper.properties
 
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server.properties 
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-1.properties 
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-2.properties 
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-3.properties 
+/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server.properties
+/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-1.properties
+/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-2.properties
+/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-3.properties
 
 
 
@@ -1032,7 +1035,7 @@ kafka-server-start.sh /usr/local/etc/kafka/server-3.properties >> /Users/apple/s
 
 
 kafka-manager启动
-已经添加快捷操作命令： 
+已经添加快捷操作命令：
 ~/kafka_manager
 nohup bin/kafka-manager -Dconfig.file=conf/application.conf -Dhttp.port=9001 &
 
@@ -1046,10 +1049,10 @@ kafka-manager.zkhosts="my.zookeeper.host.com:2181,other.zookeeper.host.com:2181"
 或者，ZK_HOSTS如果您不想对任何值进行硬编码，请使用环境变量。
 
 ZK_HOSTS="my.zookeeper.host.com:2181"
- 
- 
 
- 
+
+
+
 7月10日
 
 php安装扩展时候先phpize然后在配置安装并指定安装配置文件
@@ -1074,7 +1077,7 @@ php安装扩展时候先phpize然后在配置安装并指定安装配置文件
 flag今天apache占用80导致不能用nginx
 梁哥先查了下状态，在运行
 nginx -t
-sudo nginx 
+sudo nginx
 然后就好了！！！
 
 
@@ -1082,21 +1085,21 @@ nginx配置location
 
 location  = / {
   # 只匹配"/".
-  [ configuration A ] 
+  [ configuration A ]
 }
 location  / {
   # 匹配任何请求，因为所有请求都是以"/"开始
   # 但是更长字符匹配或者正则表达式匹配会优先匹配
-  [ configuration B ] 
+  [ configuration B ]
 }
 location ^~ /images/ {
   # 匹配任何以 /images/ 开始的请求，并停止匹配 其它location
-  [ configuration C ] 
+  [ configuration C ]
 }
 location ~* .(gif|jpg|jpeg)$ {
-  # 匹配以 gif, jpg, or jpeg结尾的请求. 
-  # 但是所有 /images/ 目录的请求将由 [Configuration C]处理.   
-  [ configuration D ] 
+  # 匹配以 gif, jpg, or jpeg结尾的请求.
+  # 但是所有 /images/ 目录的请求将由 [Configuration C]处理.
+  [ configuration D ]
 }
 
 @location 例子
@@ -1121,7 +1124,7 @@ openresty最后成功编译安装的配置信息
 撮合引擎配置文件
  /Users/apple/projects/exchange_engine
 
-pstree |grep server.php 
+pstree |grep server.php
   pstree | grep server
   tail -f error.log
   tail -f /usr/local/Cellar/nginx/1.15.0/logs/error.log
@@ -1129,7 +1132,7 @@ pstree |grep server.php
 
 tail -f /usr/local/var/log/nginx/error.log
   查看nginx版本信息详细信息
-  nginx -V 
+  nginx -V
 
 
 7月13日
