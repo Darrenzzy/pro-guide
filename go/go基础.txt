@@ -51,6 +51,8 @@ int转成string：
 string := strconv.Itoa(int)
 int64转成string：
 string := strconv.FormatInt(int64,10)
+uint64转成string：
+string := strconv.FormatUint(uint64, 10)
 
 
 字符串替换：
