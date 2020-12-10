@@ -168,6 +168,13 @@ ps aux |grep kafka |grep start |grep -v grep |awk '{print $2}' |xargs kill
 查看进程树
 pstree -p 2500
 
+1.CPU占用最多的前10个进程：
+ps auxw|head -1;ps auxw|sort -rn -k3|head -10
+2.内存消耗最多的前10个进程
+ps auxw|head -1;ps auxw|sort -rn -k4|head -10
+3.虚拟内存使用最多的前10个进程
+ps auxw|head -1;ps auxw|sort -rn -k5|head -10
+
 查看端口，监听端口
 sudo lsof -Pni4 | grep LISTEN | grep php
 
