@@ -34,6 +34,7 @@ git commit --amend 更新上次提交的massage文案
 git config --global user.name "darren"
 git config --global user.email "darren@iyich.com"
 git config --list  查看当前配置情况
+git config --local -e  更新本仓库配置信息
 git remote rename origin old-origin
 git remote add github https://darrenzzy:password@github.com/Darrenzzy/deploy.git
 git remote -v 查看远程版本库信息
