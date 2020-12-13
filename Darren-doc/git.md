@@ -1,6 +1,5 @@
 
 # git 基本操作
-git init
 添加远程仓库地址
 
 生成ssh秘钥
@@ -122,3 +121,25 @@ git stash 将当前所有修改项(未提交的)暂存，压栈。此时代码�
 git stash list将列出所有暂存项。
 git stash clear 清除所有暂存项。
 git stash apply 将暂存的修改重新应用，
+
+
+git提交规范：
+
+Message格式：
+[type][module]:subject (例如:[feature][大转盘]: 这是一个新的Feature)
+Type标识：
+feature - 新功能 feature
+fix - 修复 bug
+docs - 文档注释
+style - 代码格式(不影响代码运行的变动)
+refactor - 重构、优化(既不增加新功能，也不是修复bug)
+Xperf - 性能优化
+test - 增加测试
+chore - 构建过程或辅助工具的变动
+revert - 回退
+
+规范细则
+1. 单次commit只针对单个功能，不要对多个功能进行调整优化
+2. 一个功能尽可能合成一次commit
+3. commit中必须说明所有改动项
+
