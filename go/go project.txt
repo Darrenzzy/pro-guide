@@ -1,0 +1,90 @@
+
+go交叉编译命令：
+Mac 下编译 Linux 和 Windows 64位可执行程序
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go -o ~/..(path)
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go -o ~/..(path)
+
+Linux 下编译 Mac 和 Windows 64位可执行程序
+CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.go -o ~/..(path)
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go -o ~/..(path)
+
+GOOS：目标平台的操作系统（darwin、freebsd、linux、windows）
+GOARCH：目标平台的体系架构（386、amd64、arm）
+交叉编译不支持 CGO 所以要禁用它
+
+
+go 初始化消息时候，记录日志信息
+func logs()  {
+	f, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("file open error : %v", err)
+	}
+	defer f.Close()
+	log.SetOutput(f)
+	//log.Println("This is a Darren test log entry"+time.Now().Format("2006/01/02 15:04:05"))
+	log.Println("This is a Darren test log entry")
+
+}
+
+
+go  倒计时：
+func (dao *Dao) GrabOrderLoop(user int64, exit chan struct{}) {
+    ticker := time.NewTicker(time.Second)
+    defer ticker.Stop()
+    counts := 65
+GL:
+    for {
+        select {
+        case <-ticker.C:
+            if counts < 0 {
+
+            }
+            counts--
+        case <-exit:
+            break GL
+        }
+    }
+}
+
+一个简单的 log 包
+
+type log struct{}
+
+func (log) Print(v ...interface{}) {
+    s := []interface{}{"[sarama] "}
+    glog.InfoDepth(1, append(s, v...))
+}
+
+func (log) Printf(format string, v ...interface{}) {
+    glog.InfoDepth(1, fmt.Sprintf("[sarama] "+format, v...))
+}
+
+func (log) Println(v ...interface{}) {
+    glog.InfoDepth(1, "[sarama] "+fmt.Sprintln(v...))
+}
+
+
+// 一个简单的 异常捕获
+func NoPanic(fn func()) (err error) {
+    defer func() {
+        if e := recover(); e != nil {
+            err = errors.New(e)
+            stack := make([]byte, 4<<10)
+            length := runtime.Stack(stack, false)
+            glog.Errorf("[PANIC RECOVER] %v %s\n", e, stack[:length])
+        }
+    }()
+    fn()
+    return
+}
+
+
+单元测试其中一个 func：
+go test go_test.go -v -run="TestFirst"
+
+生成test二进制文件
+go test -c
+
+运行test二进制文件
+go test -v -o leetcode.test
+

@@ -1,0 +1,27 @@
+开启容器
+
+docker run -it --rm -v /root/golang/go:/go -v /root/golang/code:/code --privileged docker.io/golang bash
+
+
+安装centos 
+docker pull centos:7
+启动
+docker run -ti centos:7 /bin/bash
+
+
+文件互通
+docker run -itv  /Users/XXXX/Sites/docker:/www  images：12121  /bin/bash
+
+
+查看当前机器所有镜像 docker images 
+将当前镜像打包且命名，方便回滚：
+docker tag 35c667cbd9d2 centos:1.0
+
+镜像迁移
+docker save -o ./webapp-1.0.tar webapp:1.0
+导入镜像
+docker load < webapp-1.0.tar
+
+导出和导入容器（docker commit与docker save的结合体）
+docker export -o ./webapp.tar webapp
+

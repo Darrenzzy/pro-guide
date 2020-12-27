@@ -1,0 +1,11 @@
+接收邮件sdk(php-imap)首先需要安装imap扩展：
+
+cd /usr/local/system/src/php-7.2.1/ext/imap
+phpize
+yum install libc-client-devel
+./configure  --with-kerberos  --with-imap-ssl
+make
+make install
+然后将imap.so添加到php.ini中
+重启php-fpm
+*** 如遇问题参考 https://8ogo.com/post/72 ***

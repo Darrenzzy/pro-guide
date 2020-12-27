@@ -1,0 +1,165 @@
+
+#编译安装完成后，在PHP源码目录执行下面命令
+cp php.ini-production /usr/local/lib/php.ini
+
+#编辑时区
+vi /usr/local/lib/php.ini
+
+# 查找timezone,修改
+date.timezone = "Asia/Shanghai"
+
+always_populate_raw_post_data = -1
+
+#查找max_execution_time，修改执行时间
+max_execution_time = 300
+
+#在PHP安装源码目录，执行下面的命令，fpm 安装
+sudo cp sapi/fpm/php-fpm.conf /usr/local/etc/
+
+sudo cp sapi/fpm/php-fpm  /usr/local/bin/
+
+# 修改fpm配置 
+vi /usr/local/etc/php-fpm.conf
+# 查找clear_env
+clear_env=no
+
+# 最长执行时间
+request_terminate_timeout = 300
+
+# 打开PHP错误日志输出到php_error.log文件
+catch_workers_output = yes
+
+将以下内容拷贝到/usr/local/sbin/fpm中
+vi /usr/local/sbin/fpm
+#!/bin/bash
+USER=`whoami`
+
+PHP_CGI=/usr/local/sbin/php-fpm
+PHP_CGI_NAME=`basename $PHP_CGI`
+RETVAL=0
+
+start() {
+      echo -n "Starting PHP FPM: "
+      $PHP_CGI
+      RETVAL=$?
+      echo "$PHP_CGI_NAME."
+}
+stop() {
+      echo -n "Stopping PHP FPM: "
+      killall -QUIT  -u $USER php-fpm
+      RETVAL=$?
+      echo "$PHP_CGI_NAME."
+}
+
+case "$1" in
+    start)
+      start
+  ;;
+    stop)
+      stop
+  ;;
+    restart)
+      stop
+      start
+  ;;
+    *)
+      echo "Usage: fpm {start|stop|restart}"
+      exit 1
+  ;;
+esac
+exit $RETVA
+
+#将fpm文件改为可执行文件 确保fpm在环境变量PATH中
+chmod 777 /usr/local/sbin/fpm
+启动: fpm start
+关闭: fpm stop
+重启: fpm restart
+# 注意，更改环境变量，必须要重启
+
+# 常见php扩展安装 都要在电脑的src源码目录下下载安装
+redis 
+https://github.com/phpredis/phpredis.git
+ssdb 驱动
+https://github.com/jonnywang/phpssdb.git
+beanstalkd
+
+#安装 phalcon
+wget https://github.com/phalcon/cphalcon/archive/v3.2.4.tar.gz -O cphalcon-3.2.4.tar.gz
+tar -zxvf cphalcon-3.2.4.tar.gz
+cd cphalcon-3.2.4/build
+./install
+
+vi /usr/local/lib/php.ini
+添加
+extension=phalcon.so
+
+#安装phpredis
+wget https://github.com/phpredis/phpredis/archive/4.0.2.tar.gz -O phpredis-4.0.2.tar.gz
+tar -zxvf phpredis-4.0.2.tar.gz
+cd phpredis-4.0.2
+phpize
+./configure
+make
+make install
+
+vi /usr/local/lib/php.ini
+添加
+extension=redis.so
+
+#安装phpssdb
+git clone https://github.com/jonnywang/phpssdb
+cd phpssdb
+git checkout php7
+phpize
+./configure
+make
+make install
+
+vi /usr/local/lib/php.ini
+添加
+extension=ssdb.so
+
+
+配置php-fastcgi
+ vi /usr/local/nginx/conf/nginx.conf
+server {
+      listen 80;
+      # 项目域名，测试环境下，需要同步改/etc/hosts, 生产环境配置为_
+      server_name testwap.yf.com; 
+      # 配置为项目路径public目录
+      root /Users/wolftail/NetBeansProjects/friends_php/public;
+      index index.php index.html;
+      try_files $uri @rewrite;
+
+      location @rewrite {
+           rewrite ^/(.*)$ /index.php?_url=/$1;
+      }
+
+      location ~ \.php {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                # 最长执行时间
+                fastcgi_read_timeout 300; 
+                fastcgi_split_path_info       ^(.+\.php)(/.+)$;
+                fastcgi_param PATH_INFO       $fastcgi_path_info;
+                fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+       }
+   }
+
+配置composer
+
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+# 
+composer global require hirak/prestissimo
+修改
+vi /etc/hosts
+47.89.41.34 packagist.org
+
+低于1024端口的都需要使用root权限启动
+使用nginx -t 确认一下配置文件是否对，再使用 nginx -s reload 加载配置
+
+本地伪造ssl证书自动脚本
+https://github.com/michaelliao/itranswarp.js/raw/master/conf/ssl/gencert.sh

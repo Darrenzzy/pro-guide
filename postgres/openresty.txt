@@ -1,0 +1,69 @@
+官网地址: http://openresty.org/en/download.html
+
+Centos 源码安装 
+1）yum install postgresql-devel pcre-devel openssl-devel postgresql-libs  -y
+下载源码 http://openresty.org/en/download.html
+
+./configure --with-http_postgres_module
+make 
+make install 
+
+
+
+
+
+
+配置
+worker_processes  4;
+error_log /usr/local/openresty/nginx/logs/error.log;
+events {
+    worker_connections 1024;
+}
+
+http {
+    upstream pg_server {
+    postgres_server  172.31.113.194:6432  dbname=dbname1
+            user=postgres password='pwd1';
+    postgres_keepalive max=1000 mode=multi overflow=reject;
+    }
+
+
+    upstream pg_server_2 {
+    postgres_server  172.31.113.194:6432  dbname=dbname2
+            user=postgres password='pwd2';
+    postgres_keepalive max=1000 mode=multi overflow=reject;
+    }
+
+    server {
+        listen 80;
+
+        location /postgres {
+
+	    	default_type text/html;
+    		set_by_lua_block $query_sql {return ngx.unescape_uri(ngx.var.arg_sql)}
+            set_by_lua_block $unique_id {return ngx.unescape_uri(ngx.var.arg_unique_id % 2)}
+
+            if ( $unique_id ~* "0" ){
+                postgres_pass   pg_server;
+            }
+
+            if ( $unique_id ~* "1" ){
+                postgres_pass   pg_server_2;
+            }
+
+    		rds_json          on;
+    		rds_json_buffer_size 16k;
+    		postgres_query  $query_sql;
+    		postgres_connect_timeout 1s;
+    		postgres_result_timeout 2s;
+	    }
+
+        location / {
+            default_type text/html;
+            content_by_lua '
+                ngx.say("<p>hello, world</p>")
+            ';
+        }
+
+    }
+}

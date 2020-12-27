@@ -1,0 +1,19 @@
+feed.sql innodb_buffer_pool_size默认值是128M，
+  最小5M(当小于该值时会设置成5M)，最大为LLONG_MAX。
+  当innodb_buffer_pool_instances设置大于1的时候，buffer pool size最小为1GB。
+  同时buffer pool size需要是innodb_buffer_pool_chunk_size*innodb_buffer_pool_instances的倍数。
+  innodb_buffer_pool_chunk_size默认为128M，最小为1M，实例启动后为只读参数。
+
+  在专用的数据库服务器上一般设置为服务器内存的70-80%
+
+innodb_buffer_pool_size=5G
+sort_buffer_size=16M
+
+innodb_flush_log_at_trx_commit = 1
+#关键参数，0代表大约每秒写入到日志并同步到磁盘，数据库故障会丢失1秒左右事务数据。
+1为每执行一条SQL后写入到日志并同步到磁盘，I/O开销大，执行完SQL要等待日志读写，效率低。2代表只把日志写入到系统缓存区，再每秒同步到磁盘，效率很高，如果服务器故障，才会丢失事务数据。
+对数据安全性要求不是很高的推荐设置2，性能高，修改后效果明显。
+
+log_queries_not_using_indexes=1/0; # 1表示未使用索引的sql都会打印慢日志
+innodb_buffer_pool_instances=1; #跟你innodb_buffer_pool_size配合使用，当innodb_buffer_pool_size大于1G的时候设置大于1
+
