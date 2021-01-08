@@ -38,8 +38,6 @@ iotop -oP
 -t     sort by modification time 按修改时间排序（最新的在最前面）
 -r     reverse order while sorting （反序）
 
-12.13
-land@iZ23sbp075eZ:~ $watch -n 1 'sudo netstat -anp|grep 172.16.72.235:6379 |grep ESTA |grep godgame|wc -l'
 
 12.6
 nsq异常断开：
@@ -157,9 +155,18 @@ curl -O http://openresty.org/download/drizzle7-2011.07.21.tar.gz
 tar -xzvf openresty-1.13.6.2.tar.gz
 
 输出进程号：用命令： （忽略大小写）
-ps ax| grep -i 'get_orders_detail'  | grep -v grep | awk '{print $1}'
+ps ax| grep -i 'get_orders_detail'  | grep -v grep
 查看进程数量
-ps aux |grep kafka |grep start | wc -l   
+ps aux |grep kafka | wc -l   
+<!-- 倒序输出 sort -n是按照数值进行由小到大进行排序， -r是表示逆序，-t是指定分割符，-k是执行按照第几列进行排序-->
+ |sort -nkr 1 -t 
+ <!-- 去前五个 -->
+ |head -n 5 
+ <!-- 去除空行 -->
+ |grep -v "^$"
+<!-- 使用awk命令可以按照分割符将一行分割为多个列，第一列用$1表示，第二列用$2表示，依次类推
+awk -F" " '{print $2} //表示用空格作为分隔符进行分割，打印出第2列 -->
+ | awk '{print $1}'
 
 查看cpu数量：
 cat /proc/cpuinfo| grep "processor"| wc -l

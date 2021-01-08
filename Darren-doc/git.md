@@ -53,6 +53,11 @@ git push origin 0.0.1
  git pull --rebase 
  git pull --rebase origin master
 
+变基其他分支到当前分支，<当前分支>的 commit 更换到 <其他分支> 的后面且重定义新 commit 名字(一般用于非 master 分支，常用于自己的开发多分支上)
+ 1：git rebase <其他分支> 正常情况没有冲突就直接完事了，有冲突就走第二步
+ 2：git diff/ status 当前先处理冲突，选用自己或其他code，然后 commit 一下，
+ 3：git rebase --skip 直接回到当前分支，且在<其他分支> 后自动跟上了
+
 从远程获取最新版本到本地 （很重要一步~~）
 git fetch origin aaa
 具体到拉某一个分支

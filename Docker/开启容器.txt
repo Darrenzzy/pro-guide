@@ -1,6 +1,14 @@
-开启容器
+配置端口映射关系：
+ports:
+本机： 容器
+   - 10005:80
 
+
+开启容器
 docker run -it --rm -v /root/golang/go:/go -v /root/golang/code:/code --privileged docker.io/golang bash
+
+启动容器 命名 name  无挂载就可以进入 entrypoint
+docker run -it  --name test_container -v /tmp/logs:/ssd --entrypoint bash f4a3b65f6ed1
 
 
 安装centos 
