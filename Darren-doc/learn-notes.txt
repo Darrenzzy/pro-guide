@@ -1,4 +1,18 @@
     学习笔记
+2021 1.15
+iterm2快捷指令：
+cmd-opt-B 使用即时重播功能
+ctrl + a    到行首
+ctrl + e    到行尾
+ctrl + f/b  前进后退 (相当于左右方向键)
+ctrl + p    上一条命令
+ctrl + r    搜索命令历史
+ctrl + d    删除当前光标的字符
+ctrl + h    删除光标之前的字符
+ctrl + w    删除光标之前的单词
+ctrl + k    删除到文本末尾
+ctrl + t    交换光标处文本
+Command + / 查看当前终端中光标的位置
 
 10.21 使用db2struct
 db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --package model --struct tablename -t table_name >table_name.go
@@ -395,9 +409,6 @@ sudo scp -r -P 55429 zookeeper_kafka_start.sh root@192.168.81.168:/usr/local/sys
 
 
 7.20
-
-iterm2的使用即时重播功能
-cmd-opt-B
 
 MAc开机启动命令，导入配置
 sudo launchctl load /Library/LaunchDaemons/io.redis.redis-server.plist

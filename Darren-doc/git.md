@@ -3,7 +3,7 @@
 添加远程仓库地址
 
 生成ssh秘钥
-ssh-keygen -t rsa -C "your_email@example.com" -f ~/....
+ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
 
 拉取指定分支
 git clone -b name http://......
@@ -127,6 +127,7 @@ git stash 将当前所有修改项(未提交的)暂存，压栈。此时代码�
 git stash list将列出所有暂存项。
 git stash clear 清除所有暂存项。
 git stash apply 将暂存的修改重新应用，
+git stash drop 2  删除指定暂存版本
 
 
 git提交规范：
