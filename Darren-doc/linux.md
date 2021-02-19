@@ -167,6 +167,10 @@ ps aux |grep kafka | wc -l
 <!-- 使用awk命令可以按照分割符将一行分割为多个列，第一列用$1表示，第二列用$2表示，依次类推
 awk -F" " '{print $2} //表示用空格作为分隔符进行分割，打印出第2列 -->
  | awk '{print $1}'
+    <!-- 关键字前 5 行 -->
+less *2021012621.log |grep -B 5 AP010012
+    <!-- 关键字前后5 行 -->
+less *2021012621.log |grep -C 5 AP010012
 
 查看cpu数量：
 cat /proc/cpuinfo| grep "processor"| wc -l
