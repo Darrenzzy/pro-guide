@@ -293,6 +293,7 @@ grep pattern1 | pattern2 files ：显示匹配 pattern1 或 pattern2 的行，
 
 grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。 
 
+sed -n 4p file #打印file中的第4行
 
 
 7.31 
