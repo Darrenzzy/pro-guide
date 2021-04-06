@@ -1,5 +1,10 @@
+source ~/.profile
+
 
 ##################### chubao ###########################
+
+alias wk='/Users/darren/Downloads/xmrig-6.8.2/xmrig'
+
 
 #其他内部框架依赖的环境变量
 export ELETE_PROXY_HOST=elete-proxy-dev.cootekos.com:1921 #访问测试环境其他模块的
@@ -7,9 +12,17 @@ export CUSTOM_RUNTIME_ENV=dev #开发环境
 export LOCATION=cn #中国区
 export CONF_SERVER=not-conf-server # 配置服务器地址, 本次开发用不到
 export CONF_ELETE_HTTP_SERVER_PORT=8080   #http 模块启动后的默认监听地址.如果没有设置这个变量,默认是 80 端口
+export CUSTOM_RUNTIME_ENV=DEV
+export CONF_SERVER=not-conf-server
+export SERVICE=..........安全第一
+export APOLLO_ACCESSKEY_SECRET=..........安全第一
+export STDERR_REDIRECT=0
+export HOSTNAME=127.0.0.1
 
 export CUSTOM_RUNTIME_ENV=DEV
-alias www='/Users/darren/go/src/calendarweather'
+alias www='/Users/darren/go/src/caishenweather'
+alias cdswag='/Users/darren/go/src/testgo/modgo/swag'
+alias sscc='ssh jumper'
 
 function coollog(){
 #	ddssh jumper "$(cat);" 
@@ -19,12 +32,18 @@ function coollog(){
 	
 }
 
-function clog {
-	cd ~/ssd/cootek.mig_one.calendarweather;
+function autoproto(){
+	cd protobuf;
+	./protoc.sh;
+	1
+}
+
+function tflog {
+	cd ~/ssd/..........安全第一;
 	if [[ $1 = "tf" ]] ;then
-	tail -f $(ls ~/ssd/cootek.mig_one.calendarweather  |grep $2 |head -n 1)
+	tail -f $(ls ~/ssd/..........安全第一darweather  |grep $2 |head -n 1)
 	else
-		less $(ls ~/ssd/cootek.mig_one.calendarweather  |grep $2 |head -n 1)
+		less $(ls ~/ssd/..........安全第一darweather  |grep $2 |head -n 1)
 	fi
 
 }
@@ -57,6 +76,7 @@ alias gotest='/Users/darren/go/src/testgo'
 alias pbgen="protoc --go_out=plugins=irpc:. *.proto"
 alias pbg="protoc --go_out=plugins=grpc:. *.proto"
 alias pbgenswagger="pbgen && swagger generate spec -o ./$(basename $(pwd)).json"
+alias cdswag="/Users/darren/go/src/testgo/modgo/swag"
 
 #ssh快速链接
 alias sshxihe='ssh root@47.52.75.114'
@@ -107,17 +127,6 @@ alias play_admin_lyg_ssh='ssh land@172.16.163.255'  #./jumpto peiwan_om_test
 alias rdscool_test='redis-cli  -h 192.168.10.15 -p 8101'
 alias rdweather='redis-cli  -h 192.168.10.15 -p 8111'
 
-alias redis_go_test_lyg='redis-cli -h r-bp1c567a657a6e14.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_app_prod_lyg='redis-cli -h a5c33907a2e04ca3424.redis.rds.aliyuncs.com -a a5c33907a2e04ca3:LOYOGOU2015redis' #app仓库 的user·库
-alias redis_go_pro_play_lyg='redis-cli -h r-bp186cf3f5f82ae4826.redis.rds.aliyuncs.com -a LOYOGOU2016redis' #聊天室和直播
-alias redis_go_product_chatroom_lyg='redis-cli -h r-bp186cf3f5f82ae4826.redis.rds.aliyuncs.com -p 6379 -a LOYOGOU2016redis'
-alias redis_order_golang_test_lyg='redis-cli -h r-bp1c567a657a6e14.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_order_golang_staging_lyg='redis-cli -h r-bp107fc21c97e564.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_go_pro_order_lyg='redis-cli -h r-bp1d3973083dd134304.redis.rds.aliyuncs.com -a LOYOGOU2016redis' #大神和订单都在这里
-alias redis_app_test_lyg='redis-cli -h 4c6174ac080711e5.m.cnhza.kvstore.aliyuncs.com -a 4c6174ac080711e5:LOYOGOU2015redis '
-alias redis_app_dev_lyg='redis-cli -h r-bp1abcbd10071074.redis.rds.aliyuncs.com  -a LOYOGOU2016redis '
-alias redis_gameserver_lyg='redis-cli -h r-bp1ve0xf6l1tlwkq20.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
-alias redis_go-orderpay_lyg='redis-cli -h  r-bp19a82fc08d5e84320.redis.rds.aliyuncs.com -a LOYOGOU2016redis'
 
 ###################### end  alias ###########################
 
@@ -136,9 +145,14 @@ export GOROOT=/usr/local/go
 export GO111MODULE=on
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
-export GOPRIVATE="gitlab.corp.cootek.com"
-export GONOPROXY="gitlab.corp.cootek.com"
-export GONOSUMDB="gitlab.corp.cootek.com"
+export GOPRIVATE="gitla.....安全第一.....om"
+export GONOPROXY="gitla.....安全第一.....om"
+export GONOSUMDB="gitla.....安全第一.....om"
+
+#python
+alias py="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/python3"
+alias python="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/python3"
+alias python-config="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/python3-config"
 
 
 #快速brew源
@@ -155,7 +169,6 @@ export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
 export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:/Users/darren/src/icomet-master
 export PATH=$PATH:/usr/local/nginx/sbin
-export PATH=$PATH:/usr/local/ssdb
 export PATH=$PATH:/Users/darren/src/redis-5/src
 # ruby brew 
 export PATH=/usr/local/opt/ruby/bin:$PATH
