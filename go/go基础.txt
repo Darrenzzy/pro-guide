@@ -1,4 +1,12 @@
+go test 常用项：
 
+性能压测：
+go test -bench=. -benchtime=3s -benchmem -run=none
+参数说明： benchtime 默认是 1 秒内， 可指定时间范围内。
+-benchmem 显示每次 op 分配内存次数
+-run=none 表示只测试 bench 相关 case ，其他忽略
+
+压侧结果 -8 表示当前机器使用GOMAXPROCS
 
 逃逸
 1  临时变量 的指针返回给外部调用
