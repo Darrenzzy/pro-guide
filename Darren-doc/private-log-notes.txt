@@ -102,11 +102,6 @@ $god_img = str_replace("/w0","",$god_img);
 //忽略本地依赖
 composer --ignore-platform-reqs require laoyuegou/smartnormalizer
 
-
-5.14
-查看当前本地秘钥
- ssh-add -h
-
 5.8
 批量删除redis keys
 redis-cli -h 127....  -a password keys "GGV1:*" | xargs redis-cli -h 127.... -a password del

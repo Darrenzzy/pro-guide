@@ -5,6 +5,9 @@
 生成ssh秘钥
 ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
 
+查看当前本地全部秘钥
+ ssh-add -l
+
 拉取指定分支
 git clone -b name http://......
 仅拉取最新一次提交 只克隆最新的提交记录
