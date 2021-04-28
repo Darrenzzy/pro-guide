@@ -1,4 +1,7 @@
 学习docker
+4.27
+docker info：显示系统级别的信息，比如容器和镜像的数量等。
+
 12.31 排查 docker cpu 过高
 1、查看docker的cpu占用率：docker stats
 
