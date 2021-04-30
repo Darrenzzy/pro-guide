@@ -336,6 +336,8 @@ du -sh * -t +500M
 du -sh  *
 查看磁盘各分区大小
 df -h
+当前文件夹大小排序 
+du -s * | sort -rn
 
  //目录空间占用
 linux: du -h --max-depth=1

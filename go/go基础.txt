@@ -7,10 +7,12 @@
 go test 常用项：
 
 性能压测：
-go test -bench=. -benchtime=3s -benchmem -run=none
+go test -bench=. -benchtime 5s -benchmem -cpu=1   -run=none -cpuprofile=cpu.profile
 参数说明： benchtime 默认是 1 秒内， 可指定时间范围内。
 -benchmem 显示每次 op 分配内存次数
 -run=none 表示只测试 bench 相关 case ，其他忽略
+-cpu=1 表示用几个核数
+-benchtime 5s 表示用几秒
 
 压侧结果 -8 表示当前机器使用GOMAXPROCS
 
