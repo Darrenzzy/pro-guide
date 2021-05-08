@@ -1,3 +1,4 @@
+```
 
 //安装HiRedis扩展：
 
@@ -107,3 +108,4 @@ extension=phpiredis.so
 12>.lrange->qslice : 如果参数为-100，100时，返回结果不同； 如果参数为0，100时，返回结果相同；
 13>.sadd : ssdb 中不存在;
 
+```

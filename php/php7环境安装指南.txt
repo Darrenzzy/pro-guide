@@ -1,3 +1,4 @@
+```
 php7 环境安装指南
 
 yum -y install readline-devel zlib-devel  libmcrypt libmcrypt-devel mcrypt mhash openssl-devel curl-devel bison autoconf libxml2-devel libedit-devel ImageMagick re2c pcre-devel libpng-devel libjpeg-devel freetype-devel libevent-devel git gcc-c++ zip unzip gmp-devel
@@ -68,3 +69,4 @@ phpize
 make
 make install
 cd ..
+```

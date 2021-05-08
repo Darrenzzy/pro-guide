@@ -1,169 +1,138 @@
-    学习笔记
-2021 1.15
-iterm2快捷指令：
-cmd-opt-B 使用即时重播功能
-ctrl + a    到行首
-ctrl + e    到行尾
-ctrl + f/b  前进后退 (相当于左右方向键)
-ctrl + p    上一条命令
-ctrl + r    搜索命令历史
-ctrl + d    删除当前光标的字符
-ctrl + h    删除光标之前的字符
-ctrl + w    删除光标之前的单词
-ctrl + k    删除到文本末尾
-ctrl + t    交换光标处文本
-Command + / 查看当前终端中光标的位置
+# 学习笔记
 
-10.21 使用db2struct
-db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --package model --struct tablename -t table_name >table_name.go
+### 2021 1.15
+> iterm2快捷指令：
+* cmd-opt-B 使用即时重播功能
+* ctrl + a    到行首
+* ctrl + e    到行尾
+* ctrl + f/b  前进后退 (相当于左右方向键)
+* ctrl + p    上一条命令
+* ctrl + r    搜索命令历史
+* ctrl + d    删除当前光标的字符
+* ctrl + h    删除光标之前的字符
+* ctrl + w    删除光标之前的单词
+* ctrl + k    删除到文本末尾
+* ctrl + t    交换光标处文本
+* Command + / 查看当前终端中光标的位置
 
-12.31 php array
+### 10.21 使用db2struct
+* db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --package model --struct tablename -t table_name >table_name.go
 
-<!-- 用于将一个数组  利用外来的arr的数据 更改其中的键值 并返回， -->
-array_walk($list,function (&$a,$key,$arr){
+### 12.31 php array
+
+* 用于将一个数组  利用外来的arr的数据 更改其中的键值 并返回
+
+>array_walk($list,function (&$a,$key,$arr){
             $a['state'] = $arr[$a['user_id']]["gouhao"];
             return $a;
         },$arr);
 
-<!-- 用户重新生成一个数组是有当前数组callback 生成的 -->
- array_map(function ($a){
+* 用户重新生成一个数组是有当前数组callback 生成的
+ >array_map(function ($a){
             return $a['user_id'];
         },$list);
 
 
-goland phpstorm 远程配置setting：https://github.com/Darrenzzy/storm-config.git
+### goland phpstorm 
+>远程配置setting：https://github.com/Darrenzzy/storm-config.git
 
-ype *util.XTime
-
-(/Users/darren/go/src/godgame/core/god_coupon.go:8)
-[2019-11-30 13:14:52]  sql: Scan error on column index 4, name "create_time": unsupported Scan, storing driver.Value type int64 into type *util.XTime
-
-
-8.1
-判断标志符号：
-lt：less than 小于
-le：less than or equal to 小于等于
-eq：equal to 等于
-ne：not equal to 不等于
-ge：greater than or equal to 大于等于
-gt：greater than 大于
-
-命名空间完全限定名称 和不完全限定名称 后置绑定
-
-self  和 static
-
-php5 构造方法有几种
-
-在外面 如何访问私有成员变量和方法
-
-返回值支持同时字符串类型和null类型
-
-Redis 数据库keys 命令的模糊查询：
-支持的通配符
-第一种：*   // key中含有keyword 的key
-keys *keyword*
-第二种：？  // 你知道前面的一些字母，忘记了最后一个字母
-keys hell？
-第三种：[]  // 你只记得第一个字母是h，他的长度是5
-keys h？？？？
-
-启动撮合引擎  几大步骤
-先启动ssdb和redis （打开撮合引擎目录）
-redis-server /config/redis.conf
-
-ssdb-server -d /config/ssdb.conf
+### 8.1 判断标志符号：
+* lt：less than 小于
+* le：less than or equal to 小于等于
+* eq：equal to 等于
+* ne：not equal to 不等于
+* ge：greater than or equal to 大于等于
+* gt：greater than 大于
 
 
+### Redis 数据库keys 命令的模糊查询 支持的通配符
+* 第一种：*   // key中含有keyword 的key
+* keys *keyword*
+* 第二种：？  // 你知道前面的一些字母，忘记了最后一个字母
+* keys hell？
+* 第三种：[]  // 你只记得第一个字母是h，他的长度是5
+* keys h？？？？
 
-使用场景：前段时间交易所项目需要在服务器上用到 根据websocket推送价格数据，在交易所内进行下单撤单处理，但是由于有多个交易对，在服务器上部署时候，略显繁琐。
+### 启动撮合引擎  几大步骤
+* 先启动ssdb和redis （打开撮合引擎目录）
+* redis-server /config/redis.conf
+* ssdb-server -d /config/ssdb.conf
+* 使用场景：前段时间交易所项目需要在服务器上用到 根据websocket推送价格数据，在交易所内进行下单撤单处理，但是由于有多个交易对，在服务器上部署时候，略显繁琐。
 （撮合引擎同样有此问题，可以一并解决）
 
-1：shell使用：在git项目后，这里每个交易对单独配一个文件，负责各自的交易处理，此处做项目下的目录轮询,并执行该目录下的shell脚本
+1. shell使用：在git项目后，这里每个交易对单独配一个文件，负责各自的交易处理，此处做项目下的目录轮询,并执行该目录下的shell脚本
 
-#!/bin/bash
-root=$(cd "$(dirname "$0")";pwd)
+    ```bash
+    #!/bin/bash
+    root=$(cd "$(dirname "$0")";pwd)
 
-#读取当前目录全部目录名
-dirs=`ls -a`
-for dir in ${dirs[@]}
-do
-    #以下判断做去除非项目目录操作
-   if [ -d ${root}/${dir} ];then
-       if [ ${dir} == '.' ];then
-           continue
-       fi
-       if [ ${dir} == ".." ];then
-           continue
-       fi
- if [ ${dir} == "logs" ];then
-           continue
-       fi
-       #这里打开对应项目目录，做初始化配置
-       cd ${root}/${dir} && ./update.sh
+    #读取当前目录全部目录名
+    dirs=`ls -a`
+    for dir in ${dirs[@]}
+    do
+        #以下判断做去除非项目目录操作
+      if [ -d ${root}/${dir} ];then
+          if [ ${dir} == '.' ];then
+              continue
+          fi
+          if [ ${dir} == ".." ];then
+              continue
+          fi
+    if [ ${dir} == "logs" ];then
+              continue
+          fi
+          #这里打开对应项目目录，做初始化配置
+          cd ${root}/${dir} && ./update.sh
 
-   fi
-done
+      fi
+    done
+    ```
 
-2：shell的再次使用：在每个项目中需要替换一些配置文件中的个别字符串，作为当前项目的配置文件（解决了不需要再进入每一个项目中去修改配置文件的繁琐）
+2. shell的再次使用：在每个项目中需要替换一些配置文件中的个别字符串，作为当前项目的配置文件（解决了不需要再进入每一个项目中去修改配置文件的繁琐）
 
-#!/bin/bash
-root_dir=$(cd "$(dirname "$0")";pwd)
+    ```bash
+    #!/bin/bash
+    root_dir=$(cd "$(dirname "$0")";pwd)
 
-#获取当前操作系统名称（用来区别linux和mac os系统）
-os=`uname -s`
+    #获取当前操作系统名称（用来区别linux和mac os系统）
+    os=`uname -s`
 
-#获取文件名字
-file=${root_dir##*/}
+    #获取文件名字
+    file=${root_dir##*/}
 
-#配置文件所在位置
-config_file="${root_dir}/app/config/development/environment.ini"
+    #配置文件所在位置
+    config_file="${root_dir}/app/config/development/environment.ini"
 
-#开始轮询该文件
-while IFS= read -r line
-do
+    #开始轮询该文件
+    while IFS= read -r line
+    do
 
-    if [[ ${line} == *"otc_pair ="* ]];then
-    #取出要替换的字符串
-        pair=$(echo ${line}|awk -F '=' '{print $2}'|sed 's/ //g')
-    #替换该行字符串  这里的逻辑是将变量 $pair 替换为项目文件名 $file
-        if [ ${os} == 'Darwin' ];then
-          #此sed命令在macos上
-            sed -i "" "s/$pair/$file/g" $config_file
-        else
-          #此sed命令在linux上
-            sed -i "s/$pair/$file/g" $config_file
+        if [[ ${line} == *"otc_pair ="* ]];then
+        #取出要替换的字符串
+            pair=$(echo ${line}|awk -F '=' '{print $2}'|sed 's/ //g')
+        #替换该行字符串  这里的逻辑是将变量 $pair 替换为项目文件名 $file
+            if [ ${os} == 'Darwin' ];then
+              #此sed命令在macos上
+                sed -i "" "s/$pair/$file/g" $config_file
+            else
+              #此sed命令在linux上
+                sed -i "s/$pair/$file/g" $config_file
+            fi
+            break
         fi
-        break
-    fi
-done <"${config_file}"
+    done <"${config_file}"
+    ```
+
+3. 至此完成shell的骚操作，其中关键可利用处我已贴出来，并做了注释，
 
 
-至此完成shell的骚操作，其中关键可利用处我已贴出来，并做了注释，
-
-
-我再列下关键点：
-1.sed命令的使用
-2.获取目前目录中文件名
-3. shell脚本的while和if else使用
-4. 轮询目录中的目录，并做其他命令操作
-
-
-
-
-12.5 ls ll 时间排序
-> ls -alt # 按修改时间排序
-> ls --sort=time -la # 等价于> ls -alt
-> ls -alc # 按创建时间排序
-> ls -alu # 按访问时间排序
-# 以上均可使用-r实现逆序排序
-> ls -alrt # 按修改时间排序
-> ls -alrc # 按创建时间排序
-> ls -alru # 按访问时间排序
-
-11.30
-钱包 项目部署时需要额外部署icomet
+### 11.30
+>钱包 项目部署时需要额外部署icomet
 git地址： https://github.com/ideawu/icomet
+
+```bash
 wget --no-check-certificate https://github.com/ideawu/icomet/archive/master.zip
+
 unzip master.zip
 cd icomet-master/
 make
@@ -171,36 +140,25 @@ make
 ./icomet-server -d icomet.conf
 # stop
 ./icomet-server icomet.conf -s stop
-
-
-11.15
-
-升级mac10.14 mojave版本后很多不兼容  psql重新安装11版本
-wget https://ftp.postgresql.org/pub/source/v11.1/postgresql-11.1.tar.gz
-tar -zxvf postgresql-11.1.tar.gz
-cd postgresql-11.1
-./configure
-make
-sudo make install
-
-
-
-10.24
-今天了解了在公司框架中 model 自动保存到redis的逻辑
+```
+ 
+ 
+### 10.24
+* 今天了解了在公司框架中 model 自动保存到redis的逻辑
 注：需要在model中加一个函数（getCacheEndpoint），然后在basemodel中save时会判断是否有需要缓存的逻辑，然后做缓存。
 
-10.18
+### 10.18
 npm下载指定版本后面直接加版本号即可   npm install -g umi@1.3.11
 
-9.7
+### 9.7
 
 百万级一万几数据库查询，已经添加索引后，查询还是很慢！！
 解决方案： 原来是： order by id desc
 修改后这么用： order by （id is not null ）desc
 2亿条记录查询， 根本都是小问题
 
-9.3
-
+### 9.3
+```bash
 if [ -n "$(echo $1| sed -n "/^[0-9]\+$/p")" ];then
     echo "$1 is number."
 else
@@ -208,80 +166,70 @@ else
 fi
 
 echo 123123| sed -n "/^[0-9]\+$/p"
+```
+
+### 8.30
+
+ * 市商项目快速开启检测api请求的任务 nohup php cli.php order_details start >> log/redis_orders.log 2>&1 &
 
 
-  8.30
 
- 市商项目快速开启检测api请求的任务 nohup php cli.php order_details start >> log/redis_orders.log 2>&1 &
-
-
-
-8.25
-打开shell到项目目录，在执行sh文件
-root_dir=$(cd "$(dirname "$0")";pwd)
-cd $root_dir
-
-8.24
-今天启动本地otc项目，首页是白屏，进不去，看debug是500报错，但是后台可以进去。
+### 8.24
+* 今天启动本地otc项目，首页是白屏，进不去，看debug是500报错，但是后台可以进去。
 解决： 启动项目，php cli.php env init    php cli.php env start    php cli.php async start    php cli.php db migrate
 主要原因是，新拉的代码，更新了数据库字段，首页读取不到，导致报错。  按上面命令后，可以访问到主页了。
 
-另外：重启电脑后，有时候fpm没有启动，导致otc项目无法使用，这里解决：fpm restart
+* 另外：重启电脑后，有时候fpm没有启动，导致otc项目无法使用，这里解决：fpm restart
 
 
-8.23
-修复bug  ： 市商中，当一个订单被成交部分量时，存入数据库的数据，应该是(deal_volume/deal_amount)的当前成交量   原来是直接存最新的deal...
+### 8.23
+* 修复bug  ： 市商中，当一个订单被成交部分量时，存入数据库的数据，应该是(deal_volume/deal_amount)的当前成交量   原来是直接存最新的deal...
 导致数据库中一个订单被分为多个重复的量，用此量去火币下单，这样会亏损（在火币下的量太多）
 
 
-8.16
+### 8.16
 
-今天部署市商项目时遇到坑，由于phalcon项目中未初始化启动，PHP cli.php env init 这个命令
+* 今天部署市商项目时遇到坑，由于phalcon项目中未初始化启动，PHP cli.php env init 这个命令
 导致nginx不能正常启动！！！立个flag，回头遇到来看看
 
-8.11
-使用快速查找进程id的命令：
+### 8.11
+* 使用快速查找进程id的命令：
+ ```bash
  $taskid = shell_exec("ps ax | grep -i 'every_minutes' | grep -v grep | awk '{print $1}'");
+ ```
 
 
-终端发送消息，自定义操作：
+* 终端发送消息，自定义操作：
+
+```sh
 curl -X POST --data-urlencode 'payload={"channel": "darren", "username": "darren", "text":"1111"}'  https://hooks.slack.com/services/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
 
 https://hooks.slack.com/services/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
 
+#在linux中使用curl在shall中发送请求，
+curl -X POST --data-urlencode 'payload={"channel": "wc_test_server", "username": "bot", "text":"'"${MS}"'"}' https://hooks.slack.com/services/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
 
-8.10
-数据库表结构
-bill
-是资金的流水
-balance
-是用户钱包的资产
+```
 
 
-启动ss翻墙命令
-/usr/bin/python3.4 /usr/bin/ssserver -p 443 -k buzhidao123 -m aes-256-cfb --user nobody -d start
-
-pqsl给数据库增加字段，
+* pqsl给数据库增加字段，
 php cli.php generate add_connect_weixin_to_product_channels
 增加完文件后，生成数据即可：
 PHP cli.php migrate
 
+### 8.1
 
-
-在linux中使用curl在shall中发送请求，
-curl -X POST --data-urlencode 'payload={"channel": "wc_test_server", "username": "bot", "text":"'"${MS}"'"}' https://hooks.slack.com/services/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
-
-8.1
-
-防火墙
+* 防火墙
 启动：# systemctl start  firewalld
 systemctl start firewalld.service
 查看状态：# systemctl status firewalld 或者 firewall-cmd --state  systemctl status firewalld.service
 
-停止：# systemctl disable firewalld
+* 停止：# systemctl disable firewalld
 
-禁用：# systemctl stop firewalld
-查看当前开了哪些端口
+* 禁用：# systemctl stop firewalld
+
+* 查看当前开了哪些端口
+```
 firewall-cmd --list-services
 查看还有哪些服务可以打开
 firewall-cmd --get-services
@@ -293,6 +241,7 @@ firewall-cmd --reload
 添加一个服务到firewalld
 firewall-cmd --permanent --add-service=http
 
+
 那怎么开启一个端口呢 添加
 
 firewall-cmd --zone=public --add-port=3888/tcp --permanent
@@ -301,14 +250,8 @@ firewall-cmd --zone=public --add-port=3888/tcp --permanent
 firewall-cmd --zone= public --query-port=80/tcp
 删除
 firewall-cmd --zone= public --remove-port=80/tcp --permanent
+```
 
-
-
-关闭全部fpm
-killall php-fpm
-
-改变默认的shell
-chsh -s /bin/zsh
 
 zsh不存储历史记录的问题
 解决：将~/目录下的这个文件加上权限，就ok了~

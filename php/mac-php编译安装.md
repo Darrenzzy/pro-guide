@@ -1,3 +1,4 @@
+```
 #开发环境(Mac机)
 #所有安装的软件源码放在~/src目录下
 #所有的开发项目源码放在~/projects目录下
@@ -81,3 +82,4 @@ vi Makefile
 libiconv文件可以通过find ~ -iname libiconv找到。
 
 
+```

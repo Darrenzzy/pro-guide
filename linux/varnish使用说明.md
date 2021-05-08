@@ -1,3 +1,4 @@
+```
 Varnish 是一款高性能且开源的反向代理服务器和 HTTP 加速器
 
 文档：https://www.ibm.com/developerworks/cn/opensource/os-cn-varnish-intro/index.html
@@ -240,4 +241,4 @@ varnishlog
 查看缓存状态
 varnishstat
 进入后台管理
-telnet 127.0.0.1 3000
+telnet 127.0.0.1 3000```
