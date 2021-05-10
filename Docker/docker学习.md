@@ -1,3 +1,4 @@
+```
 学习docker
 4.27
 docker info：显示系统级别的信息，比如容器和镜像的数量等。
@@ -170,5 +171,4 @@ docker stop $(docker ps -a -q)
 // 删除所有镜像
 docker rmi $(docker images -q)
 
-
-
+```
