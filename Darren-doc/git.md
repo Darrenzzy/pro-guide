@@ -1,13 +1,21 @@
-
 # git 基本操作
-添加远程仓库地址
 
+```
 生成ssh秘钥
 ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
 
 查看当前本地全部秘钥
  ssh-add -l
+```
 
+变基其他分支到当前分支，<当前分支>的 commit 更换到 <其他分支> 的后面且重定义新 commit 名字(一般用于非 master 分支，常用于自己的开发多分支上)
+ 
+ 1. git rebase <其他分支> 正常情况没有冲突就直接完事了，有冲突就走第二步
+ 2. git diff/ status 当前先处理冲突，选用自己或其他code，然后 commit 一下，
+ 3. git rebase --skip 直接回到当前分支，且在<其他分支> 后自动跟上了
+
+```
+添加远程仓库地址
 拉取指定分支
 git clone -b name http://......
 仅拉取最新一次提交 只克隆最新的提交记录
@@ -37,7 +45,7 @@ git commit --amend 更新上次提交的massage文案
 
 使用到git熟悉命令： 
 git config --global user.name "darren"
-git config --global user.email "darren@iyich.com"
+git config --global user.email "darren@alibaba.com"
 git config --list  查看当前配置情况
 git config --local -e  更新本仓库配置信息
 git remote rename origin old-origin
@@ -55,11 +63,6 @@ git push origin 0.0.1
  拉取最新，并归到当前提交的后面
  git pull --rebase 
  git pull --rebase origin master
-
-变基其他分支到当前分支，<当前分支>的 commit 更换到 <其他分支> 的后面且重定义新 commit 名字(一般用于非 master 分支，常用于自己的开发多分支上)
- 1：git rebase <其他分支> 正常情况没有冲突就直接完事了，有冲突就走第二步
- 2：git diff/ status 当前先处理冲突，选用自己或其他code，然后 commit 一下，
- 3：git rebase --skip 直接回到当前分支，且在<其他分支> 后自动跟上了
 
 从远程获取最新版本到本地 （很重要一步~~）
 git fetch origin aaa
@@ -123,18 +126,19 @@ git merge --squash branch
 
 如果显示拒绝合并和提交时： 在你操作命令后面加--allow-unrelated-histories
 eg:  git merge master --allow-unrelated-histories
-
+```
 
 暂存功能
+```
 git stash 将当前所有修改项(未提交的)暂存，压栈。此时代码回到你上一次的提交
 git stash list将列出所有暂存项。
 git stash clear 清除所有暂存项。
 git stash apply 将暂存的修改重新应用，
 git stash drop 2  删除指定暂存版本
-
+```
 
 git提交规范：
-
+```
 Message格式：
 [type][module]:subject (例如:[feature][大转盘]: 这是一个新的Feature)
 Type标识：
@@ -147,6 +151,7 @@ Xperf - 性能优化
 test - 增加测试
 chore - 构建过程或辅助工具的变动
 revert - 回退
+```
 
 规范细则
 1. 单次commit只针对单个功能，不要对多个功能进行调整优化
