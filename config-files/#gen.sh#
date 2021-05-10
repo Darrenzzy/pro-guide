@@ -1,5 +1,0 @@
-#!/bin/sh
-
-if 
-cp ~/.bash_profile ./bash_profile
-
