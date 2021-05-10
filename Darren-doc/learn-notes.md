@@ -20,8 +20,9 @@
 * Command + / 查看当前终端中光标的位置
 
 ### 10.21 使用db2struct
-* db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --package model --struct tablename -t table_name >table_name.go
-
+```bash 
+db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --package model --struct tablename -t table_name >table_name.go
+```
 ### 12.31 php array
 
 * 用于将一个数组  利用外来的arr的数据 更改其中的键值 并返回
