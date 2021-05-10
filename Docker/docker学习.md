@@ -51,6 +51,9 @@ docker rm id
 删除docker所有的容器
 docker rm $(docker ps -aq)
 
+删除所有未在运行的容器
+docker container prune
+
 查看docker日志
 docker logs -tf --tail 5 id
 
@@ -167,7 +170,5 @@ docker stop $(docker ps -a -q)
 // 删除所有镜像
 docker rmi $(docker images -q)
 
-//   remove删除所有容器
-docker  rm $(docker ps -a -q) 
 
 
