@@ -22,14 +22,15 @@ export HOSTNAME=127.0.0.1
 export CUSTOM_RUNTIME_ENV=DEV
 alias www='/Users/darren/go/src/caishenweather'
 alias cdswag='/Users/darren/go/src/testgo/modgo/swag'
+alias cdleecode='/Users/darren/go/src/testgo/leetcode'
 alias sscc='ssh jumper'
+alias oa='open -a '
+alias oavs='open -a Visual\ Studio\ Code'
 
 function coollog(){
-#	ddssh jumper "$(cat);" 
+#	ddssh jumper "$(cat);"
 		typeset $1 | ssh jumper "$(cat); $1"
 	 $1
-	
-	
 }
 
 function autoproto(){
@@ -64,6 +65,7 @@ unset file
 alias docll='cat /Users/darren/.oh-my-zsh/plugins/docker-compose/docker-compose.plugin.zsh'
 alias dockerlog='docker logs -tf --tail 10 '
 alias dockerps='docker ps -a  --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}"'
+alias docimg='docker images'
 
 #golang 相关
 alias go-guide='/Users/darren/go/src/build-web-application-with-golang/zh'
@@ -112,6 +114,8 @@ alias 查的='cd '
 alias dul='du -d 1 -h' #查看当前目录下所有目录大小
 alias wgetfile='wget --no-check-certificate --content-disposition '
 alias curlfile='curl  -LJO '
+#快速查看 git 快捷命令
+alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
 
 
 # 公司项目
@@ -150,13 +154,13 @@ export GONOPROXY="gitla.....安全第一.....om"
 export GONOSUMDB="gitla.....安全第一.....om"
 
 #python
-alias py="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/python3"
-alias python="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/python3"
-alias python-config="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/python3-config"
+alias py="/usr/local/bin/python3"
+alias python="/usr/local/bin/python3"
+alias python-config="/usr/local/bin/python3.7m-config"
 
 
-#快速brew源
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+#快速brew源 有代理情况关掉国内源
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 
 #使用到的环境变量
 export PATH=$PATH:/usr/local/sbin
@@ -164,13 +168,13 @@ export PATH=/usr/local/openresty/nginx/sbin:$PATH
 export PATH=/Users/darren/src/kafka2.11-1.1.1/bin:$PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
-export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin 
+export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
 export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
 export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:/Users/darren/src/icomet-master
 export PATH=$PATH:/usr/local/nginx/sbin
 export PATH=$PATH:/Users/darren/src/redis-5/src
-# ruby brew 
+# ruby brew
 export PATH=/usr/local/opt/ruby/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
@@ -239,4 +243,3 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 ###################### end  other ###########################
-

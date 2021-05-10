@@ -1,5 +1,5 @@
 # git 基本操作
-
+    
 ```
 生成ssh秘钥
 ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
