@@ -1,5 +1,18 @@
 # 学习笔记
 
+### 2021 6.1
+本地启动 grpc 项目后不方便启动 client 来调试，于是选择用 grpcurl 工具方便调试；推荐姿势：
+```
+查看本地有哪些 grpc 服务
+grpcurl -plaintext 127.0.0.1:{端口} list
+
+查看本地 grpc 服务 下的 action
+grpcurl -plaintext 127.0.0.1:{端口} list .....服务名
+
+调用 grpc action
+grpcurl -H 'token:cn01:a862a6eb-8c4' -d '{"params": "123456"}' -plaintext 127.0.0.1:{端口}  ....Service.HelloCoo
+```
+
 ### 2021 5.10
 遇到生产不打印非 fmt 类型日志，测试和开发环境正常，
 代码一样，应该是配置原因，于是开始从启动 main排查，发现日志器 zap init 中没有配置 'stderr' 终端输出项，由于服务日志是终端输出重定向到日志文件的，这里加上以后解决。

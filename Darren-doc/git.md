@@ -43,7 +43,7 @@ git push origin tag  标签推送到远程
 
 git commit --amend 更新上次提交的massage文案
 
-使用到git熟悉命令： 
+git 配置全局信息： 
 git config --global user.name "darren"
 git config --global user.email "darren@alibaba.com"
 git config --list  查看当前配置情况
@@ -64,13 +64,10 @@ git push origin 0.0.1
  git pull --rebase 
  git pull --rebase origin master
 
-从远程获取最新版本到本地 （很重要一步~~）
+从远程获取最新版本到本地 
 git fetch origin aaa
 具体到拉某一个分支
 git fetch origin branch1:branch2
-
-它会在解决冲突后生成一个原来冲突的备份
-git config --global mergetool.keepBackup false
 
 查看本地所有分支
 git branch  -vv
@@ -79,9 +76,8 @@ git branch -va
 绑定当前分支到远程分支
 git branch --set-upstream-to=<remote>/<branch> other_bramch
 
-
 创建分支
-git branch new   \\ git checkout -b new  等效
+git branch new | git checkout -b new  等效
 删除本地分支
 branch -D old  
 删除远程分支 先删除本地该分支，在覆盖远程
