@@ -1,4 +1,7 @@
 # Go编码注意事项
+
+
+
 1. new和make的区别,前者返回的是指针，后者返回引用，且make关键字只能创建channel、slice和map这三个引用类型。
 
 2. 如果User结构想实现Test方法，以下写法：`func (this *User) Test() `，User的实例和*User都可以调到Test方法，不同的是作为接口时User没有实现Test方法。
