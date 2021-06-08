@@ -63,14 +63,6 @@ db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --pac
 * gt：greater than 大于
 
 
-### Redis 数据库keys 命令的模糊查询 支持的通配符
-* 第一种：*   // key中含有keyword 的key
-* keys *keyword*
-* 第二种：？  // 你知道前面的一些字母，忘记了最后一个字母
-* keys hell？
-* 第三种：[]  // 你只记得第一个字母是h，他的长度是5
-* keys h？？？？
-
 ### 启动撮合引擎  几大步骤
 * 先启动ssdb和redis （打开撮合引擎目录）
 * redis-server /config/redis.conf
@@ -427,22 +419,6 @@ func_get_args()
 3 sourcetree ,charles, istat menu
 
 
-启动和停止ssdb服务
-启动：ssdb-server /usr/local/etc/ssdb.conf
-守护进程启动方式 ssdb-server -d /usr/local/etc/ssdb.conf
-停止： ssdb-server /usr/local/etc/ssdb.conf -s stop
-重启：停止： ssdb-server /usr/local/etc/ssdb.conf -s restart
-启动客户端:ssdb-cli
-
-支持数据类型
-SSDB ⽀持三种数据类型, 别分是 KV(key-value), Hashmap(map), Zset(sorted set).
-
-work_dir = /usr/local/var/db/ssdb/
-pidfile = /usr/local/var/run/ssdb.pid
-
-redis是内存数据库，ssdb是面向硬盘的存储;ssdb默认也没有集群管理的支持
-它结合了redis和ssdb的优点，实现了基于LFU的热度统计和冷热交换，做到了低成本和高性能的高平衡
-
 目录区别作用：
 /usr/local下一般是你安装软件的目录，这个目录就相当于在windows下的programefiles这个目录
 /opt这个目录是一些大型软件的安装目录，或者是一些服务程序的安装目录
@@ -536,12 +512,6 @@ nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
 
 开机自动启动任务目录：
 ~/Library/LaunchAgents
-
-redis已安装：
-redis-server /usr/local/etc/redis.conf
-
-
-
 
 7.4工作日志：
 Linux 的软件安装目录是也是有讲究的，理解这一点，在对系统管理是有益的
@@ -818,11 +788,6 @@ ln -s file1 file2
 
 
 7月10号
-redis命令
-
-redis-server
-redis-cli ping
-
 
 apache相对nginx的优点
 rewrite，比nginx 的rewrite 强大

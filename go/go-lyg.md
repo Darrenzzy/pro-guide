@@ -57,8 +57,6 @@ supervisorctl update
 staging 环境
 ./deploy.sh live linux stag
 
-redis 分布式锁
-
 日志位置：
 tailf /alidata/logs/live.00.log
 
