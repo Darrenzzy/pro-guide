@@ -1,5 +1,14 @@
 swager 使用
 
+```bash
+ # 安装前置条件包：
+  go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+  go get -u github.com/golang/protobuf/protoc-gen-go@v1.4.0
+ # 之后可以执行：
+protoc -I/usr/local/include  -I.  --swagger_out=logtostderr=true:../docs --go_out=plugins=grpc,paths=./pb  *.proto
+
+```
+
 快速生产：
 
 1.首先在开发代码中写格式正确的 swager 代码
