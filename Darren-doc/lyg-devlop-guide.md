@@ -62,19 +62,7 @@ PHP order仓库  app/Models/PlayGame.php
    sudo service phpbrew-fpm-56 restart
    当前有哪些版本：
    phpbrew list
-
-   7.12
-
-   常用任务命令：
-   App\Models\ModeGame::query()->select('id')->where('gouhao',80268132)->get();
-
-   App\Models\PlayGodAcceptSetting::refreshGod()
-
-   读取所有余额账户
-    prod_god_lyg_order_only_read order_pay
-
-   SELECT * FROM `purse_account` WHERE (`gou_liang` > '10000') AND (`phone` IS NOT NULL) AND (`phone` LIKE '1000000%') AND (`gou_hao` IS NOT NULL) AND (`gou_hao` != '0') AND (`identity_card` LIKE '') AND (`favor` = '0') ORDER BY `phone` LIMIT 0,1000;
-
+ 
    
    5.21
    supervisor日志目录：
@@ -132,8 +120,4 @@ PHP order仓库  app/Models/PlayGame.php
    
    根据订单查对应游戏账户id
    get O:{20190508145129485411129066371}:GameAccount
-
-   狗好    id             phone 
-    11959048  1896  10000001313 个人常用大神  ab9bc018ef64fcc77fcfa15a6f72378c
-    12248261  1992576   10000001086 个人常用大神 9d3e82865336a1e78ed734ca9c3e03eb
-
+ 

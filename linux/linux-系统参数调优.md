@@ -76,11 +76,6 @@ net.core.wmem_max = 4194304
 立即生效
 sysctl -p
 
-redis服务器
-需要关闭THP
-在/etc/re.local下面
-echo never > /sys/kernel/mm/transparent_hugepage/enabled
-
 
 时间校对
 yum install ntp # 安装ntp, 已有忽略
