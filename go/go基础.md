@@ -3,6 +3,10 @@
 3<<2  表示 3乘以 2 的 2 次方
 ^3 表示按位取反 结果永远是这个数+1的相反数 ： -4  ^5==-6
 
+&	与	两个位都为1时，结果才为1
+|	或	两个位都为0时，结果才为0
+^	异或	两个位相同为0，相异为1
+~	取反	0变1，1变0
 
 go test 常用项：
 
@@ -70,6 +74,22 @@ string := strconv.FormatInt(int64,10)
 uint64转成string：
 string := strconv.FormatUint(uint64, 10)
 
+进制转换：
+var v int64 = 425217101 //默认10进制
+	s2 := strconv.FormatInt(v, 2) //10 yo 16
+	fmt.Printf("%v\n", s2)
+
+	s8 := strconv.FormatInt(v, 8)
+	fmt.Printf("%v\n", s8)
+
+	s10 := strconv.FormatInt(v, 10)
+	fmt.Printf("%v\n", s10)
+
+	s16 := strconv.FormatInt(v, 16) //10 yo 16
+	fmt.Printf("%v\n", s16)
+
+	var sv = "19584c4d"; // 16 to 10
+	fmt.Println(strconv.ParseInt(sv, 16, 32))
 
 字符串替换：
 strings.Replace(strings.Trim(fmt.Sprint(users), "[]"), " ", ",", -1),
