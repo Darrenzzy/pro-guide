@@ -1,4 +1,7 @@
-位运算使用：
+
+
+### 位运算使用：
+```
 3>>2  表示 3除以 2 的 2 次方
 3<<2  表示 3乘以 2 的 2 次方
 ^3 表示按位取反 结果永远是这个数+1的相反数 ： -4  ^5==-6
@@ -7,9 +10,9 @@
 |	或	两个位都为0时，结果才为0
 ^	异或	两个位相同为0，相异为1
 ~	取反	0变1，1变0
-
-go test 常用项：
-
+```
+### go test 常用项：
+```
 性能压测：
 go test -bench=. -benchtime 5s -benchmem -cpu=1   -run=none -cpuprofile=cpu.profile
 参数说明： benchtime 默认是 1 秒内， 可指定时间范围内。
@@ -19,25 +22,33 @@ go test -bench=. -benchtime 5s -benchmem -cpu=1   -run=none -cpuprofile=cpu.prof
 -benchtime 5s 表示用几秒
 
 压侧结果 -8 表示当前机器使用GOMAXPROCS
-
-逃逸
+```
+### 逃逸
+```
 1  临时变量 的指针返回给外部调用
 2  初始化变量过大 make99999len
 3  interface作为形参接收 到的变量都会逃逸
 4  闭包
+逃逸分析：
+go test -gcflags '-m -l'  -v -run TestPractice
+go build -gcflags '-m -l' main.go
+```
 
-随机数：
-rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+### 随机数：
+    rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
     println(rnd.Int31n(1000000))
 
-ascii 码：
+### ascii 码：
+```
 var c rune = 'a'
 var i int = 98
 
 'a'=97 'z'=122 'A'=65  'Z'=90 '0'=48 '9'=57
 
-
-golang字符串：
+```
+### golang字符串：
+```
 strArrayOld:=[]string{"aa","bb"}
 //implode
 strTotal:=strings.Join(strArrayOld,"-")
@@ -73,9 +84,10 @@ int64转成string：
 string := strconv.FormatInt(int64,10)
 uint64转成string：
 string := strconv.FormatUint(uint64, 10)
+```
+### 进制转换：
 
-进制转换：
-var v int64 = 425217101 //默认10进制
+    var v int64 = 425217101 //默认10进制
 	s2 := strconv.FormatInt(v, 2) //10 yo 16
 	fmt.Printf("%v\n", s2)
 
@@ -91,12 +103,14 @@ var v int64 = 425217101 //默认10进制
 	var sv = "19584c4d"; // 16 to 10
 	fmt.Println(strconv.ParseInt(sv, 16, 32))
 
-字符串替换：
-strings.Replace(strings.Trim(fmt.Sprint(users), "[]"), " ", ",", -1),
+### 字符串替换：
+
+    strings.Replace(strings.Trim(fmt.Sprint(users), "[]"), " ", ",", -1),
 
 
 
-修改字符串：
+### 修改字符串：
+```
 func main() {
     x := "text"
     xRunes := []rune(x)
@@ -104,16 +118,16 @@ func main() {
     x = string(xRunes)
     fmt.Println(x)  // 我ext
 }
+```
 
-golang判断key是否在map中.  make(map[int64]int, 0)
-if _, ok := map[key]; ok {
-//存在
-}
+### golang判断key是否在map中.  
+    make(map[int64]int, 0)
+    if _, ok := map[key]; ok {
+    //存在
+    }
 
-redis
-redisConn.Do("SET", key, 1, "EX", 60, "NX")
-
-随机打乱切片数组：
+### 随机打乱切片数组：
+```
 func Shuffle(slice []gs_gobang.History) []gs_gobang.History {
     r := rand.New(rand.NewSource(time.Now().Unix()))
     for len(slice) > 0 {
@@ -124,7 +138,9 @@ func Shuffle(slice []gs_gobang.History) []gs_gobang.History {
     }
     return slice
 }
-
+```
+### 各种时间处理
+```
 // 日期转字符串
 func FormatDatetime(t time.Time) string {
     return t.Format(time.RFC3339)
@@ -165,10 +181,11 @@ func Round(f float64, n int, roundDown bool) float64 {
 
 // 一天前
     d, _ := time.ParseDuration("-24h")
+```
 
+### 字符串转换：
 
-字符串转换：
-/*
+```
 1、func Title(s string) string
 将字符串s每个单词首字母大写返回
 2、func ToLower(s string) string
@@ -183,31 +200,9 @@ func Round(f float64, n int, roundDown bool) float64 {
 将字符串s转换成大写返回
 7、func ToUpperSpecial(_case unicode.SpecialCase, s string) string
 将字符串s中所有字符按_case指定的映射转换成大写返回
+```
 
-
-
-rune(int32的别称)
-
-int8
-
-int16
-
-int32
-
-int64
-
-byte(uint8的别称)
-
-uint8
-
-unit16
-
-uint32
-
-uint64
-
-注意：这些类型的变量之间不允许互相赋值或操作
-
+```
 channl的发送和接收
 data := <- a // read from channel a
 a <- data // write to channel a
@@ -215,17 +210,11 @@ a <- data // write to channel a
 内建函数：两个的区别
 var p *[]int = new([]int)      初始化一个指针
 var v []int = make([]int, 10)  初始化一个数据结构以及值
+```
 
 
-go get +
--d 只下载不安装
--f 只有在你包含了-u参数的时候才有效，不让-u去验证import中的每一个都已经获取了，这对于本地fork的包特别有用
--fix 在获取源码之后先运行fix，然后再去做其他的事情
--t 同时也下载需要为运行测试所需要的包
--u 强制使用网络去更新包和它的依赖包
--v 显示执行的命令
-
-
+### 常用打印方法：
+```
 打印格式：
     icelog.Infof("test 用户道具编号：%v", game.Prop)
 %v  值的默认格式。当打印结构体时，“加号”标记（%+v）会添加字段名
@@ -240,9 +229,6 @@ s := new(Sample)
     fmt.Printf("%#v\n", *s) // main.Sample{a:1, str:"hello"}
     fmt.Printf("%T\n", *s)   //  main.Sample
     fmt.Printf("%%\n", s.a) //  %  %!(EXTRA int=1)
-
-
-择 Printf，其他时候用 Println 就可以了，比如：
 
 //Go 为常规 Go 值的格式化设计提供了多种打印方式。例如，这里打印了 point 结构体的一个实例。
 p := point{1, 2}
@@ -291,9 +277,14 @@ s := fmt.Sprintf("a %s", "string")
 fmt.Println(s)
 //你可以使用 Fprintf 来格式化并输出到 io.Writers而不是 os.Stdout。
 fmt.Fprintf(os.Stderr, "an %s\n", "error")
+```
 
-
+### redis 玩法
+```
 redis 整型自增
   bs, err := redis.Int64(redisAuth.Do("INCRBY", keyA))
 
+redis
+redisConn.Do("SET", key, 1, "EX", 60, "NX")
 
+```
