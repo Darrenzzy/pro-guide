@@ -14,12 +14,20 @@
 ### go test 常用项：
 ```
 性能压测：
-go test -bench=. -benchtime 5s -benchmem -cpu=1   -run=none -cpuprofile=cpu.profile
-参数说明： benchtime 默认是 1 秒内， 可指定时间范围内。
+go test -v filename_test.go -bench=. -benchtime 5s -benchmem -cpu=1   -run=none -cpuprofile=cpu.profile
+-v 显示跑了那些 case
+file_test.go 指定文件
+参数说明： 
+-benchtime 默认是 1 秒内， 可指定时间范围内。
 -benchmem 显示每次 op 分配内存次数
+-bench   
+=. ：全部压测 case
+="funcName" ：测试压测名称为funcName的方法自动模糊匹配后面的字符串。 例如（func Benchmark_sliceOnce()）
+
 -run=none 表示只测试 bench 相关 case ，其他忽略
 -cpu=1 表示用几个核数
--benchtime 5s 表示用几秒
+
+
 
 压侧结果 -8 表示当前机器使用GOMAXPROCS
 ```

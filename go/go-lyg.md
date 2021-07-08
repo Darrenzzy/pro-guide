@@ -1,9 +1,14 @@
 
-2021.3.3
-append 切片时候， 当触发扩容机制是： 当元素小于 1024 ，是按照 2 倍扩容，大于 1024 是按照四分之一扩容。
+### 7.7 结构体 json 表示
 
+```golang
+    type Some struct {
+        CreatedAt time.Time `sql:"created" json:"created,omitempty"`
+    }
+```
+* omitempty 表示该字段在序列化和反序列化时不是强一致显示，当变量中该字段为空|默认，则序列化成 json后，没有该字段。
 
-cmd收不到排查问题：
+### cmd收不到排查问题：
 tail -f /mnt/logs/lemon.00.log
 发现 消息都失败了
 于是重启这个lemon服务即可
