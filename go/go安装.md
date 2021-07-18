@@ -1,15 +1,15 @@
 go安装
 
-下载地址：https://golang.org/dl/
+    下载地址：https://golang.org/dl/
 
 #mac安装
- 下载go1.9.2.darwin-amd64.pkg包， 点击安装即可，默认安装到/usr/local/go
+ 下载go*.darwin-amd64.pkg包， 点击安装即可，默认安装到/usr/local/go
 
 #linux安装
-wget https://redirector.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz
-tar -zxvf go1.9.2.linux-amd64.tar.gz
-把下载编译后的源码
-放在/usr/local/go
+    wget http...go1.*.linux-amd64.tar.gz
+    tar -zxvf go1.16.linux-amd64.tar.gz
+    把下载编译后的源码
+    放在/usr/local/go
 
 PATH 添加 /usr/local/go/bin
 声明两个变量
@@ -22,7 +22,6 @@ mkdir -p  $GOPATH/src/golang.org/x/
 cp -r tools $GOPATH/src/golang.org/x/
 安装
 go get github.com/tools/godep
-
 
 
 export GO111MODULE=on
@@ -38,7 +37,7 @@ go [command] ./...
 查看go的环境变量
 # go env
 
-生产文件：
+常用 json show 组件
 brew install jq
 
 

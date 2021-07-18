@@ -1,7 +1,14 @@
 linux 常用命令
 
 
-根据命令名以及参数找到 PID
+### 获取当前机器网络 io 请求 和各个进程流量
+* 各个进程流量
+sudo nethogs
+
+* 打印所有请求 tcp 记录
+sudo tcpdump -i en0 -n  port 80 -vv
+
+###根据命令名以及参数找到 PID
 pgrep -a php
 
 
