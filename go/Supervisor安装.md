@@ -1,26 +1,23 @@
 
-mac安装Supervisor
-
-brew install supervisor
-
-
-不想让supervisor作为后台服务随系统启动，可以通过用指定配置文件的方式来启动：
-supervisord -c /usr/local/etc/supervisord.ini
+# mac安装Supervisor
+	brew install supervisor
 
 
-如果要让supervisor随系统自启动，用一下命令就可以了：
-brew services start supervisor
+###	不想让supervisor作为后台服务随系统启动，可以通过用指定配置文件的方式来启动：
+	supervisord -c /usr/local/etc/supervisord.ini
 
 
-默认的配置文件：/usr/local/etc/supervisord.ini
+### 如果要让supervisor随系统自启动，用一下命令就可以了：
+	brew services start supervisor
+	默认的配置文件：/usr/local/etc/supervisord.ini
 
 
 
-bin下输出配置信息命令：echo_supervisord_conf
+	bin下输出配置信息命令：echo_supervisord_conf
 
 
-//配置文件目录：
-/usr/local/etc/supervisor.d
+### 配置文件目录：
+	/usr/local/etc/supervisor.d
 
 
 8.21

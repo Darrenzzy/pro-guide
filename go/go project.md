@@ -1,3 +1,16 @@
+# go 项目中常遇到的事情
+
+
+### goland 编写 proto 引用 google 时需要用到的包
+
+```proto
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+```
 
 go交叉编译命令：
 Mac 下编译 Linux 和 Windows 64位可执行程序
