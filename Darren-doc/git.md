@@ -56,7 +56,12 @@ git remote rm origin 删除远程库
 git tag -a 0.0.1 -m 'something....' 打标签
 上传标签
 git push origin 0.0.1  
-或者上传全部标签:git push origin --tags 
+或者上传全部标签:git push origin --tags
+
+本地删除标签
+git tag -d v1.0
+删除远程标签
+git push origin :refs/tags/v1.0 
 
 拉取远程分支到本地分支 
  git pull origin dev:Darren
