@@ -25,6 +25,11 @@ SELECT column-names
   FROM table-name
  WHERE column-name IN (values)
 
+psql：
+添加注释：
+
+COMMENT ON COLUMN t_account_application.manager_union_id IS '1# mobile booking,    2# admin booking,    3# web booking, 4# tell call';
+
 
 添加字段
 alter table `msgs` add `sss2` int(11) Default '0' comment '站点 id' ;
