@@ -272,7 +272,7 @@ du -d 1 -h
 netstat -ntlp
 
 查看Linux查看内核版本
-cat /proc/versio
+cat /proc/version
 uname -a
 查看linux版本
 lsb_release -a
