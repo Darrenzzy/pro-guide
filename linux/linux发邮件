@@ -1,0 +1,23 @@
+# 三种常用格式发信
+
+mail -s test admin@aispider.com #第一种方法，你可以把当前shell当成编辑器来用，编辑完内容后Ctrl-D结束
+
+echo “mail content”|mail -s test admin@aispider.com #第二种方法，我用的最多，可能是喜欢管道的缘故吧
+
+mail -s test admin@aispider.com< file #第三种方法，以file的内容为邮件内.容发信
+
+mail -s test  admin@aispider.com < file #第三种方法，以file的内容为邮件内容发信
+
+mail -s test -c admin@aispider.com  root@aispider.com< file #第四种方法，给多个用户发送邮件
+
+# 第三个例子，带附件的邮件
+
+ 如果你的系统里没有uuencode命令的话，请先安装sharutils(yum install  -y sharutils)
+
+ uuencode 需要两个参数，第一个是你要发送的文件(们)，当然这个也可以用管道来做，第二个是显示的文件名
+
+ uuencode /home/yfang/a.gif a.gif|mail -s pictest admin@aispider.com
+
+tar czf - /home/yfang/ | uuencode home.tgz |mail -s pictest admin@aispider.com
+
+

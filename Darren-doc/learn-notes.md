@@ -629,72 +629,6 @@ php_admin_value[error_log] =/usr/local/var/log/fpm-php.www.log
 vim /usr/local/var/log/fpm-php.www.log
 
 
-
-学习postgres:
-登录数据库用户：
-psql -U [user] -d [database] -h [host] -p [port]
-
-psql -U postgres -d otc_php
-\password：设置当前登录用户的密码
-\h：查看SQL命令的解释，比如\h select。
-\?：查看psql命令列表。
-\l：列出所有数据库。
-\c [database_name]：连接其他数据库。
-\d：列出当前数据库的所有表格。
-\d [table_name]：列出某一张表格的结构。
-\du：列出所有用户。
-\e：打开文本编辑器。
-\conninfo：列出当前数据库l和连接的信息。
-\password [user]: 修改用户密码
-\q：退出
-
-psql查看所有数据库的大小
-select pg_database.datname, pg_database_size(pg_database.datname) AS size from pg_database;
-
- psql查看数据库所有索引  \di
- //相当于mysql的，mysql> show index from test;
-
-\dt 列出所有表
-
-psql -U postgres -d postgres -h 127.0.0.1 -p 5432
-
-appledeiMac-2:postgresql-10.4 apple$ which psql
-/usr/local/pgsql/bin/psql
-
-删除数据库：
-[1]在命令行用dropdb命令删除
-   dropdb -U postgres demodb,就可以实现数据库的删除
-[2]在psql命令行下删除
-   psql#DROP DATABASE demodb
-
-  在终端上查看显示已创建的列表
-psql -l
-
-号外号外：postgressql  用brew安装
-每次开机启动：
-brew services start postgresql
-
-
-安装好 psql 后 开始初始化启动 执行:
-initdb
-根据提示 的启动命令 执行即可
-pg_ctl -D /Users/darren/postgresql/data -l logfile start
-
-
-或者手动启动：
-pg_ctl -D /Users/darren/postgresql/data start
-
-启动 (brew流程)
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-停止
-pg_ctl stop
-
-(这个没效果) pg_ctl -D /usr/local/var/postgres stop -s -m fast
-查看状态
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
-
-
-
 mac开机启动：
 ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
@@ -702,36 +636,6 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 mac取消开机启动
 $ launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 $ rm -rf ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-
-
-进入 psql 命令行
-psql postgres
-
-在初次进入psql后，需要手动创建postgres用户和数据库
-一、创建postgres用户
-
-CREATE USER postgres WITH PASSWORD 'XXXXXX';
-
-给新用户授权
-grant all privileges on database postgres to postgres;
- alter role postgres createrole;
-  alter role postgres Superuser;
-  以此类推把所有原管理员的权限都授权给新用户.
-然后创建一个临时数据库,目的是删除原来的 postgres 数据库
-
-二、删除默认生成的postgres数据库
-
-DROP DATABASE postgres;
-三、创建属于postgres用户的postgres数据库
-
-CREATE DATABASE postgres OWNER postgres;
-四、将数据库所有权限赋予postgres用户
-
-GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;
-五、给postgres用户添加创建数据库的属性
-
-ALTER ROLE postgres CREATEDB;
-这样就可以使用postgres作为数据库的登录用户了，并可以使用该用户管理数据库
 
 
 为mac系统中建立软连接：file1是源文件

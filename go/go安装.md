@@ -27,7 +27,13 @@
     go [command] ./...
     如: go get -d ./... （下载所有需要依赖包）
 
-###查看go的环境变量
+### 更新到最新的修订版（只改bug的版本）
+    go get -u=patch github.com/.../...
+
+### 查看可下载版本
+    go list -m -versions github.com/.../...
+
+### 查看go的环境变量
     go env
 
 ### 常用 json show 组件

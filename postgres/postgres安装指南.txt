@@ -1,11 +1,11 @@
 postgres 安装指南
 
 必须先安装readline
-#mac
+# mac
 brew install readline
-#linux
+# linux
 yum install -y readline-devel zlib-devel
-#wget https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
+# wget https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
 wget https://ftp.postgresql.org/pub/source/v10.4/postgresql-10.4.tar.gz
 tar -zxvf postgresql-10.4.tar.gz
 cd postgresql-10.4
@@ -23,16 +23,54 @@ PATH=$PATH:/usr/local/pgsql/bin:/usr/local/sbin/
 source /etc/profile
 
 
+特定版本加软链：
+ln -sf /usr/pgsql-9.6 /usr/pgsql
 【开发环境配置参数】
 vi ~/.bash_profile
-加入
-export PGDATA=/Users/apple/postgresql/data
-export PATH=/usr/local/pgsql/bin:$PATH
+加入环境变量：
+export PATH=/usr/pgsql/bin:$PATH
 
 生效
 source ~/.bash_profile
 
+初始化数据库：
+cd /usr/pgsql/bin
+./initdb -D /pgsql/data
 
+mkdir -p /pgsql/data
+ chown -R postgres:postgres /pgsql/
+ chmod 0700 /pgsql/data
+更新psql 配置文件：
+cd /pgsql/data/
+
+echo "host    all             all             0.0.0.0/0            md5" >>./pg_hba.conf
+
+vim postgresql.conf
+
+```
+listen_addresses = '*'
+wal_level = hot_standby
+wal_log_hints = on
+synchronous_commit = on
+max_wal_senders=5
+wal_keep_segments = 32
+hot_standby = on
+wal_sender_timeout = 5000
+wal_receiver_status_interval = 2
+max_standby_streaming_delay = -1
+max_standby_archive_delay = -1
+restart_after_crash = off
+hot_standby_feedback = on
+```
+
+
+修改指定用户 密码：
+ALTER USER postgres WITH PASSWORD 'postgres';
+
+切换用户
+su - postgres
+启动pg
+pg_ctl -D /pgsql/data/ -l logfile start
 
 
 编译安装成功后，接下来要做的就是创建一个普通用户，因为默认超级用户（root）不能启动postgresql，所以需要创建一个普通用户来启动数据库，执行以下命令创建用户：
@@ -51,7 +89,7 @@ LC_CTYPE="en_US.UTF-8"
 启动数据库
 pg_ctl start
 
-#  创建超级用户postgres
+# 创建超级用户postgres
 createuser postgres -s (创建最高权限用户，相当于mysql里的root账户)
 #设置密码
 \password postgres
@@ -73,6 +111,98 @@ psql -U postgres
 \d tablename    #查看tablename的表字段
 \password #设置密码
 设置完密码需要把pg_hba.conf配置的METHOD由trust改为md5，然后重新加载一下配置文件才能生效
+
+ 
+学习postgres:
+登录数据库用户：
+psql -U [user] -d [database] -h [host] -p [port]
+
+psql -U postgres -d otc_php
+\password：设置当前登录用户的密码
+\h：查看SQL命令的解释，比如\h select。
+\?：查看psql命令列表。
+\l：列出所有数据库。
+\c [database_name]：连接其他数据库。
+\d：列出当前数据库的所有表格。
+\d [table_name]：列出某一张表格的结构。
+\du：列出所有用户。
+\e：打开文本编辑器。
+\conninfo：列出当前数据库l和连接的信息。
+\password [user]: 修改用户密码
+\q：退出
+
+psql查看所有数据库的大小
+select pg_database.datname, pg_database_size(pg_database.datname) AS size from pg_database;
+
+ psql查看数据库所有索引  \di
+ //相当于mysql的，mysql> show index from test;
+
+\dt 列出所有表
+
+psql -U postgres -d postgres -h 127.0.0.1 -p 5432
+
+appledeiMac-2:postgresql-10.4 apple$ which psql
+/usr/local/pgsql/bin/psql
+
+删除数据库：
+[1]在命令行用dropdb命令删除
+   dropdb -U postgres demodb,就可以实现数据库的删除
+[2]在psql命令行下删除
+   psql#DROP DATABASE demodb
+
+  在终端上查看显示已创建的列表
+psql -l
+
+号外号外：postgressql  用brew安装
+每次开机启动：
+brew services start postgresql
+
+
+安装好 psql 后 开始初始化启动 执行:
+initdb
+根据提示 的启动命令 执行即可
+pg_ctl -D /Users/darren/postgresql/data -l logfile start
+
+
+或者手动启动：
+pg_ctl -D /Users/darren/postgresql/data start
+
+启动 (brew流程)
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+停止
+pg_ctl stop
+
+(这个没效果) pg_ctl -D /usr/local/var/postgres stop -s -m fast
+查看状态
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
+
+
+
+在初次进入psql后，需要手动创建postgres用户和数据库
+一、创建postgres用户
+
+CREATE USER postgres WITH PASSWORD 'XXXXXX';
+
+给新用户授权
+grant all privileges on database postgres to postgres;
+ alter role postgres createrole;
+  alter role postgres Superuser;
+  以此类推把所有原管理员的权限都授权给新用户.
+然后创建一个临时数据库,目的是删除原来的 postgres 数据库
+
+二、删除默认生成的postgres数据库
+
+DROP DATABASE postgres;
+三、创建属于postgres用户的postgres数据库
+
+CREATE DATABASE postgres OWNER postgres;
+四、将数据库所有权限赋予postgres用户
+
+GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;
+五、给postgres用户添加创建数据库的属性
+
+ALTER ROLE postgres CREATEDB;
+这样就可以使用postgres作为数据库的登录用户了，并可以使用该用户管理数据库
 
 
 
