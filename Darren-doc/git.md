@@ -8,6 +8,11 @@ ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
  ssh-add -l
 ```
 
+```
+# 快速看出哪个分支是最新的
+git for-each-ref --sort='-committerdate' --format="%(refname:short)%09%(committerdate)"
+```
+
 变基其他分支到当前分支，<当前分支>的 commit 更换到 <其他分支> 的后面且重定义新 commit 名字(一般用于非 master 分支，常用于自己的开发多分支上)
  
  1. git rebase <其他分支> 正常情况没有冲突就直接完事了，有冲突就走第二步
