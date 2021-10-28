@@ -107,3 +107,7 @@ AuthorsizedKeysFile .ssh/authorized_keys
 service sshd restart
 centos7 改为
 systemctl restart sshd.service
+
+注意：若发现加到authorized_keys这里后，依旧需要输密码，排查原因可能是authorized_keys 权限问题，切换到root， 
+设置： chmod 600 /home/baseuser/.ssh/authorized_keys
+解决问题！
