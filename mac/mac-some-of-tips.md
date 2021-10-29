@@ -24,3 +24,6 @@ strace -eopen /usr/local/nginx/sbin/nginx 2>&1 | grep conf
 sudo vim /etc/sudoers
 在最后加入
 username            ALL = (ALL) NOPASSWD: ALL
+
+查看当前mac硬件信息cpu
+sysctl machdep.cpu
