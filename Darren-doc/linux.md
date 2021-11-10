@@ -1,5 +1,11 @@
 # linux 常用总结
 
+### 11.10
+zip命令使用 解压指定文件输出结果
+unzip -o name.zip  -d newname
+-o 覆盖式解压
+-d 重命名解压
+
 ###6.8 查找文件批量条件复制  10 个小时内的文件复制到本地
 find /ssd -name 'key-*.log' -mmin +600 -exec cp {} /home/ssd/ \;
 

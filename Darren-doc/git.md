@@ -26,6 +26,8 @@ git clone -b name http://......
 仅拉取最新一次提交 只克隆最新的提交记录
 git clone --branch <branch_name> <remote-address> --depth 1
 
+回退指定文件
+git checkout ./filename
 强制切换分支
 git checkout -f
 回退文件到指定版本号
