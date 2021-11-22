@@ -41,10 +41,6 @@ SESSION_LIFETIME=120
   "url": "https://packagist.laravel-china.org"
   "url": "https://mirrors.aliyun.com/composer/"
 
-6.15
-linux 磁盘使用情况
-df -h /var
-
 6.10
 php字符串替换： 把3中的1全部替换为2 (数字代表参数)
 $god_img = str_replace("/w0","",$god_img);

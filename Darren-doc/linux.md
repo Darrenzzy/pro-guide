@@ -262,17 +262,22 @@ find /root/ –type f |xargs grep “www”  (linux)
 
  –type f : 文件类型是普通文件
 
-
 lsof -i:5001 
  最后再：./restart.sh
 
 查看端口：
 lsof -i:80
+
+查找大文件 
+find / -type f -size +1G 
 按文件大小 查找文件大小
 find . -type f -size +50M  -print0 | xargs -0 du -h | sort -nr  
 
 列出当前目录下个文件大小 
 du -d 1 -h
+
+查找且排序
+du -sh * | sort -rh | head -10
 
 列出所有的端口
 netstat -ntlp
@@ -356,8 +361,8 @@ du --max-depth=1 -h   /usr/
 du -sh * -t +500M
 列出当前文件夹下所有文件对应的大小
 du -sh  *
-查看磁盘各分区大小 查看文件系统
-df -h
+指定目录磁盘使用情况
+df -h /var
 当前文件夹大小排序 
 du -s * | sort -rn
 
