@@ -36,7 +36,7 @@ insert into test1 (id) values (1);
 添加字段
 alter table `msgs` add `sss2` int(11) Default '0' comment '站点 id' ;
  修改原来索引结构
- alter table tableName add index indexName(columnName,sync_status);
+alter table tableName add index indexName(columnName,sync_status);
 
 删除字段
 alter table play_level_god_accept drop column grab_switch5;
@@ -44,8 +44,10 @@ alter table play_level_god_accept drop column grab_switch5;
  数据库创建索引：
   create index manager_id_on_groups on groups(manager_id);
 
-   查看数据库索引
-    SHOW INDEX FROM table_name
+查看数据库索引
+  SHOW INDEX FROM table_name
+查看ddl：
+  show create table table_name
 
  强制索引
  ....FROM search FORCE INDEX (search_time) WHERE....
