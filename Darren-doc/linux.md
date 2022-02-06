@@ -1,5 +1,10 @@
 # linux 常用总结
 
+### 2.5
+启动服务 发现端口起不来报：socket: too many open files
+
+临时解决改配置： ulimit -n 4096 
+
 ### 11.10
 zip命令使用 解压指定文件输出结果
 unzip -o name.zip  -d newname
