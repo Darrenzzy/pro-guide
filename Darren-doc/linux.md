@@ -1,5 +1,10 @@
 # linux 常用总结
 
+### 2.5
+启动服务 发现端口起不来报：socket: too many open files
+
+临时解决改配置： ulimit -n 4096 
+
 ### 11.10
 zip命令使用 解压指定文件输出结果
 unzip -o name.zip  -d newname
@@ -288,8 +293,11 @@ uname -a
 查看linux版本
 lsb_release -a
 
-查看最后倒数50行的日志文件
+查看最后倒数500行的日志文件
  tail -n 500 /tmp/kafka_check_logs.log
+ 
+查看关键字后的40行数据
+ tail -n 500 /tmp/kafka_check_logs.log |grep "key" -C40
 
 一次性递归新建目录命令
 mkdir -p
@@ -301,20 +309,41 @@ linux定时任务
 ```shell
 
 #以下是编辑中常用的：
+
 #every 10s
-#* * * * * sleep 10; /schdule_every_ten_sec.sh >> /log/schdule_every_ten_sec.log 2>&1
+#* * * * * sleep 10; /schdule_every_ten_sec.sh
+
 #every min
-* * * * * /schedule_every_min.sh >> /log/schedule_every_min.log 2>&1
+* * * * * /schedule_every_min.sh
+
 #every five min
-*/5 * * * * /schedule_five_min.sh  >> /log/schedule_five_min.log 2>&1
+*/5 * * * * /schedule_five_min.sh
+
 #every ten min
-*/10 * * * * /schedule_ten_min.sh  >> /log/schedule_ten_min.log 2>&1
+*/10 * * * * /schedule_ten_min.sh
+
 #every hour
-0 * * * * /schedule_every_hour.sh >> /log/schedule_every_hour.log 2>&1
+0 * * * * /schedule_every_hour.sh
+
 #every day
-0 0 * * * /schedule_every_day.sh >> /log/schedule_every_day.log 2>&1
+0 0 * * * /schedule_every_day.sh
+
 #every 12:00
-0 12 * * * /schedule_every_noon.sh >> /log/schedule_every_noon.log 2>&1
+0 12 * * * /schedule_every_noon.sh
+
+ # 每月的最后1天
+    0 0 L * * *
+
+    说明：
+    Linux
+    *    *    *    *    *
+    -    -    -    -    -
+    |    |    |    |    |
+    |    |    |    |    +----- day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+    |    |    |    +---------- month (1 - 12) OR jan,feb,mar,apr ...
+    |    |    +--------------- day of month (1 - 31)
+    |    +-------------------- hour (0 - 23)
+    +------------------------- minute (0 - 59)
 
 ```
 

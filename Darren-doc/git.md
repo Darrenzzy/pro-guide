@@ -5,7 +5,10 @@
 ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
 
 查看当前本地全部秘钥
- ssh-add -l
+ssh-add -l
+
+检查ssh连接问题
+ssh -T Host
 ```
 
 ```
