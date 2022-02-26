@@ -6,6 +6,11 @@ show variables like '%character%';
 查看字段
 show columns from user;
 
+去重
+select DISTINCT *  from tag_user where user_id in (6013613);
+
+删除
+delete from tag_config where  depend_on='position';
 创建数据库
 CREATE DATABASE mydatabase CHARACTER SET utf8
 

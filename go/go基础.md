@@ -189,6 +189,7 @@ func Round(f float64, n int, roundDown bool) float64 {
 
 // 一天前
     d, _ := time.ParseDuration("-24h")
+    oldTime := currentTime.AddDate(0, 0, -2)        //若要获取3天前的时间，则应将-2改为-3
 ```
 
 ### 字符串转换：
