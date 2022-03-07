@@ -399,6 +399,11 @@ du -s * | sort -rn
 linux: du -h --max-depth=1
 macos: du -h -d 1
 
+df -hl 查看磁盘剩余空间
+df -h 查看每个根路径的分区大小
+du -sh [目录名] 返回该目录的大小
+du -sm [文件夹] 返回该文件夹总M数
+
 ps aux 和ps -ef 
 两者的输出结果区别不大，但展示风格不同。aux是BSD风格，-ef是System V风格
  
