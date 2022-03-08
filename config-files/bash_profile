@@ -63,7 +63,9 @@ alias curlfile='curl  -LJO '
 #快速查看 git 快捷命令
 alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
 alias ip='ipconfig getifaddr en0'
-
+alias bbb='bpytop'
+alias uuuu='ulimit -n 4096 '
+alias rrf='/bin/rm -rf '
 #redis地址
 
 ###################### end  alias ###########################

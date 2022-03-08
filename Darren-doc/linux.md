@@ -7,9 +7,16 @@
 
 ### 11.10
 zip命令使用 解压指定文件输出结果
+ zip XXX.zip XXX
 unzip -o name.zip  -d newname
 -o 覆盖式解压
 -d 重命名解压
+
+压缩目录：
+tar -zcvf test.tar.gz test
+解压 
+tar -zxvf test.tar.gz ./
+
 
 ###6.8 查找文件批量条件复制  10 个小时内的文件复制到本地
 find /ssd -name 'key-*.log' -mmin +600 -exec cp {} /home/ssd/ \;
@@ -78,11 +85,6 @@ firewall-cmd --state
 ./adb devices
 ./adb -s emulator-5554 install -t ~/Downloads/honour_wallet.apk
 
-7.12
-压缩目录：
-tar -zcvf test.tar.gz test
-解压 
-tar -zxvf test.tar.gz ./
 
 
 5.9
