@@ -1,4 +1,18 @@
 # linux 常用总结
+### 3.10
+linux 删除指定日期之前的文件
+两种方法：
+1. 在一个目录中保留最近三个月的文件，三个月前的文件自动删除。
+find ~ -mtime +92 -type f -name *.mail[12] -exec rm -rf {} \;
+find .  -mtime +92 -type f -name '*.log' |xargs rm -rf
+
+```
+/email/v1_bak --设置查找的目录；
+-mtime +92 --设置时间为91天前；
+-type f --设置查找的类型为文件；
+-name *.mail[12] --设置文件名称中包含mail1或者mail2；
+-exec rm -f --查找完毕后执行删除操作；
+```
 
 ### 2.5
 启动服务 发现端口起不来报：socket: too many open files
@@ -280,12 +294,6 @@ find / -type f -size +1G
 按文件大小 查找文件大小
 find . -type f -size +50M  -print0 | xargs -0 du -h | sort -nr  
 
-列出当前目录下个文件大小 
-du -d 1 -h
-
-查找且排序
-du -sh * | sort -rh | head -10
-
 列出所有的端口
 netstat -ntlp
 
@@ -406,12 +414,16 @@ df -h 查看每个根路径的分区大小
 du -sh [目录名] 返回该目录的大小
 du -sm [文件夹] 返回该文件夹总M数
 
+列出当前目录下个文件大小 
+du -d 1 -h
+
+查找且排序
+du -sh * | sort -rh | head -10
+
 ps aux 和ps -ef 
 两者的输出结果区别不大，但展示风格不同。aux是BSD风格，-ef是System V风格
  
 7.24
-
-
 linux重启命令
 reboot
 
