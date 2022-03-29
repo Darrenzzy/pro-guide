@@ -167,30 +167,49 @@ func Round(f float64, n int, roundDown bool) float64 {
         return math.Ceil(f*s) / s
     }
 }
-1) 时间戳转时间字符串 (int64 —>  string)
-        timeUnix:=time.Now().Unix()   //已知的时间戳
+1)时间戳转时间字符串(int64—>string)
+    timeUnix:=time.Now().Unix()//已知的时间戳
 
-        formatTimeStr:=time.Unix(timeUnix,0).Format("2006-01-02 15:04:05")
+    formatTimeStr:=time.Unix(timeUnix,0).Format("2006-01-0215:04:05")
 
-        fmt.Println(formatTimeStr)   //打印结果：2017-04-11 13:30:39
-   2) 时间字符串转时间(string  —>  Time)
+    fmt.Println(formatTimeStr)//打印结果：2017-04-1113:30:39
+2)时间字符串转时间(string—>Time)
 
-      formatTimeStr=”2017-04-11 13:33:37”
+formatTimeStr=”2017-04-1113:33:37”
 
-      formatTime,err:=time.Parse("2006-01-02 15:04:05",formatTimeStr)
+   formatTime,err:=time.Parse("2006-01-0215:04:05",formatTimeStr)
 
-     if err==nil{
+  iferr==nil{
 
-         fmt.Println(formatTime) //打印结果：2017-04-11 13:33:37 +0000 UTC
+    fmt.Println(formatTime)//打印结果：2017-04-1113:33:37+0000UTC
 
-      }
-   3) 时间字符串转时间戳 (string —>  int64)
+   }
+3)时间字符串转时间戳(string—>int64)
 
-          比上面多一步，formatTime.Unix()即可
+     比上面多一步，formatTime.Unix()即可
 
 // 一天前
     d, _ := time.ParseDuration("-24h")
     oldTime := currentTime.AddDate(0, 0, -2)        //若要获取3天前的时间，则应将-2改为-3
+
+
+// param: days 为多少天以后
+// return: 今天+days 天之后的日期,所在月的最后一天, 按"2006年01月02日"格式化
+func LastDateOfMonth(days int, ct time.Time) string {
+    d := ct.AddDate(0, 0, days)              // time.Now()可以换成支持测试环境调时间的方法
+    firstDate := d.AddDate(0, 0, -d.Day()+1) // 当月的第一天
+    lastDate := firstDate.AddDate(0, 2, -1)
+    // lastDate.Unix()
+    // 当月的最后一天
+    return lastDate.Format("2006年01月02日")
+}
+
+// 获取今天0点和明天0点
+    ts := time.Now()
+    tm1 := time.Date(ts.Year(), ts.Month(), ts.Day(), 0, 0, 0, 0, ts.Location())
+    tm2 := tm1.AddDate(0, 0, 1)
+
+
 ```
 
 ### 字符串转换：
@@ -235,10 +254,10 @@ s := new(Sample)
     s.a = 1
     s.str = "hello"
     fmt.Printf("%v\n", *s)　//{1 hello}
-    fmt.Printf("%+v\n", *s) //  {a:1 str:hello}
+    fmt.Printf("%+v\n", *s) //{a:1 str:hello}
     fmt.Printf("%#v\n", *s) // main.Sample{a:1, str:"hello"}
-    fmt.Printf("%T\n", *s)   //  main.Sample
-    fmt.Printf("%%\n", s.a) //  %  %!(EXTRA int=1)
+    fmt.Printf("%T\n", *s)   //main.Sample
+    fmt.Printf("%%\n", s.a) //%%!(EXTRA int=1)
 
 //Go 为常规 Go 值的格式化设计提供了多种打印方式。例如，这里打印了 point 结构体的一个实例。
 p := point{1, 2}
