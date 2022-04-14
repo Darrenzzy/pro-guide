@@ -8,6 +8,9 @@
 * keys h？？？？
 * 可以避免redis阻塞的命令，通过轮询查看
 * scan 0 match key* count 10
+* 无阻塞
+* scan 0 MATCH *key* COUNT 10000 
+
 
 ### 启动和停止ssdb服务
 启动：ssdb-server /usr/local/etc/ssdb.conf
