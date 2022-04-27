@@ -7,10 +7,19 @@ show variables like '%character%';
 show columns from user;
 
 去重
-select DISTINCT *  from tag_user where user_id in (6013613);
+select DISTINCT *  from user where user_id in (XXXX);
 
 删除
-delete from tag_config where  depend_on='position';
+delete from config where  depend_on='position';
+
+查找重复数据
+```
+select id from config where `field` in 
+( select `field` from config group by `field` having count(*)>1) ;
+
+```
+
+
 创建数据库
 CREATE DATABASE mydatabase CHARACTER SET utf8
 
