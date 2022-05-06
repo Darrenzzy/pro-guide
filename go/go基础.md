@@ -1,4 +1,5 @@
-
+### 查看变量逃逸分析
+go run main.go -gcflags '-m -l'
 
 ### 位运算使用：
 ```

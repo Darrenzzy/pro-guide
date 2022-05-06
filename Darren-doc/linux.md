@@ -232,7 +232,7 @@ mv -f dir1 dir2
 
 利用命令grep在文件中搜索字符串
 grep -rni broker.address.family /
- ps -ef | grep nginx
+
 
 vim 多标签和多窗口
 :tabs  显示已打开标签页的列表，并用“>”标识出当前页面，用“+”标识出已更改的页面。

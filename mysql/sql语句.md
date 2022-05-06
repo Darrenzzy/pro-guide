@@ -14,9 +14,7 @@ delete from tag_config where  depend_on='position';
 创建数据库
 CREATE DATABASE mydatabase CHARACTER SET utf8
 
-UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
-
-UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson'
+UPDATE Person SET FirstName = 'Fred',FirstNamev2 = 'Fred' WHERE LastName = 'Wilson'
 
 join
 
