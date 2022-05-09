@@ -1,4 +1,19 @@
 # linux 常用总结
+
+### 5.9
+解封ip：
+# iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
+# iptables -D INPUT -s 121.0.0.0/8 -j DROP
+封禁单个IP
+# iptables -I INPUT -s xxx.xxx.xxx.xxx -j DROP
+封禁IP段：
+# iptables -I INPUT -s 121.0.0.0/8 -j DROP
+清空已有规则
+# iptables --flush
+或者是
+# iptables -F
+保存规则
+# service iptables save
 ### 3.19
 1.查看防火墙状态
       查看防火墙状态 systemctl status firewalld
@@ -232,18 +247,6 @@ mv -f dir1 dir2
 
 利用命令grep在文件中搜索字符串
 grep -rni broker.address.family /
-
-
-vim 多标签和多窗口
-:tabs  显示已打开标签页的列表，并用“>”标识出当前页面，用“+”标识出已更改的页面。
-关闭标签页
-:tabc  关闭当前标签页。
-:tabo  关闭所有的标签页。
-切换标签
-:tabn  移动到下一个标签页。 gt
-:tabp  移动到上一个标签页。 gT
-tabf * .txt  允许你在当前目录搜索文件，tabf 
-:tabnew file  等价  :tabe file   在新标签页中打开或新建文件file 
 
 ansible使用
 
