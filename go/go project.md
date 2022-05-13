@@ -1,5 +1,27 @@
 # go 项目中常遇到的事情
 
+### pprof
+allocs 内存分配情况的采样信息
+blocks 阻塞操作情况的采样信息
+cmdline 显示程序启动命令及参数
+goroutine 当前所有协程的堆栈信息
+heap 堆上内存使用情况的采样信息
+mutex 锁争用情况的采样信息
+profile CPU 占用情况的采样信息
+threadcreate 系统线程创建情况的采样信息
+trace 程序运行跟踪信息
+
+具体例子参考：TestPprofFunc
+person-go/modgo/test/pprof_func_test.go 
+
+首先摘取信息
+go tool pprof  http://127.0.0.1:8882/debug/pprof/profile\?seconds\=30
+进入后子命令：
+查看 占用top：  top 20
+查看 对象列表： list new
+
+上面30s会分析处一个压缩文件gz 用web查看
+go tool pprof --http=:3000  file.gz
 
 ### goland 编写 proto 引用 google 时需要用到的包
 
