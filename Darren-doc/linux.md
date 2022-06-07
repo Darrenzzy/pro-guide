@@ -1,5 +1,6 @@
 # linux 常用总结
 
+
 ### 5.9
 解封ip：
 # iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
@@ -14,6 +15,14 @@
 # iptables -F
 保存规则
 # service iptables save
+
+
+### 4.27
+bash 日期显示
+datetime=$(date  "+%Y%m%d_%H%M%S")
+mv log/X.log log/X${datetime}.log
+
+
 ### 3.19
 1.查看防火墙状态
       查看防火墙状态 systemctl status firewalld
