@@ -87,7 +87,7 @@ git fetch origin branch1:branch2
 查看本地所有分支
 git branch  -vv
 查看所有分支 和信息
-git branch -va 
+git branch -avvv 
 绑定当前分支到远程分支
 git branch --set-upstream-to=<remote>/<branch> other_bramch
 

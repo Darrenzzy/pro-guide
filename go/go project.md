@@ -15,7 +15,7 @@ trace 程序运行跟踪信息
 person-go/modgo/test/pprof_func_test.go 
 
 首先摘取信息
-go tool pprof  http://127.0.0.1:8882/debug/pprof/profile\?seconds\=30
+go tool pprof  http://10.5.27.226:8882/debug/pprof/profile\?seconds\=30
 进入后子命令：
 查看 占用top：  top 20
 查看 对象列表： list new
