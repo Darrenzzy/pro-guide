@@ -1,5 +1,15 @@
 # 学习笔记
 
+### docker ldap-admin
+docker pull osixia/phpldapadmin
+
+docker run -dit \
+-p 8081:80 \
+--name ldapadmin \
+--env PHPLDAPADMIN_HTTPS=false \
+--env PHPLDAPADMIN_LDAP_HOSTS=ldap://10.7.69.198:389 \
+--detach osixia/phpldapadmin
+
 ### 2021 6.1
 本地启动 grpc 项目后不方便启动 client 来调试，于是选择用 grpcurl 工具方便调试；推荐姿势：
 ```
@@ -426,13 +436,6 @@ func_get_args()
 
 ffmpeg安装(音频视频转换包)
 
-postgres操作：
-pg_ctl -D /usr/local/var/postgres -l logfile start
-
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
-关闭：
-pg_ctl -D /usr/local/var/postgres stop -s -m fast
-
 查询端口占用情况
 lsof -i:8000
 通过某个进程号显示该进程打开的文件
@@ -795,6 +798,9 @@ kafka-topics.sh --describe --zookeeper localhost:2181
 
 查看consumer group列表（新版命令）
 kafka-consumer-groups.sh --new-consumer --bootstrap-server 127.0.0.1:9092 --list
+
+指定消费组开始消费。
+./bin/kafka-console-consumer.sh  --bootstrap-server XXXXXX:9092  --topic topic_t_base_organize --group metasso_center_organize_tag_ms
 查看consumer group列表（老命令）
 kafka-consumer-groups.sh --zookeeper 127.0.0.1:2181 --list
 

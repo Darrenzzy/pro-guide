@@ -97,9 +97,6 @@ ini_get正好和ini_set相反
 
 sudo nginx
 sudp php-fpm start
-数据库
-pg_ctl -D /Users/darren/postgresql/data -l logfile start
-
 
 1.3
 秒杀架构设计理念

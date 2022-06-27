@@ -1,4 +1,7 @@
 
+### 列出所有远程分支及最后commit时间并按时间排序
+for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r
+
 ### Redis 数据库keys 命令的模糊查询 支持的通配符
 * 第一种：*   // key中含有keyword 的key
 * keys *keyword*

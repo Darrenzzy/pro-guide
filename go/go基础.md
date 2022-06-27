@@ -1,6 +1,14 @@
 ### 查看变量逃逸分析
 go run main.go -gcflags '-m -l'
 
+### 切片排序
+```
+sort.Slice(ids, func(i, j int) bool {
+        return ids[i] < ids[j]
+    })
+
+```
+
 ### 位运算使用：
 ```
 3>>2  表示 3除以 2 的 2 次方

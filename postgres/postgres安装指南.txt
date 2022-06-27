@@ -177,7 +177,6 @@ pg_ctl stop
 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
 
 
-
 在初次进入psql后，需要手动创建postgres用户和数据库
 一、创建postgres用户
 
