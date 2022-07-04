@@ -1,5 +1,13 @@
 # linux 常用总结
 
+### 7.1
+内存耗用：VSS/RSS/PSS/USS 的介绍:
+一般来说内存占用大小有如下规律：VSS >= RSS >= PSS >= USS
+
+VSS - Virtual Set Size 虚拟耗用内存（包含共享库占用的内存） （用处不大）
+RSS - Resident Set Size 实际使用物理内存（包含共享库占用的内存）  （用处不大）
+PSS - Proportional Set Size 实际使用的物理内存（比例分配共享库占用的内存）（仅供参考）
+USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存）（非常有用）
 
 ### 5.9
 解封ip：
@@ -16,6 +24,13 @@
 保存规则
 # service iptables save
 
+  iptables -t nat -D PREROUTING -d 10.******.15.164/32 -p tcp -m tcp --dport 5432 -j DNAT --to-destination ******.114:5432
+  iptables -t nat -D POSTROUTING -d ******.114/32 -p tcp -m tcp --dport 5432 -j SNAT --to-source ******.164
+  iptables -S -t nat
+  iptables -D -t nat -A PREROUTING -d ******.164/32 -p tcp -m tcp --dport 5432 -j DNAT --to-destination ******.100:5432
+  iptables -t nat -A PREROUTING -d ******.164/32 -p tcp -m tcp --dport 5432 -j DNAT --to-destination ******.100:5432
+  iptables -t nat -A POSTROUTING -d ******.100/32 -p tcp -m tcp --dport 5432 -j SNAT --to-source ******.164
+  nginx -t
 
 ### 4.27
 bash 日期显示
@@ -61,6 +76,8 @@ linux 删除指定日期之前的文件
 find ~ -mtime +92 -type f -name *.mail[12] -exec rm -rf {} \;
 find .  -mtime +92 -type f -name '*.log' |xargs rm -rf
 
+2. 删除 指定文件 10分钟以前的文件
+find ./  -name '*.out' -amin +10 -ls -exec rm -rf {} \;
 ```
 /email/v1_bak --设置查找的目录；
 -mtime +92 --设置时间为91天前；

@@ -1,5 +1,10 @@
 常用语句：
 
+DQL: SELECT
+DML: UPDATE/DELETE/INSERT
+DDL: CREATE TABLE/VIEW/INDEX/SYN/CLUSTER
+DCL: GRANT/ROLLBACK/COMMIT
+
 查看MYSQL数据库服务器和数据库字符集
 show variables like '%character%';
 

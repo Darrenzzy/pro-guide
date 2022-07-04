@@ -444,9 +444,7 @@ lsof -p 11968
 lsof -c mysql
 
 mac调出进程管理快捷键  alt+cmd+esc
-
-ps -ef|grep post  查看系统进程
-
+ 
 
 今天安装php7：
 相应的位置
