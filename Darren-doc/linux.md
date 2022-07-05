@@ -70,6 +70,9 @@ find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"
 ```
 
 ### 3.10
+linux 找出2天以前的文件
+find ./  -type f -mtime +2 -exec ls -lh {} \;
+
 linux 删除指定日期之前的文件
 两种方法：
 1. 在一个目录中保留最近三个月的文件，三个月前的文件自动删除。
@@ -85,12 +88,9 @@ find ./  -name '*.out' -amin +10 -ls -exec rm -rf {} \;
 -name *.mail[12] --设置文件名称中包含mail1或者mail2；
 -exec rm -f --查找完毕后执行删除操作；
 ```
-
 ### 2.5
 启动服务 发现端口起不来报：socket: too many open files
-
 临时解决改配置： ulimit -n 4096 
-
 ### 11.10
 zip命令使用 解压指定文件输出结果
  zip XXX.zip XXX
