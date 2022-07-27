@@ -29,6 +29,9 @@ git clone -b name http://......
 仅拉取最新一次提交 只克隆最新的提交记录
 git clone --branch <branch_name> <remote-address> --depth 1
 
+本地已提交看变动
+git diff --cached
+
 回退指定文件
 git checkout ./filename
 强制切换分支
