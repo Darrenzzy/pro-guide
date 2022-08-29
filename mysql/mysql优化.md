@@ -1,3 +1,18 @@
+
+
+mysql中 ，in语句中参数个数是不限制的。不过对整段sql语句的长度有了限制
+官方解释看这 https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet 5
+报文大小限制默认4M。
+
+在tidb的代码中也有类似的限制：
+// Run reads client query and writes query result to client in for loop, if there is a panic during query handling,
+// it will be recovered and log the panic error.
+// This function returns and the connection is closed if there is an IO error or there is a panic.
+func (cc *clientConn) Run(ctx context.Context) {
+  const size = 4096
+
+
+
 feed.sql innodb_buffer_pool_size默认值是128M，
   最小5M(当小于该值时会设置成5M)，最大为LLONG_MAX。
   当innodb_buffer_pool_instances设置大于1的时候，buffer pool size最小为1GB。

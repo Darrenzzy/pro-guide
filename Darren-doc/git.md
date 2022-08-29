@@ -29,6 +29,16 @@ git clone -b name http://......
 仅拉取最新一次提交 只克隆最新的提交记录
 git clone --branch <branch_name> <remote-address> --depth 1
 
+显示出branch1和branch2中差异的部分
+git diff branch1 branch2 --stat
+
+显示指定文件的详细差异
+git diff branch1 branch2 具体文件路径
+
+查看branch1分支有，而branch2中没有的log
+git log branch1 ^branch2
+git log branch1...branch2
+
 本地已提交看变动
 git diff --cached
 

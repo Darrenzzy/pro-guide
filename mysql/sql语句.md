@@ -93,3 +93,15 @@ mysql 高效模糊查询 代替like  locate(substr,str)
 1. like %keyword    索引失效，使用全表扫描。但可以通过翻转函数+like前模糊查询+建立翻转函数索引=走翻转函数索引，不走全表扫描。
 2. like keyword%    索引有效。
 3. like %keyword% 索引失效，也无法使用反向索引。
+
+### 每类前三个考虑 并列
+
+```sql
+select s1.name,s1.subject,s1.score from scores s1
+left join (select distinct subject,score from scores) s2
+on s1.subject=s2.subject
+and s1.score<s2.score
+group by s1.name,s1.subject,s1.score
+having count(1)<3
+order by subject,score desc;
+```

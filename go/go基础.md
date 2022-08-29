@@ -125,10 +125,26 @@ string := strconv.FormatUint(uint64, 10)
 
     strings.Replace(strings.Trim(fmt.Sprint(users), "[]"), " ", ",", -1),
 
+### 字符串去掉边界
+```go
+    func main() {
+    var s = "abaay森z众xbbab"
+    o := fmt.Println
+    o(strings.TrimPrefix(s, "ab")) // aay森z众xbbab
+    o(strings.TrimSuffix(s, "ab")) // abaay森z众xbb
+    o(strings.TrimLeft(s, "ab"))   // y森z众xbbab
+    o(strings.TrimRight(s, "ab"))  // abaay森z众x
+    o(strings.Trim(s, "ab"))       // y森z众x
+    o(strings.TrimFunc(s, func(r rune) bool {
+        return r < 128 // trim all ascii chars
+    })) // 森z众
+    }
+
+```
 
 
 ### 修改字符串：
-```
+```go
 func main() {
     x := "text"
     xRunes := []rune(x)
