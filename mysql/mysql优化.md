@@ -32,3 +32,18 @@ innodb_flush_log_at_trx_commit = 1
 log_queries_not_using_indexes=1/0; # 1表示未使用索引的sql都会打印慢日志
 innodb_buffer_pool_instances=1; #跟你innodb_buffer_pool_size配合使用，当innodb_buffer_pool_size大于1G的时候设置大于1
 
+
+## 设计表接口行格式时候 推荐用 dynamic ，默认也是这个 
+  ROW_FORMAT 的值如下: 从上到下一次变得严谨， 
+
+  FIXED 每个字段动态大小，比如一行数据大于一个页的量会发生塞不进去
+
+  DYNAMIC 其实就存储一个指针，数据都放在溢出页里 ，代表将长字段(发生行溢出)完全off-page存储。
+
+  COMPRESSED 和上面dynamic一样模式，只是会用zlib的算法进行压缩，对于BLOB、TEXT、VARCHAR这类大长度数据能够进行有效的存储（减少40%，但对CPU要求更高）
+
+  REDUNDANT 行数据都记录在叶子节点页里面。
+
+  COMPACT  溢出列存储前768字节
+
+  参考：https://www.cnblogs.com/wilburxu/p/9435818.html

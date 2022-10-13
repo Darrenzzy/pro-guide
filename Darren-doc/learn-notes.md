@@ -572,6 +572,22 @@ $ brew cleanup        // 清理所有包的旧版本的缓存
 $ brew cleanup git        // 清理指定包的旧版本
 
 
+### 更换版本 如go
+```bash
+
+brew install go@1.19
+brew unlink go
+
+brew link go@1.15
+
+//检验一下
+go version
+
+//output
+//go version go1.19.8 darwin/amd64
+```
+
+
 7.5学习笔记
 
 编辑php文件，做测试

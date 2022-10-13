@@ -44,6 +44,8 @@ git diff --cached
 
 回退指定文件
 git checkout ./filename
+若文件删除 从指定分支回退
+git checkout develop -- filename
 强制切换分支
 git checkout -f
 回退文件到指定版本号

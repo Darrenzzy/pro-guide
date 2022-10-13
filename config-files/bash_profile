@@ -1,14 +1,8 @@
 source ~/.profile
 
- 
+
+
 ##################### source something ###########################
-
-
-#批量更新指定脚本 #for file in ~/.{path,bash,exports,aliases,functions,extra}; do
-for file in {/Users/darren/projects/baolei/lib/completion.bash,~/.profile}; do
-[ -r "$file" ] && source "$file"
-done
-unset file
 
 
 ##################### start  alias ###########################
@@ -20,55 +14,51 @@ alias dockerps='docker ps -a  --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{
 alias docimg='docker images'
 
 #golang 相关
-alias go-guide='/Users/darren/go/src/build-web-application-with-golang/zh'
 alias go-deploy='/Users/darren/go/src/deploy'
-alias govendor='/Users/darren/go/src/vendor/laoyuegou.pb'
-alias gateway='/Users/darren/go/src/iceberg/gateway'
 alias gosrc='/Users/darren/go/src'
-alias goss='/Users/darren/go/src/gitlab.corp.laoyuegou.com/go'
 alias gotest='/Users/darren/go/src/person-go'
 alias pbgen="protoc --go_out=plugins=irpc:. *.proto"
 alias pbg="protoc --go_out=plugins=grpc:. *.proto"
 alias pbgenswagger="pbgen && swagger generate spec -o ./$(basename $(pwd)).json"
 alias cdswag="/Users/darren/go/src/testgo/modgo/swag"
+alias gvvv='go vet $(go list ./... | grep -v /vendor/)'
 
 #ssh快速链接
 alias sshnewu='ssh root@119.28.10.43'
 
-
-#go服务器
-
-
-#自定义快捷命令
+#快捷打开路径
 alias ppp='cd ~/projects'
 alias guide='cd ~/projects/guide'
+alias og='open -a goland '
+alias openvs='open -a Visual\ Studio\ Code '
+
+#自定义快捷命令
 alias duhd='du -h -d 1'
 alias ppsql='psql -U postgres'
-alias rrm='rm -rf '
 alias sss_bash_profile='source ~/.bash_profile'
 alias pps='ps -ef |grep '
 alias tf='tail -f '
-alias ll='ls -alh'
+alias tn='tail -n 10'
+alias ll='ls -alth'
 alias kk='ls -all'
 alias cc='clear'
-alias ls='ls -G'
+alias ls='ls -G --color=auto'
 alias vimbash_pro='vim ~/.bash_profile'
-alias ppc='php cli.php'
-alias varlog='cd /usr/local/var/log'
-alias mamplog='/Applications/MAMP/logs'
 alias 查的='cd '
-alias dul='du -d 1 -h' #查看当前目录下所有目录大小
 alias wgetfile='wget --no-check-certificate --content-disposition '
 alias curlfile='curl  -LJO '
-#快速查看 git 快捷命令
-alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
-alias ip='ipconfig getifaddr en0'
+alias ip='ipconfig getifaddr en6'
+alias rrf='/bin/rm -rf '
+alias fffd='find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"'
 alias bbb='bpytop'
 alias uuuu='ulimit -n 4096 '
-alias rrf='/bin/rm -rf '
-#redis地址
 
-###################### end  alias ###########################
+
+#快速查看 git 快捷命令
+alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
+alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r'
+#设置最大连接数
+ulimit -n 5242
 
 
 
@@ -77,12 +67,15 @@ alias rrf='/bin/rm -rf '
 
 #golang
 export GOPATH=/Users/darren/go
-export GOROOT=/usr/local/go
+#export GOROOT=/usr/local/go
+#export GOROOT=/Users/darren/go/go1.18.5
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
 export GO111MODULE=on
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
 export GOBIN=/Users/darren/go/bin
+# 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
+#export CGO_CFLAGS=-Wno-undef-prefix
 
 #python
 alias py="/usr/local/bin/python3"
@@ -102,87 +95,100 @@ export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
 export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
 export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
 export PATH=$PATH:/usr/local/mysql/bin
-export PATH=$PATH:/Users/darren/src/icomet-master
+#export PATH=$PATH:/opt/homebrew/bin
+export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:/usr/local/nginx/sbin
 export PATH=$PATH:/Users/darren/src/redis-5/src
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 # ruby brew
 export PATH=/usr/local/opt/ruby/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export DISPLAY=:0
 
-
 ###################### end  export ###########################
+
+
 
 
 ###################### start  function ###########################
 
 
 function redis-start(){
-	redis-server /Users/darren/projects/guide/config-files/redis.conf
+        redis-server /Users/darren/projects/guide/config-files/redis.conf
 }
 
 
 function sshinit(){
 #遍历添加用户登录时添加本地秘钥
-	for file in `ls ~/.ssh/id_rs* |grep -v pub`
-		do
-			[ -r "$file" ] && ssh-add  "$file"
-				done
-					unset file
+        for file in `ls ~/.ssh/id_rs* |grep -v pub`
+                do
+                        [ -r "$file" ] && ssh-add  "$file"
+                                done
+                                        unset file
 }
 
 
 #自动导入 vimrc 配置
 function open_vimrc(){
-	echo "先导入vim配置文件";
-	cp /Users/darren/projects/guide/config-files/vimrc.conf ~/.vimrc;
-	source ~/.vimrc;
+        echo "先导入vim配置文件";
+        cp /Users/darren/projects/guide/config-files/vimrc.conf ~/.vimrc;
+        source ~/.vimrc;
 
 }
+
+
 ###################### end  function ###########################
 
 ###################### start other ###########################
 
 #终端代理配置 开启后每次打开终端都生效
 function proxy {
-	if [[ $1 = "on" ]]; then
-		export http_proxy=http://127.0.0.1:8001
-			export https_proxy=http://127.0.0.1:8001
-			curl ifconfig.co/json
+        if [[ $1 = "on" ]]; then
+                export http_proxy=http://127.0.0.1:8001
+                        export https_proxy=http://127.0.0.1:8001
+                        curl ifconfig.co/json
 #      curl ip.gs
-			echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
+                        echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
 
-	elif [[ $1 = "btw" ]]; then
-			 export http_proxy=http://127.0.0.1:4780
+        elif [[ $1 = "btw" ]]; then
+                         export http_proxy=http://127.0.0.1:4780
                         export https_proxy=http://127.0.0.1:4780
                         curl ifconfig.co/json
                         echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
 
-	elif [[ $1 = "off" ]]; then
-			unset http_proxy
-			unset https_proxy
-			git config --global --unset http.proxy
+        elif [[ $1 = "off" ]]; then
+                        unset http_proxy
+                        unset https_proxy
+                        git config --global --unset http.proxy
                         git config --global --unset https.proxy
-			echo -e "已关闭代理"
-	elif [[ $1 = "git" ]]; then
-			git config --global http.proxy 'http://127.0.0.1:8001'
-			git config --global https.proxy 'http://127.0.0.1:8001'
-			echo -e "已经开启 git"
-	elif [[ $1 = "gitsock" ]]; then
+                        echo -e "已关闭代理"
+        elif [[ $1 = "git" ]]; then
+                        git config --global http.proxy 'http://127.0.0.1:8001'
+                        git config --global https.proxy 'http://127.0.0.1:8001'
+                        echo -e "已经开启 git"
+        elif [[ $1 = "gitsock" ]]; then
                         git config --global http.proxy 'socks://localhost:1080'
                         git config --global https.proxy 'socks://localhost:1080'
                         echo -e "已经开启 gitsock!"
-	else
-		echo -n "Usage: proxy [on|off|git] "
-	fi
+        else
+                echo -n "Usage: proxy [on|off|git] "
+        fi
 }
 
+alias groff='/opt/homebrew/Cellar/groff/1.22.4_1/bin/groff'
+alias cman='man -M /usr/local/share/man/zh_CN '
 #/Users/darren/.oh-my-zsh/themes/robbyrussell.zsh-theme 这里是直接篡改主题显示的配置 以下任意终端都生效：
-PROMPT='$(date "+%H:%M:%S") ${ret_status}%{$fg[cyan]%}%d$(git_prompt_info)'
+PROMPT='$(date "+%H:%M:%S") ${ret_status}%{$fg[cyan]%}%d$(git_prompt_info) '
+#PROMPT='$(date "+%H:%M:%S") '
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
-###################### end  other ###########################
+export ZGP_ZRN_DEV_TOKEN=c70bc729-ae86-403a-b73a-da911fda6956
+export ZGP_ZRN_PRO_TOKEN=fed6058a-4424-4977-b8c6-2fafcdd268a6
+###################### end  other ##########################
+. "$HOME/.cargo/env"
+
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
