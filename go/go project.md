@@ -23,6 +23,13 @@ go tool pprof  http://10.5.27.226:8882/debug/pprof/profile\?seconds\=30
 上面30s会分析处一个压缩文件gz 用web查看
 go tool pprof --http=:3000  file.gz
 
+指定端口 web 查看堆
+go tool pprof  -http :8884 http://xxxx:8882/debug/pprof/heap
+
+对比两个结果 查看差异 以 001 为基，看 002
+go tool pprof -base pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.001.pb.gz pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.002.pb.gz
+
+
 ### goland 编写 proto 引用 google 时需要用到的包
 
 ```proto
