@@ -1,5 +1,20 @@
 # linux 常用总结
 
+### hexo
+hexo clean //清除缓存文件 db.json 和已生成的静态文件 public
+
+npm install hexo-deployer-git –save // 安装发布插件
+
+hexo g == hexo generate //生成网站静态文件到默认设置的 public 文件夹
+ 
+hexo d == hexo deploy //自动生成网站静态文件，并部署到设定的仓库。
+ 
+hexo s == hexo server
+ 
+hexo n == hexo new
+
+
+
 ### emac
 文字删除
 ^ + k 删除光标后面所有字符（有剪切功能）
@@ -207,9 +222,7 @@ scp game-server land@172.16.164.9999:~/bin
 ssh land@172.16.164.9999 "supervisorctl restart gameserver:"
 
 
-8.22
-linux权限分配
-–rwxr-xr-x 转换成权限数字为755
+
 7.24
 查看systemctl的相关信息
 whereis systemctl
@@ -248,7 +261,8 @@ chmod -R lamport:users *
 drwx------ (700) - 只有属主可在目录中读、写。
 drwxr-xr-x (755) - 所有用户可读该目录，但只有属主才能改变目录中的内容。
 
-
+linux权限分配
+–rwxr-xr-x 转换成权限数字为755
 
 6.26
 crontab跑脚本  指定服务器
@@ -434,16 +448,6 @@ rm -r :删除目录
 rm -f : 删除文件
 -i ：执行前做个提醒
 
-12.3
-linux中读写 权限 执行 chmod 命令
--rw------- (600)      只有拥有者有读写权限。
--rw-r--r-- (644)      只有拥有者有读写权限；而属组用户和其他用户只有读权限。
--rwx------ (700)     只有拥有者有读、写、执行权限。
--rwxr-xr-x (755)    拥有者有读、写、执行权限；而属组用户和其他用户只有读、执行权限。
--rwx--x--x (711)    拥有者有读、写、执行权限；而属组用户和其他用户只有执行权限。
--rw-rw-rw- (666)   所有用户都有文件读、写权限。
--rwxrwxrwx (777)  所有用户都有读、写、执行权限。
-
 
 2:检索所有文件中匹配的字符串(find)
 我一般使用: grep -nri key_word ./*
@@ -501,14 +505,3 @@ reboot
 拨号，连接远程主机，带端口号
 telnet 39.108.61.252 9092
  
- 
- 
-12.3
-linux中读写 权限 执行 chmod 命令
--rw------- (600)      只有拥有者有读写权限。
--rw-r--r-- (644)      只有拥有者有读写权限；而属组用户和其他用户只有读权限。
--rwx------ (700)     只有拥有者有读、写、执行权限。
--rwxr-xr-x (755)    拥有者有读、写、执行权限；而属组用户和其他用户只有读、执行权限。
--rwx--x--x (711)    拥有者有读、写、执行权限；而属组用户和其他用户只有执行权限。
--rw-rw-rw- (666)   所有用户都有文件读、写权限。
--rwxrwxrwx (777)  所有用户都有读、写、执行权限。
