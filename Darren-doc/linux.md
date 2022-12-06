@@ -93,6 +93,9 @@ mv log/X.log log/X${datetime}.log
 ```
 find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"
 
+# 显示当前目录下所有匹配的文件
+find . -name '*.pb.go'
+
 ```
 
 ### 3.10
