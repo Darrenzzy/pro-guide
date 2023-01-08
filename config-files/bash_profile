@@ -1,8 +1,9 @@
 source ~/.profile
-
-
+source ~/.profile_work
 
 ##################### source something ###########################
+
+
 
 
 ##################### start  alias ###########################
@@ -22,7 +23,7 @@ alias pbg="protoc --go_out=plugins=grpc:. *.proto"
 alias pbgenswagger="pbgen && swagger generate spec -o ./$(basename $(pwd)).json"
 alias cdswag="/Users/darren/go/src/testgo/modgo/swag"
 alias gvvv='go vet $(go list ./... | grep -v /vendor/)'
-
+alias gmm='go mod tidy'
 #ssh快速链接
 alias sshnewu='ssh root@119.28.10.43'
 
@@ -31,6 +32,7 @@ alias ppp='cd ~/projects'
 alias guide='cd ~/projects/guide'
 alias og='open -a goland '
 alias openvs='open -a Visual\ Studio\ Code '
+alias opensb='open -a Sublime\ Text '
 
 #自定义快捷命令
 alias duhd='du -h -d 1'
@@ -49,6 +51,7 @@ alias wgetfile='wget --no-check-certificate --content-disposition '
 alias curlfile='curl  -LJO '
 alias ip='ipconfig getifaddr en6'
 alias rrf='/bin/rm -rf '
+# 显示文件树
 alias fffd='find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"'
 alias bbb='bpytop'
 alias uuuu='ulimit -n 4096 '
@@ -56,10 +59,13 @@ alias uuuu='ulimit -n 4096 '
 
 #快速查看 git 快捷命令
 alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
+alias gcld='gcl --depth 1'
+# gstaa='git stash apply'
 alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r'
 #设置最大连接数
 ulimit -n 5242
 
+###################### end  alias ###########################
 
 
 
@@ -73,7 +79,6 @@ export GOPATH=/Users/darren/go
 export GO111MODULE=on
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
-export GOBIN=/Users/darren/go/bin
 # 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
 #export CGO_CFLAGS=-Wno-undef-prefix
 
@@ -83,9 +88,6 @@ alias python="/usr/local/bin/python3"
 alias python-config="/usr/local/bin/python3.7m-config"
 
 
-#快速brew源 有代理情况关掉国内源
-#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
-
 #使用到的环境变量
 export PATH=$PATH:/usr/local/sbin
 export PATH=/usr/local/openresty/nginx/sbin:$PATH
@@ -94,10 +96,7 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
 export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
 export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
-export PATH=$PATH:/usr/local/mysql/bin
-#export PATH=$PATH:/opt/homebrew/bin
-export PATH=/opt/homebrew/bin:$PATH
-export PATH=$PATH:/usr/local/nginx/sbin
+export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/Users/darren/src/redis-5/src
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 # ruby brew
@@ -107,7 +106,6 @@ export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export DISPLAY=:0
 
 ###################### end  export ###########################
-
 
 
 
@@ -176,7 +174,6 @@ function proxy {
         fi
 }
 
-alias groff='/opt/homebrew/Cellar/groff/1.22.4_1/bin/groff'
 alias cman='man -M /usr/local/share/man/zh_CN '
 #/Users/darren/.oh-my-zsh/themes/robbyrussell.zsh-theme 这里是直接篡改主题显示的配置 以下任意终端都生效：
 PROMPT='$(date "+%H:%M:%S") ${ret_status}%{$fg[cyan]%}%d$(git_prompt_info) '

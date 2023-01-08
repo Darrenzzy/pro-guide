@@ -30,6 +30,9 @@ CREATE DATABASE mydatabase CHARACTER SET utf8
 
 UPDATE Person SET FirstName = 'Fred',FirstNamev2 = 'Fred' WHERE LastName = 'Wilson'
 
+
+update tableName set name=concat('前缀名称-',name);
+
 join
 
 SELECT Persons.id, Persons.LastName, Persons.FirstName, Orders.id,Orders.OrderNo,Orders.Pid
