@@ -42,6 +42,9 @@ git log branch1...branch2
 本地已提交看变动
 git diff --cached
 
+删除已经add提交的缓存，让git status 回归
+git rm -rf --cached path/
+
 回退指定文件
 git checkout ./filename
 若文件删除 从指定分支回退
