@@ -26,8 +26,17 @@ go tool pprof --http=:3000  file.gz
 指定端口 web 查看堆
 go tool pprof  -http :8884 http://xxxx:8882/debug/pprof/heap
 
+查看make申请内存占用的函数
+go tool pprof http://localhost:6060/debug/pprof/allocs
+
 对比两个结果 查看差异 以 001 为基，看 002
 go tool pprof -base pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.001.pb.gz pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.002.pb.gz
+
+### fgprof  【https://github.com/felixge/fgprof 】
+    主要处理的是针对CPU性能分析，Golang的On-CPU和Off-CPU的性能，可以分析到有哪些线程明显发生IO阻塞，定位到函数。
+
+go tool pprof --http=:6061 http://localhost:6060/debug/fgprof?seconds=3
+
 
 
 ### goland 编写 proto 引用 google 时需要用到的包
