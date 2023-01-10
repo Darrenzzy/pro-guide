@@ -87,11 +87,15 @@ alias py="/usr/local/bin/python3"
 alias python="/usr/local/bin/python3"
 alias python-config="/usr/local/bin/python3.7m-config"
 
-
 #rust
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
+#mysql
+  export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
+  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 
 #使用到的环境变量
 export PATH=$PATH:/usr/local/sbin
@@ -118,25 +122,25 @@ export DISPLAY=:0
 
 
 function redis-start(){
-        redis-server /Users/darren/projects/guide/config-files/redis.conf
+	redis-server /Users/darren/projects/guide/config-files/redis.conf
 }
 
 
 function sshinit(){
 #遍历添加用户登录时添加本地秘钥
-        for file in `ls ~/.ssh/id_rs* |grep -v pub`
-                do
-                        [ -r "$file" ] && ssh-add  "$file"
-                                done
-                                        unset file
+	for file in `ls ~/.ssh/id_rs* |grep -v pub`
+		do
+			[ -r "$file" ] && ssh-add  "$file"
+				done
+					unset file
 }
 
 
 #自动导入 vimrc 配置
 function open_vimrc(){
-        echo "先导入vim配置文件";
-        cp /Users/darren/projects/guide/config-files/vimrc.conf ~/.vimrc;
-        source ~/.vimrc;
+	echo "先导入vim配置文件";
+	cp /Users/darren/projects/guide/config-files/vimrc.conf ~/.vimrc;
+	source ~/.vimrc;
 
 }
 
@@ -147,46 +151,47 @@ function open_vimrc(){
 
 #终端代理配置 开启后每次打开终端都生效
 function proxy {
-        if [[ $1 = "on" ]]; then
-                export http_proxy=http://127.0.0.1:8001
-                        export https_proxy=http://127.0.0.1:8001
-                        curl ifconfig.co/json
+	if [[ $1 = "on" ]]; then
+		export http_proxy=http://127.0.0.1:8001
+			export https_proxy=http://127.0.0.1:8001
+			curl ifconfig.co/json
 #      curl ip.gs
-                        echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
+			echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
 
-        elif [[ $1 = "btw" ]]; then
-                         export http_proxy=http://127.0.0.1:4780
+	elif [[ $1 = "btw" ]]; then
+			 export http_proxy=http://127.0.0.1:4780
                         export https_proxy=http://127.0.0.1:4780
                         curl ifconfig.co/json
                         echo -e "已开启代理" http_proxy=$http_proxy https_proxy=$https_proxy
 
-        elif [[ $1 = "off" ]]; then
-                        unset http_proxy
-                        unset https_proxy
-                        git config --global --unset http.proxy
+	elif [[ $1 = "off" ]]; then
+			unset http_proxy
+			unset https_proxy
+			git config --global --unset http.proxy
                         git config --global --unset https.proxy
-                        echo -e "已关闭代理"
-        elif [[ $1 = "git" ]]; then
-                        git config --global http.proxy 'http://127.0.0.1:8001'
-                        git config --global https.proxy 'http://127.0.0.1:8001'
-                        echo -e "已经开启 git"
-        elif [[ $1 = "gitsock" ]]; then
+			echo -e "已关闭代理"
+	elif [[ $1 = "git" ]]; then
+			git config --global http.proxy 'http://127.0.0.1:8001'
+			git config --global https.proxy 'http://127.0.0.1:8001'
+			echo -e "已经开启 git"
+	elif [[ $1 = "gitsock" ]]; then
                         git config --global http.proxy 'socks://localhost:1080'
                         git config --global https.proxy 'socks://localhost:1080'
                         echo -e "已经开启 gitsock!"
-        else
-                echo -n "Usage: proxy [on|off|git] "
-        fi
+	else
+		echo -n "Usage: proxy [on|off|git] "
+	fi
 }
+
 
 # 定期同步配置
 function sync_bashprofile(){
 	 if [[ $1 = "on" ]]; then
 cp ~/.bash_profile ~/.bash_profile.bak$(date "+%H:%M:%S")
-cp /Users/darren/projects/guide/config-files/bash_profile  ~/.bash_profile	
+cp /Users/darren/projects/guide/config-files/bash_profile  ~/.bash_profile
 	else
 
-cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile	
+cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 		fi
 }
 
@@ -203,4 +208,3 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 . "$HOME/.cargo/env"
 
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
-
