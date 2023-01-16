@@ -11,8 +11,21 @@ profile CPU 占用情况的采样信息
 threadcreate 系统线程创建情况的采样信息
 trace 程序运行跟踪信息
 
+flat    本函数的执行耗时
+flat%   flat 占 CPU 总时间的比例。程序总耗时 16.22s, Eat 的 16.19s 占了 99.82%
+sum%    前面每一行的 flat 占比总和
+cum 累计量。指该函数加上该函数调用的函数总耗时
+cum%    cum 占 CPU 总时间的比例
+
 具体例子参考：TestPprofFunc
 person-go/modgo/test/pprof_func_test.go 
+
+命令例子
+```
+go tool pprof http://localhost:6060/debug/pprof/profile   # 30-second CPU profile
+go tool pprof http://localhost:6060/debug/pprof/heap      # heap profile
+go tool pprof http://localhost:6060/debug/pprof/block     # goroutine blocking profile
+```
 
 首先摘取信息
 go tool pprof  http://10.5.27.226:8882/debug/pprof/profile\?seconds\=30
@@ -28,6 +41,9 @@ go tool pprof  -http :8884 http://xxxx:8882/debug/pprof/heap
 
 查看make申请内存占用的函数
 go tool pprof http://localhost:6060/debug/pprof/allocs
+
+
+似于 diff 的方式找到前后两个时刻多出的 goroutine，进而找到 goroutine 泄露的原因，并没有直接使用 heap 或者 goroutine 的 profile 文件
 
 对比两个结果 查看差异 以 001 为基，看 002
 go tool pprof -base pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.001.pb.gz pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.002.pb.gz
