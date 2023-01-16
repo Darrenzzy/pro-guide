@@ -323,6 +323,9 @@ ansible all -m ping -u xxx
 
 下载包命令
 curl -O http://openresty.org/download/drizzle7-2011.07.21.tar.gz
+
+下载内容直接到指定文件中
+curl -fLo demo.yaml http://XXXX.com/json
 解压包命令
 tar -xzvf openresty-1.13.6.2.tar.gz
 
