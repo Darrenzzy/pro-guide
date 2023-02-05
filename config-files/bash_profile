@@ -41,10 +41,8 @@ alias sss_bash_profile='source ~/.bash_profile'
 alias pps='ps -ef |grep '
 alias tf='tail -f '
 alias tn='tail -n 10'
-alias ll='ls -alth'
-alias kk='ls -all'
+alias kk='/bin/ls -all'
 alias cc='clear'
-alias ls='ls -G --color=auto'
 alias vimbash_pro='vim ~/.bash_profile'
 alias 查的='cd '
 alias wgetfile='wget --no-check-certificate --content-disposition '
@@ -59,6 +57,7 @@ alias uuuu='ulimit -n 4096 '
 
 #快速查看 git 快捷命令
 alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
+alias lessgo='less /Users/darren/.oh-my-zsh/plugins/golang/golang.plugin.zsh'
 alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
 alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r'
@@ -109,6 +108,7 @@ export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/Users/darren/src/redis-5/src
 export PATH=$PATH:/Users/darren/Documents/platform-tools
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
 # ruby brew
 export PATH=/usr/local/opt/ruby/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
