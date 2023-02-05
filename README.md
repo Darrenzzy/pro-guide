@@ -1,5 +1,5 @@
 # pro-guide
-### 技术开发规范 以及 经验总结
+### 技术开发规范 以及经验总结
 
 1. 记录平时遇到的坑（php、go、sql、以及一些集群部署相关） 
    * [learn-notes](./Darren-doc/learn-notes.md)
