@@ -72,8 +72,6 @@ ulimit -n 5242
 
 #golang
 export GOPATH=/Users/darren/go
-#export GOROOT=/usr/local/go
-#export GOROOT=/Users/darren/go/go1.18.5
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
 export GO111MODULE=on
 export CGO_ENABLED=1
@@ -105,10 +103,8 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
 export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
 export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
-export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:/Users/darren/src/redis-5/src
 export PATH=$PATH:/Users/darren/Documents/platform-tools
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 # ruby brew
 export PATH=/usr/local/opt/ruby/bin:$PATH
