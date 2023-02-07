@@ -1,6 +1,8 @@
 #!/bin/bash
 
-
-echo 1234 >> ~/aa.txt
-
+cd $PWD
+cd ..
+git add .
+git commit -m "feat: auto job"
+git push origin master	
 
