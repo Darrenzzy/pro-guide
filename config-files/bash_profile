@@ -106,6 +106,7 @@ export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
 export PATH=$PATH:/Users/darren/src/redis-5/src
 export PATH=$PATH:/Users/darren/Documents/platform-tools
 export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 # ruby brew
 export PATH=/usr/local/opt/ruby/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
