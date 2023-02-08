@@ -1,3 +1,13 @@
+## MAC常用
+### macOS的开机启动脚本所在位置
+```
+~/Library/LaunchAgents
+/System/Library/LaunchAgents/
+/System/Library/LaunchDaemons/
+/Library/LaunchAgents/
+/Library/LaunchDaemons/
+```
+
 mac下面pdf转jpg:
 
 sips -s format jpeg xxx.pdf --out xxx.jpg
