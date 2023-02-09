@@ -24,6 +24,7 @@ alias pbgenswagger="pbgen && swagger generate spec -o ./$(basename $(pwd)).json"
 alias cdswag="/Users/darren/go/src/testgo/modgo/swag"
 alias gvvv='go vet $(go list ./... | grep -v /vendor/)'
 alias gmm='go mod tidy'
+
 #ssh快速链接
 alias sshnewu='ssh root@119.28.10.43'
 
@@ -72,18 +73,21 @@ ulimit -n 5242
 
 #golang
 export GOPATH=/Users/darren/go
+export GOBIN=/Users/darren/go/bin
+#export GOROOT=/Users/darren/go/go1.18.5
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
 export GO111MODULE=on
 export CGO_ENABLED=1
 export PATH=$PATH:/Users/darren/go/bin
+export PATH=/Users/darren/go/bin/protoc-21.7-osx-aarch_64/bin:$PATH
 export GOPROXY=https://goproxy.cn,direct
 # 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
 #export CGO_CFLAGS=-Wno-undef-prefix
 
 #python
-alias py="/usr/local/bin/python3"
-alias python="/usr/local/bin/python3"
-alias python-config="/usr/local/bin/python3.7m-config"
+alias py="/opt/homebrew/bin/python3"
+alias python="/opt/homebrew/bin/python3"
+alias python-config="/opt/homebrew/bin/python3.10-config"
 
 #rust
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
@@ -96,9 +100,9 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 
 #使用到的环境变量
+export PATH=$PATH:/Users/darren/go/bin/act_Darwin_arm64
 export PATH=$PATH:/usr/local/sbin
 export PATH=/usr/local/openresty/nginx/sbin:$PATH
-export PATH=/Users/darren/src/kafka2.11-1.1.1/bin:$PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
 export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
@@ -143,6 +147,13 @@ function open_vimrc(){
 
 }
 
+# push上去第一次
+function gps(){
+	branch=$(git symbolic-ref --short -q HEAD)
+	org=$(git remote)
+	echo "git push --set-upstream $org $branch"
+	gp --set-upstream $org $branch
+}
 
 ###################### end  function ###########################
 
@@ -192,6 +203,11 @@ cp /Users/darren/projects/guide/config-files/bash_profile  ~/.bash_profile
 
 cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 		fi
+}
+
+# 快速打开文件用goland 指定行数
+function ggg(){
+/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@:$pwd
 }
 
 alias cman='man -M /usr/local/share/man/zh_CN '
