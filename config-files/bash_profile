@@ -74,7 +74,7 @@ ulimit -n 5242
 #golang
 export GOPATH=/Users/darren/go
 export GOBIN=/Users/darren/go/bin
-#export GOROOT=/Users/darren/go/go1.18.5
+export MACOSX_DEPLOYMENT_TARGET=12.0
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
 export GO111MODULE=on
 export CGO_ENABLED=1
