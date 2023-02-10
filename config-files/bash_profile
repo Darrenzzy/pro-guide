@@ -207,7 +207,7 @@ cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 
 # 快速打开文件用goland 指定行数
 function ggg(){
-/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@:$pwd
+/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@
 }
 
 alias cman='man -M /usr/local/share/man/zh_CN '
