@@ -35,27 +35,6 @@ DATE_FORMAT( `create_time`, '%Y%m%d') < '20190701'  是把2019-08-20 17:40:14 �
 
 DATE_FORMAT(from_unixtime( `create_time` ), '%Y%m%d') < '20190701'")  是把 1566340543转换过去的
 
-deploy发布脚本
-#/bin/sh
-date
-gox -os="linux" -arch="amd64" -output="./game-server_linux_amd64"
-ssh land@172.16.164.248 "rm -f /home/land/beast/bin/game-server_linux_amd64"
-scp game-server_linux_amd64 land@172.16.164.248:~/beast/bin
-ssh land@172.16.164.248 "supervisorctl restart game-server:"
-
-supervisorctl 本身的配置
-/home/land/etc/conf.d
-supervisorctl 中项目的配置文件目录：
-/home/land/beast/conf.d
-重启 需要先切到home目录下
-supervisorctl update
-
-在服务下调用db数据库 ，需要生产sql客户端，
-一般跨服务调用，建议用RPC内部接口方式调用
-
-查看当前服务所用分支
-./beast/bin/plorder_linux_amd64 -h
-./beast/bin/plorder_linux_amd64 -v
 
 项目发布 到测试环境
 ./deploy.sh purse linux ddt_qa >> ~/tmp 2>&1 &

@@ -22,6 +22,12 @@
 
 8.21
 
+
+### nsq异常断开：
+查看：supervisorctl status |grep nsq
+重启nsq：supervisorctl restart nsqlookup: nsqd: nsqadmin:
+
+
 ### supervisor常用命令
 查看程序状态
 sudo supervisorctl status
