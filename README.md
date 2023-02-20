@@ -27,7 +27,7 @@
    * 消息集群部署 kafka+zookeeper
    * openresty 多模块配置
    * ruby开发
-   * [python](./paython/python环境.md) 
+   * [python](./python/python环境.md) 
    * elastic常用操作
    
    * 多进程、线程、协程
