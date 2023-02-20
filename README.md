@@ -23,7 +23,7 @@
    * [git-cmd](./Darren-doc/git.md)
 
 7. 其他方面发展规划：
-   * golang开发
+   * [golang开发](./go/go-project.md) 
    * 消息集群部署 kafka+zookeeper
    * openresty 多模块配置
    * ruby开发
