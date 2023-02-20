@@ -73,7 +73,7 @@ ulimit -n 5242
 #golang
 export GOPATH=/Users/darren/go
 export GOBIN=/Users/darren/go/bin
-export MACOSX_DEPLOYMENT_TARGET=12.0
+#export GOROOT=/Users/darren/go/go1.18.5
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
 export GO111MODULE=on
 export CGO_ENABLED=1
@@ -129,7 +129,15 @@ function redis-start(){
 
 
 function opengit(){
+	if [[ ! -z $1 ]]; then
+		if [[ $1 != *http* ]]; then
+			url='http://'
+		fi
+		open -n $url$1
+	else
+
 	open -n  $(git remote -v |head -n 1 |awk '{print $2}' |sed 's/:/\//g' |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
+         fi
 }
 
 function sshinit(){
