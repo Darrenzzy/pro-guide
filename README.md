@@ -17,7 +17,7 @@
 
 
 5. linux配置及运维，常用命令
-   * [linux-cmd](./linux/linux%20常用命令.md)
+   * [linux-cmd](./Darren-doc/linux.md)
 
 6. git常用命令
    * [git-cmd](./Darren-doc/git.md)
