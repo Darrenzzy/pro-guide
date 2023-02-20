@@ -1,4 +1,14 @@
 ## MAC常用
+
+
+### chrome 
+
+- 快速清除网络日志
+	按两下 cmd+e 
+- 快速打开网络network
+	cmd+opt+i
+
+
 ### macOS的开机启动脚本所在位置
 ```
 ~/Library/LaunchAgents

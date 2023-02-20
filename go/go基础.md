@@ -36,8 +36,8 @@ file_test.go 指定文件
 -run=none 表示只测试 bench 相关 case ，其他忽略
 -cpu=1 表示用几个核数
 
-例如下 模糊匹配：
-go test -bench="Concat$" -run=none
+例如下 前缀匹配： 会运行所有BenchmarkConcat* 相关的测试函数
+go test -bench="BenchmarkConcat" -run=none
 
 压侧结果 -8 表示当前机器使用GOMAXPROCS
 ```

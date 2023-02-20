@@ -31,7 +31,6 @@ alias sshnewu='ssh root@119.28.10.43'
 #快捷打开路径
 alias ppp='cd ~/projects'
 alias guide='cd ~/projects/guide'
-alias og='open -a goland '
 alias openvs='open -a Visual\ Studio\ Code '
 alias opensb='open -a Sublime\ Text '
 
@@ -128,6 +127,10 @@ function redis-start(){
 	redis-server /Users/darren/projects/guide/config-files/redis.conf
 }
 
+
+function opengit(){
+	open -n  $(git remote -v |head -n 1 |awk '{print $2}' |sed 's/:/\//g' |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
+}
 
 function sshinit(){
 #遍历添加用户登录时添加本地秘钥
