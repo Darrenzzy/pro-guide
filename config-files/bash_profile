@@ -61,6 +61,7 @@ alias lessgo='less /Users/darren/.oh-my-zsh/plugins/golang/golang.plugin.zsh'
 alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
 alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r'
+alias gcoo="git checkout $(git_current_branch) -- "
 #设置最大连接数
 ulimit -n 5242
 
@@ -136,7 +137,8 @@ function opengit(){
 		open -n $url$1
 	else
 
-	open -n  $(git remote -v |head -n 1 |awk '{print $2}' |sed 's/:/\//g' |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
+#open -n  $(git remote -v |head -n 1 |awk '{print $2}' |sed 's/:/\//g' |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
+	open -n  $(git remote -v |head -n 1 |awk '{print $2}'  |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
          fi
 }
 
