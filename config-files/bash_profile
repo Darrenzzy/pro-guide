@@ -1,4 +1,3 @@
-source ~/.profile
 source ~/.profile_work
 
 ##################### source something ###########################
@@ -79,7 +78,7 @@ export GOBIN=/Users/darren/go/bin
 export GO111MODULE=on
 export CGO_ENABLED=1
 export PATH=$PATH:/Users/darren/go/bin
-export PATH=/Users/darren/go/bin/protoc-21.7-osx-aarch_64/bin:$PATH
+#export PATH=/Users/darren/go/bin/protoc-21.7-osx-aarch_64/bin:$PATH
 export GOPROXY=https://goproxy.cn,direct
 # 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
 #export CGO_CFLAGS=-Wno-undef-prefix
@@ -102,17 +101,9 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 #使用到的环境变量
 export PATH=$PATH:/Users/darren/go/bin/act_Darwin_arm64
 export PATH=$PATH:/usr/local/sbin
-export PATH=/usr/local/openresty/nginx/sbin:$PATH
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:/Users/darren/src/apache-maven-3.5.4/bin  #maven的路径
-export PATH=$PATH:~/src/apache-tomcat-8.5.34/bin
-export PATH=$PATH:/usr/local/lib/node_modules/eslint/bin
-export PATH=$PATH:/Users/darren/src/redis-5/src
-export PATH=$PATH:/Users/darren/Documents/platform-tools
-export PATH="/opt/homebrew/sbin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-# ruby brew
-export PATH=/usr/local/opt/ruby/bin:$PATH
+#export PATH=/opt/homebrew/sbin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export DISPLAY=:0
