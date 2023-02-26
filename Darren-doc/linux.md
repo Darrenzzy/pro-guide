@@ -1,5 +1,8 @@
 # linux 常用总结
 
+### shell中判断文件是否存在快捷方式
+[ -f ~/.fzf.zsh ] && echo 'yup,exist!'
+
 ### 获取当前机器网络 io 请求 和各个进程流量
 * 各个进程流量
 sudo nethogs
