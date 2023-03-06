@@ -1,4 +1,5 @@
 source ~/.profile_work
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 ##################### source something ###########################
 
@@ -59,7 +60,7 @@ alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
 alias lessgo='less /Users/darren/.oh-my-zsh/plugins/golang/golang.plugin.zsh'
 alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
-alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r'
+alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t $branch | sed "s/origin\///g" ; done | sort -r |head -n 10'
 alias gcoo="git checkout $(git_current_branch) -- "
 #设置最大连接数
 ulimit -n 5242
@@ -84,8 +85,8 @@ export GOPROXY=https://goproxy.cn,direct
 #export CGO_CFLAGS=-Wno-undef-prefix
 
 #python
-alias py="/opt/homebrew/bin/python3"
-alias python="/opt/homebrew/bin/python3"
+alias py="/opt/homebrew/bin/python3.10"
+alias python="/opt/homebrew/bin/python3.10"
 alias python-config="/opt/homebrew/bin/python3.10-config"
 
 #rust
@@ -107,6 +108,12 @@ export PATH=/opt/homebrew/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export DISPLAY=:0
+
+#export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
+
 
 ###################### end  export ###########################
 
@@ -211,7 +218,7 @@ cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 
 # 快速打开文件用goland 指定行数
 function ggg(){
-/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@
+/opt/homebrew/bin/python3.10 /Users/darren/go/bin/goland-cmd.py $@
 }
 
 alias cman='man -M /usr/local/share/man/zh_CN '
