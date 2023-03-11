@@ -1,6 +1,8 @@
 ## array、map、struct
 
-数组、字典map、结构体是golang常见的数据类型。有时候我们写PHP的可能会分不清，但是有必要说明下区别/
+数组、字典map、结构体是golang常见的数据类型. 
+
+具体比较性能请看：https://github.com/codingplans/person-go/blob/master/modgo/test/merge_slice_test.go
 
 ### 1. 数组
 

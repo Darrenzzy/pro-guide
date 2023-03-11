@@ -1,7 +1,7 @@
 # pro-guide
 ### 技术开发规范 以及经验总结
 
-1. 记录平时遇到的坑（php、go、sql、以及一些集群部署相关） 
+1. 记录平时遇到的坑（go、sql、以及一些集群部署相关） 
    * [learn-notes](./Darren-doc/learn-notes.md)
   
 2. 制定开发规范，便于多人协同开发使用 （php、python、c++、ruby）

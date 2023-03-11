@@ -6,17 +6,32 @@
 ### mac安装
     下载go*.darwin-amd64.pkg包， 点击安装即可，默认安装到/usr/local/go
 
+### mac下方便的切换go版本方案
+
+```bash
+    go version 
+    => 你的原始版本
+    brew unlink go
+    brew link go@1.20
+    go version 
+    => 你的期望的版本
+    brew unlink go
+    可以再次还原原始版本
+```
+
 ### linux安装
     wget http...go1.*.linux-amd64.tar.gz
-    tar -zxvf go1.16.linux-amd64.tar.gz
+    tar -zxvf go1.*.linux-amd64.tar.gz
     把下载编译后的源码
     放在/usr/local/go
 
 
 ### 本地安装依赖x
+```bash
     git clone http://github.com/golang/tools
     mkdir -p  $GOPATH/src/golang.org/x/
     cp -r tools $GOPATH/src/golang.org/x/
+```
 
 
 
