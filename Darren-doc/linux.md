@@ -1,5 +1,8 @@
 # linux 常用总结
 
+### 查看当前linux系统版本
+lsb_release -a
+
 ### shell中判断文件是否存在快捷方式
 [ -f ~/.fzf.zsh ] && echo 'yup,exist!'
 
