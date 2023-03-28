@@ -1,5 +1,5 @@
 # git 基本操作
-    
+
 ```
 生成ssh秘钥
 ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
@@ -17,7 +17,7 @@ git for-each-ref --sort='-committerdate' --format="%(refname:short)%09%(committe
 ```
 
 变基其他分支到当前分支，<当前分支>的 commit 更换到 <其他分支> 的后面且重定义新 commit 名字(一般用于非 master 分支，常用于自己的开发多分支上)
- 
+
  1. git rebase <其他分支> 正常情况没有冲突就直接完事了，有冲突就走第二步
  2. git diff/ status 当前先处理冲突，选用自己或其他code，然后 commit 一下，
  3. git rebase --skip 直接回到当前分支，且在<其他分支> 后自动跟上了
@@ -54,7 +54,7 @@ git checkout -f
 回退文件到指定版本号
 git checkout commitId file
 将在未push提交的撤销  一次
-git reset --soft HEAD^   
+git reset --soft HEAD^
 重置当前分支
 git reset --hard origin/master
 当前分支回退版本(回退3个版本 就用HEAD~3 )
@@ -62,7 +62,7 @@ git reset --hard HEAD\^
 撤回重定义历史制定本版内容，不影响该版本后面的提交，可以重新 commit
 git revert -n commitId
 清空当前本地所有变更
-git clean -df 
+git clean -df
 则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push
 git push -u origin master
 git push <远程主机名> <本地分支名>:<远程分支名>
@@ -71,7 +71,7 @@ git push origin tag  标签推送到远程
 
 git commit --amend 更新上次提交的massage文案
 
-git 配置全局信息： 
+git 配置全局信息：
 git config --global user.name "darren"
 git config --global user.email "darren@alibaba.com"
 git config --list  查看当前配置情况
@@ -83,21 +83,21 @@ git remote rm origin 删除远程库
 
 git tag -a 0.0.1 -m 'something....' 打标签
 上传标签
-git push origin 0.0.1  
+git push origin 0.0.1
 或者上传全部标签:git push origin --tags
 
 本地删除标签
 git tag -d v1.0
 删除远程标签
-git push origin :refs/tags/v1.0 
+git push origin :refs/tags/v1.0
 
-拉取远程分支到本地分支 
+拉取远程分支到本地分支
  git pull origin dev:Darren
  拉取最新，并归到当前提交的后面
- git pull --rebase 
+ git pull --rebase
  git pull --rebase origin master
 
-从远程获取最新版本到本地 
+从远程获取最新版本到本地
 git fetch origin aaa
 具体到拉某一个分支
 git fetch origin branch1:branch2
@@ -105,16 +105,16 @@ git fetch origin branch1:branch2
 查看本地所有分支
 git branch  -vv
 查看所有分支 和信息
-git branch -avvv 
+git branch -avvv
 绑定当前分支到远程分支
 git branch --set-upstream-to=<remote>/<branch> other_bramch
 
 创建分支
 git branch new | git checkout -b new  等效
 删除本地分支
-branch -D old  
+branch -D old
 删除远程分支 先删除本地该分支，在覆盖远程
-git branch -r -d origin/branch-name  
+git branch -r -d origin/branch-name
 真正删除远程分支：
 git push origin --delete branchname
 git push origin :branchname :branch2
@@ -122,14 +122,16 @@ git push origin :branchname :branch2
 git拉取远程分支到本地分支或者创建本地新分支
 git checkout origin/remoteName -b localName
 或者：git checkout -b new origin/new
+git指定tag签出一个分支
+git checkout -b [new_branch_name] [tag_name]
 
 git撤销本地所有为更改的提交
 git clean -df
 
 仅显示最近的两次更新
 git log -p -2
-查看历史提交日志 
-git log --pretty=oneline 
+查看历史提交日志
+git log --pretty=oneline
 或者： git log -p app/Http/Controllers/Admin/AdminController.php
 
 查看每一次提交的详细内容
@@ -186,4 +188,3 @@ revert - 回退
 1. 单次commit只针对单个功能，不要对多个功能进行调整优化
 2. 一个功能尽可能合成一次commit
 3. commit中必须说明所有改动项
-

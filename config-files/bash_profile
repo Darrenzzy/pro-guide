@@ -1,9 +1,6 @@
 source ~/.profile_work
-source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 ##################### source something ###########################
-
-
 
 
 ##################### start  alias ###########################
@@ -62,6 +59,7 @@ alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
 alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t $branch | sed "s/origin\///g" ; done | sort -r |head -n 10'
 alias gcoo="git checkout $(git_current_branch) -- "
+alias gitresetsoft="git reset --soft "
 #设置最大连接数
 ulimit -n 5242
 
@@ -94,8 +92,8 @@ export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
 #mysql
-  export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
+#  export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
+# export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
   export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 
@@ -105,15 +103,15 @@ export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/bin
 #export PATH=/opt/homebrew/sbin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
+#export LDFLAGS="-L/usr/local/opt/ruby/lib"
+#export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export DISPLAY=:0
 
 #export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+#export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+#export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
-
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 ###################### end  export ###########################
 
@@ -123,7 +121,7 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
 
 
 function redis-start(){
-	redis-server /Users/darren/projects/guide/config-files/redis.conf
+	redis-server ~/projects/guide/config-files/redis-6379.conf
 }
 
 
@@ -135,8 +133,7 @@ function opengit(){
 		open -n $url$1
 	else
 
-#open -n  $(git remote -v |head -n 1 |awk '{print $2}' |sed 's/:/\//g' |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
-	open -n  $(git remote -v |head -n 1 |awk '{print $2}'  |sed 's/git@/http:\/\//g' |sed 's/.git$//g')
+	open -n  $(git remote -v |head -n 1 |awk '{print $2}'  |sed 's/git@/http:\/\//g' |sed 's/.git$//g'|sed 's/com:/com\//g')
          fi
 }
 

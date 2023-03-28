@@ -3,6 +3,12 @@
 ### 查看当前linux系统版本
 lsb_release -a
 
+### shell中可以快速搜索历史命令ctrl+r
+安装fzf ，https://github.com/junegunn/fzf 
+linux:
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 ### shell中判断文件是否存在快捷方式
 [ -f ~/.fzf.zsh ] && echo 'yup,exist!'
 
@@ -372,6 +378,9 @@ awk去重
 awk '{array[$1]++} END {for(key in array) printkey,array[key]}' 1.txt 
 10.0.0.3 35
 10.0.0.4 5
+
+Linux命令行中使用管道查看列表的总数
+command | wc -l
 
 less *2021012621.log |grep -B 5 AP010012
      关键字前后5 行 
