@@ -1,5 +1,25 @@
 # linux 常用总结
 
+### nginx限制 请求header中key的长度大小
+large_client_header_buffers number size;
+其中，number 是缓冲区的数量，size 是每个缓冲区的大小。为了限制请求头部键（key）的长度，需要设置合适的缓冲区大小。
+如果要将限制应用于特定的location模块，可以将配置添加到相应的模块中：
+```
+server {
+    ...
+    location /example {
+        ...
+        large_client_header_buffers 4 4k;
+        ...
+    }
+    ...
+}
+```
+
+请注意，当请求头部超出设置的限制时，Nginx将返回414 Request-URI Too Large错误。
+
+
+
 ### 查看当前linux系统版本
 lsb_release -a
 
@@ -80,7 +100,7 @@ PSS - Proportional Set Size 实际使用的物理内存（比例分配共享库�
 USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存）（非常有用）
 
 ### 5.9
-解封ip：
+防火墙 解封ip：
 # iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
 # iptables -D INPUT -s 121.0.0.0/8 -j DROP
 封禁单个IP
@@ -102,6 +122,8 @@ USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占�
   iptables -t nat -A POSTROUTING -d ******.100/32 -p tcp -m tcp --dport 5432 -j SNAT --to-source ******.164
   nginx -t
 
+ufw allow 54321/tcp # 注意：54321要改成你的端口
+ufw allow 54321/udp # 注意：54321要改成你的端口
 ### 4.27
 bash 日期显示
 datetime=$(date  "+%Y%m%d_%H%M%S")
@@ -173,6 +195,9 @@ unzip -o name.zip  -d newname
 
 压缩目录：
 tar -zcvf test.tar.gz test
+压缩多个目录
+tar -zcvf archive.tar.gz folder1 folder2
+
 解压 
 tar -zxvf test.tar.gz ./
 

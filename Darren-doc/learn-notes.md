@@ -1,5 +1,8 @@
 # 学习笔记
 
+### wget 类似curl请求并响应
+wget -O - qq.com
+
 ### docker ldap-admin
 docker pull osixia/phpldapadmin
 
