@@ -1,9 +1,7 @@
 
 ```
 brew 安装后 启动nsq 和关闭
-To have launchd start nsq now and restart at login:
   brew services start nsq
-Or, if you don't want/need a background service you can just run:
   nsqd -data-path=/usr/local/var/nsq
 ```
 ```

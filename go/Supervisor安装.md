@@ -31,7 +31,9 @@
 ### supervisor常用命令
 查看程序状态
 sudo supervisorctl status
-读取新增配置（不启动）
+
+读取新增配置（不启动）  
+* 切记每次新增配置后要重载一遍reread 这样就可以start了，不然会报：ERROR (no such group)
 sudo supervisorctl reread
 ### 控制所有进程
 sudo supervisorctl start all
