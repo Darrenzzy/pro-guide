@@ -1,5 +1,9 @@
 # 安装部署常用到的
 
+### 查看子库依赖情况
+    go mod why -m github.com/shirou/gopsutil
+    会显示出上下级依赖关系
+
 ### go安装 
     下载地址：https://golang.org/dl/
 

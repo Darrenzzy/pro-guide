@@ -1,5 +1,22 @@
 # linux 常用总结
 
+### ubuntu使用cgo musl执行需要预安装
+mkdir /tmp && apt install musl-tools
+
+### 抓包
+ sudo tcpdump -iany -vv -nn host xxxx.com
+
+### 拉黑
+iptables 常用命令
+-A  追加规则    iptables -A INPUT
+
+-D  删除规则    iptables -D INPUT 1(编号)
+
+-R  修改规则    iptables -R INPUT 1(位置)  -s  IP地址  -j  DROP 取代现行规则顺序不变
+
+禁用网宿：iptables -I INPUT -s 36.250.86.12 -j DROP
+
+
 ### nginx限制 请求header中key的长度大小
 large_client_header_buffers number size;
 其中，number 是缓冲区的数量，size 是每个缓冲区的大小。为了限制请求头部键（key）的长度，需要设置合适的缓冲区大小。
