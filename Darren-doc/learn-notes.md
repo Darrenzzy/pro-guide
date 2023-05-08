@@ -1,17 +1,16 @@
 # 学习笔记
 
+### jetbrain插件方案：
+    实现同时
+    1 支持proto跳转依赖proto
+    2 支持service跳转到pb.go
+    方案 
+    1 禁用 Protocol Buffers 插件
+    2 启用 protobuf support 插件
+    3 重启IDEA
+
 ### wget 类似curl请求并响应
 wget -O - qq.com
-
-### docker ldap-admin
-docker pull osixia/phpldapadmin
-
-docker run -dit \
--p 8081:80 \
---name ldapadmin \
---env PHPLDAPADMIN_HTTPS=false \
---env PHPLDAPADMIN_LDAP_HOSTS=ldap://10.7.69.198:389 \
---detach osixia/phpldapadmin
 
 ### 2021 6.1
 本地启动 grpc 项目后不方便启动 client 来调试，于是选择用 grpcurl 工具方便调试；推荐姿势：
@@ -148,6 +147,15 @@ db2struct --host 192.168.1.1 --user root -p root --gorm --json -d database --pac
 
 3. 至此完成shell的骚操作，其中关键可利用处我已贴出来，并做了注释，
 
+### sed的其他操作
+linux中 来删除所有以 "#" 开头的行，无论前面有多少空格:
+```
+sed -i '/^[[:space:]]*\#/d' /path/to/file
+```
+对于Mac，您可以使用以下命令来删除所有以 "#" 开头的行，无论前面有多少空格：
+```
+sed -i '' '/^[[:space:]]*\#/d' /path/to/file
+```
 
 ### 11.30
 >钱包 项目部署时需要额外部署icomet
@@ -180,16 +188,6 @@ npm下载指定版本后面直接加版本号即可   npm install -g umi@1.3.11
 修改后这么用： order by （id is not null ）desc
 2亿条记录查询， 根本都是小问题
 
-### 9.3
-```bash
-if [ -n "$(echo $1| sed -n "/^[0-9]\+$/p")" ];then
-    echo "$1 is number."
-else
-    echo 'no.'
-fi
-
-echo 123123| sed -n "/^[0-9]\+$/p"
-```
 
 ### 8.30
 

@@ -1,3 +1,12 @@
+## Docker 
+
+
+### mac本地运行docker，用指定目录：
+docker run --platform=linux/amd64 -v /Users/darren/go/src:/root/works -it go120:aaa /bin/bash
+
+### docker 用基础镜像没有telnet问题：
+apk add busybox-extras
+* 因为包里没有直接telnet，需要用这个软件会自带telnet 来代替
 
 ### docker 本地使用ubuntu系统，已完善各功能组件，直接使用，相当于本地环境
 	docker pull darrenzzy/ubunto-git-zsh:latest

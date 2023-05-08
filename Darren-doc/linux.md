@@ -6,17 +6,6 @@ mkdir /tmp && apt install musl-tools
 ### 抓包
  sudo tcpdump -iany -vv -nn host xxxx.com
 
-### 拉黑
-iptables 常用命令
--A  追加规则    iptables -A INPUT
-
--D  删除规则    iptables -D INPUT 1(编号)
-
--R  修改规则    iptables -R INPUT 1(位置)  -s  IP地址  -j  DROP 取代现行规则顺序不变
-
-禁用网宿：iptables -I INPUT -s 36.250.86.12 -j DROP
-
-
 ### nginx限制 请求header中key的长度大小
 large_client_header_buffers number size;
 其中，number 是缓冲区的数量，size 是每个缓冲区的大小。为了限制请求头部键（key）的长度，需要设置合适的缓冲区大小。
@@ -138,6 +127,26 @@ USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占�
   iptables -t nat -A PREROUTING -d ******.164/32 -p tcp -m tcp --dport 5432 -j DNAT --to-destination ******.100:5432
   iptables -t nat -A POSTROUTING -d ******.100/32 -p tcp -m tcp --dport 5432 -j SNAT --to-source ******.164
   nginx -t
+
+### 拉黑
+iptables 常用命令
+-A  追加规则    iptables -A INPUT
+
+-D  删除规则    iptables -D INPUT 1(编号)
+
+-R  修改规则    iptables -R INPUT 1(位置)  -s  IP地址  -j  DROP 取代现行规则顺序不变
+
+禁用网宿：iptables -I INPUT -s 36.250.86.12 -j DROP
+
+docker 处理容器网络命令：https://docs.docker.com/network/iptables/
+假如我们只希望开放本机的服务给192.168.1.1-192.168.1.3这3个IP进行访问，本机的业务网卡为eth0：
+iptables -I DOCKER-USER -m iprange -i eth0 ! --src-range 192.168.1.1-192.168.1.3 -j DROP
+
+假如我们只希望开放本机的3306端口给192.168.1.0/24这个网段进行访问，本机的业务网卡为eth0：
+iptables -I DOCKER-USER -i eth0 -p tcp --dport 3306 ! -s 192.168.1.0/24 -j DROP
+
+
+
 
 ufw allow 54321/tcp # 注意：54321要改成你的端口
 ufw allow 54321/udp # 注意：54321要改成你的端口
