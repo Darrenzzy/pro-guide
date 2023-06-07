@@ -65,7 +65,8 @@ git revert -n commitId
 git clean -df
 则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push
 git push -u origin master
-git push <远程主机名> <本地分支名>:<远程分支名>
+本地A分支推送到远程B分支
+git push -u origin A:B
 git push  -f 强推版本覆盖远程
 git push origin tag  标签推送到远程
 
