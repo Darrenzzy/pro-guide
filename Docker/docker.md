@@ -1,5 +1,32 @@
+## Docker 
+
+### 运行docker中容器拥有sudo权限
+	docker run  --privileged ...
+
+### mac本地运行docker，用指定目录：
+	docker run --platform=linux/amd64 -v /Users/darren/go/src:/root/works -it go120:aaa /bin/bash
+
+### docker 用基础镜像没有telnet问题：
+	apk add busybox-extras
+* 因为包里没有直接telnet，需要用这个软件会自带telnet 来代替
+
+### docker 本地使用ubuntu系统，已完善各功能组件，直接使用，相当于本地环境
+	docker pull darrenzzy/ubunto-git-zsh:latest
+	docker run --platform=linux/amd64 -v /go/src:/root/works -v ~/.ssh:/root/.ssh -it  darrenzzy/ubunto-git-zsh  /bin/zsh 
+
+### docker 本地拉去镜像后，运行和使用 =》 再对容器打包 =》在发布镜像
+
+1. 先登录
+	docker docker login
+2. 给当前运行的容器打镜像
+	docker commit 容器ID  apple/img_name
+3. 给新的镜像打tag，方便后面推送
+	docker tag apple/img_name apple/img_namev1.0
+4. 推送镜像到远程 
+	docker push apple/img_namev1.0
+
+
 ```
-学习docker
 4.27
 docker info：显示系统级别的信息，比如容器和镜像的数量等。
 

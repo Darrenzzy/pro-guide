@@ -1,4 +1,11 @@
 常用总结：
+4.6 批量修改块内容
+press ctrl+v
+select columns
+press shift+i
+write your text
+press esc
+press "jj"
 
 7.2 vim快速替换 
 

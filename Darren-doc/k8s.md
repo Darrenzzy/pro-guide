@@ -1,5 +1,12 @@
 # k8s 问题及解决方案
 
+### pod 重新部署失败后，需要调研什么原因导致失败，看pod状态是 ErrImagePull
+        kubectl --kubeconfig ~/.kube/xxx describe pods podname -n namespace
+        拉到最后描述显示 kubelet Failed to pull image "repoxxx:names": rpc error: code = Unknown desc = failed to resolve reference "xxxx": failed to authorize: failed to fetch oauth token: unexpected status: 401 Unauthorized
+
+        得知是yaml中imagePullSecrets配置对应的秘钥错误导致的。因为在新的命名空间搞，所以不太清楚配置。
+
+
 ### 重启服务时pod断开流程：
 优雅方式：收到SIGTERM信号后，对外提供服务的pod，要先断开端口监听，在依次向中心注销服务，退出进程
 

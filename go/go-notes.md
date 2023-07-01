@@ -1,5 +1,24 @@
 # Go编码注意事项
 
+### 2023.4.15 sonar流水线流程：
+- 注意先决条件安装： brew install ocaml opam sonar-scanner
+
+    1.生成报告：
+    golangci-lint run --build-tags=dynamic -c .golangci.yaml --out-format checkstyle ./... > report.xml
+    2.创建报告生成位置
+    mkdir -p golang-report/
+    go test -tags dynamic -v -json -cover -coverprofile cover.out ./... > golang-report/report.jsonl
+    3.生成测试覆盖率
+    go tool cover -html=cover.out -o golang-report/index.html
+    4.添加忽略文件
+    echo '.scannerwork
+    report.xml
+    cover.out
+    golang-report/*' >> .gitignore
+    5.在sonar平台中个人中心生成的项目key：
+    sonar-scanner -X -Dsonar.login=xxxxxxxxxxxxxxxxxxx
+
+
 - 2022.6.20
 
 1. Go 内置的内存 profiler可以让我们对线上系统进行内存使用采样，有四个相应的指标：

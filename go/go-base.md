@@ -1,5 +1,3 @@
-### 查看变量逃逸分析
-go run main.go -gcflags '-m -l'
 
 ### 切片排序
 ```
@@ -41,7 +39,7 @@ go test -bench="BenchmarkConcat" -run=none
 
 压侧结果 -8 表示当前机器使用GOMAXPROCS
 ```
-### 逃逸
+### 查看变量逃逸分析
 ```
 1  临时变量 的指针返回给外部调用
 2  初始化变量过大 make99999len
@@ -50,6 +48,7 @@ go test -bench="BenchmarkConcat" -run=none
 逃逸分析：
 go test -gcflags '-m -l'  -v -run TestPractice
 go build -gcflags '-m -l' main.go
+go run main.go -gcflags '-m -l'
 ```
 
 
