@@ -1,5 +1,20 @@
 # linux 常用总结
 
+### 执行bash命令好方案
+```bash
+_load config.sh
+
+# 载入脚本目录，执行config.sh脚本
+_load() {
+    local _dir="/etc/XXXX/src/"
+    . "${_dir}$@"
+}
+
+```
+
+### 查看指定进程id
+pgrep -f /usr/bin/httpd
+
 ### ubuntu使用cgo musl执行需要预安装
 mkdir /tmp && apt install musl-tools
 
@@ -24,10 +39,9 @@ server {
 
 请注意，当请求头部超出设置的限制时，Nginx将返回414 Request-URI Too Large错误。
 
-
-
 ### 查看当前linux系统版本
 lsb_release -a
+uname -a
 
 ### shell中可以快速搜索历史命令ctrl+r
 安装fzf ，https://github.com/junegunn/fzf 
