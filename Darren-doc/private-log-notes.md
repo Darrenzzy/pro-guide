@@ -204,14 +204,6 @@ Configuration summary
 
 
 
-9.18
-社会一小步，没有同情，没有怜悯，你强任你行，你弱就闭嘴，
-这都是闲的，导致大家发生争执
-以后多一事不如少一事
-少说几句话，做事走走心，不要傻不拉几
-哎
-
-
 9.15
 
  $no = shell_exec("ps ax| grep -i 'order_details'  | grep -v grep | awk '{print $1}'");
@@ -243,17 +235,6 @@ Configuration summary
 9.11
 市商 ：监控重启措施，完善运行手册
 
-
-9.5
-学习model中存储数据方式：ssdb/redis 切换，
-仅限xphalcon ：在model中配置方法放回存储路径  ssdb://127.0.0.1:8888 redis://127.0.0.1:6379
-
- #该函数返回此model要存储的方式 ssdb或者redis 在basemodel中会判断该函数，调用存储方式地址
-    static function getFastCacheEndpoint($id)
-    {
-        $endpoints = 'redis://127.0.0.1:6379';
-        return $endpoints;
-    }
 
 9.4
 服务器端错误日志位置：

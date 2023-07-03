@@ -55,11 +55,19 @@ insert into test1 (id) values (1);
 
 添加字段
 alter table `msgs` add `sss2` int(11) Default '0' comment '站点 id' ;
- 修改原来索引结构
+
+ALTER TABLE `monitor_data` ADD `platform` SMALLINT  UNSIGNED  NOT NULL  DEFAULT 0  COMMENT '平台'
+
+修改原来字段
+ALTER TABLE `monitor_data` CHANGE `plan_ids` `app_version` JSON  NULL  DEFAULT (json_array())  COMMENT '版本';
+
+修改原来索引结构
 alter table tableName add index indexName(columnName,sync_status);
 
 删除字段
 alter table play_level_god_accept drop column grab_switch5;
+ALTER TABLE `monitor_data` DROP `media_ids`;
+
 
  数据库创建索引：
   create index manager_id_on_groups on groups(manager_id);

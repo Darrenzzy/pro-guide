@@ -287,27 +287,6 @@ sudo chmod 777 .zsh_history
 
 
 
-7.28
-今天解决交易所前端404报错，问题，是在nginx配置中，需要报错404重写
-error_page 404 '/home';
-加上这句就可以了！！！
-
-
-7.27
-今天大坑，自从拉取最新xphalcon后，框架里面的配置文件也更新了，导致网页数据库连不上，检查过后，发现数据库名称不正确，取不到env中的变量，于是将xphalcon中配置数据库名称改掉后，解决问题~
-
-本地添加新币种，方便覆盖使用
- $arr = ['BTC_CNY' => 'bitcoin', 'BTC_OMG' => 'bitcoin_omisego'];
-
-devops
-DevOps 的主要内容是：跟谁共同工作、如何共同工作。它最吸引我的地方就是致力于把不同部门不同分工的人召集到一起，共同努力解决问题。这样的工作环境，是我所憧憬的乐园
-
-
-7.26
-php安装好swoole后，需要检查命令：
-php --ri swoole
-
-
 今天遇到的一个问题，就是开机重启后，发现zookeeper服务也在，导致src包里的zookeeper不能正常的启动和关闭。查了半天，不是自己src包里的服务，那想必就是原来安装的brew里面，
 然后仔细  ps aux |grep zookeeper 之后，发现确实是，然后就打开开启预启动目录：cd ~/Library/LaunchAgents/
 一眼看到这个zookeeper 然后果断删除，后面有brew uninstall zookee...  卸载成功后，重新启动电脑，看到已经没有这个服务了，完美解决了
