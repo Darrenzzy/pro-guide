@@ -180,15 +180,7 @@ make
 
 ### 10.18
 npm下载指定版本后面直接加版本号即可   npm install -g umi@1.3.11
-
-### 9.7
-
-百万级一万几数据库查询，已经添加索引后，查询还是很慢！！
-解决方案： 原来是： order by id desc
-修改后这么用： order by （id is not null ）desc
-2亿条记录查询， 根本都是小问题
-
-
+ 
 ### 8.30
 
  * 市商项目快速开启检测api请求的任务 nohup php cli.php order_details start >> log/redis_orders.log 2>&1 &
@@ -297,58 +289,6 @@ echo status | nc 127.0.0.1 2181
 
 强制杀任务
 kill -9 ***
-
-7.21
-
-开启交易对流程：
-首先开启全部日志监听：
-cd /Users/apple/projects/exchange_engine
-tail -f log/http.log
-tail -f log/engine.log
-tail -f log/async.log
-tail -f log/trade_worker.log
-首先启动撮合引擎
-/Users/apple/projects/exchange_engine/restart.sh
-
-查看日志正常后开始开启交易所
-cd /Users/apple/projects/otc_php
-检查启动ssdb和redis
-php cli.php  env start
-
-检查是否启动ssdb
-pstree |grep ssdb
-pstree |grep redis
-
-开启后，再开始机器人下单
-./order.sh
-
-
-每次重启电脑后，redis和ssdb有两个端口没有启动
-在otc项目下运行这个，（先stop）然后就启动了
- php cli.php env start
-
-  每次使用撮合引擎时候先查看进程在不在！！！redis和ssdb
-没有就先启动下环境：
- php cli.php env start
-
-(一共3个redis 2个ssdb)
-
-历史操作命令；
-redis-server /usr/local/etc/redis6378.conf
- redis-cli -p 6378
-
- ssdb-server -d /usr/local/etc/ssdb8801.conf
-
-http://btc_cny.engine.com/api/market?pair=BTC_CNY
-
-
-远程拷贝文件和目录(将此文件或目录内的文件，移动到对面文件或目录内部 **需要自己定义文件名称或者目录名**)
-
-scp -r land@118.178.128.61://var/www/env.zhibo.test/app/app.git/modules/app/controllers/GoodController.php ./
-
-scp -r server-1.properties root@47.95.7.124:/usr/local
-
-sudo scp -r -P 55429 zookeeper_kafka_start.sh root@192.168.81.168:/usr/local/system/src/kafka_2.11-1.1.0
 
 
 7.20
@@ -520,38 +460,7 @@ echo $PATH
 
 Mac系统的环境变量，加载顺序为：
 /etc/profile /etc/paths ~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc
-
-
-
-brew常用命令:
-brew update                        　　#更新brew可安装包，建议每次执行一下
-brew search php55                   #搜索php5.5
-brew tap josegonzalez/php        #安装扩展<gihhub_user/repo>   ,可以获得更多的资源
-brew tap                            #查看安装的扩展列表
-brew install php55                 #安装php5.5
-brew remove  php55                 #卸载php5.5
-brew upgrade            升级所有可以升级的软件们
-
-brew options php55                 #查看php5.5安装选项
-brew info    php55                 #查看php5.5相关信息
-brew home    php55                  #访问php5.5官方网站
-brew services list                  #查看系统通过 brew 安装的服务
-brew services cleanup               #清除已卸载无用的启动配置文件
-brew services restart php55       #重启php-fpm
-
-$ brew search git        // 搜索软件包
-$ brew install git        // 安装软件包
-$ brew unistall git        // 卸载软件包
-$ brew list        // 显示已经安装的所有软件包
-$ brew update        // 同步远程最新更新情况，对本机已经安装并有更新的软件用*标明
-$ brew outdated        // 查看本机需要更新的软件包
-$ brew upgrade        // 更新所有软件包
-$ brew upgrade git        // 更新单个软件包
-$ brew cleanup -n        // 查看可以清理的旧版本包
-$ brew cleanup        // 清理所有包的旧版本的缓存
-$ brew cleanup git        // 清理指定包的旧版本
-
-
+ 
 ### 更换版本 如go
 ```bash
 
@@ -581,32 +490,7 @@ curl localhost/t.php
 需要查看下端口9000
 netstat -antp
 然后启动 php-cgi -b 127.0.0.1:9000  以后用fpm不用这个进程管理
-
-
-查看当前程序运行目录命令：
-appledeiMac-2:nginx apple$ which php-fpm
-/usr/local/bin/php-fpm
-
-
-查看phalcon版本信息
-appledeiMac-2:phalcon-devtools apple$ phalcon -v
-
-Phalcon DevTools (3.4.0)
-
-Environment:
-  OS: Darwin appledeiMac-2.local 17.4.0 Darwin Kernel Version 17.4.0: Sun Dec 17 09:19:54 PST 2017; root:xnu-4570.41.2~1/RELEASE_X86_64 x86_64
-  PHP Version: 7.2.1
-  PHP SAPI: cli
-  PHP Bin: /usr/local/bin/php
-  PHP Extension Dir: /usr/local/lib/php/extensions/no-debug-non-zts-20170718
-  PHP Bin Dir: /usr/local/bin
-  Loaded PHP config: /usr/local/lib/php.ini
-Versions:
-  Phalcon DevTools Version: 3.4.0
-  Phalcon Version: 3.3.2
-  AdminLTE Version: 2.3.6
-
-
+ 
 
 7.6学习笔记：
 
@@ -841,36 +725,6 @@ zookeeper.connect=192.168.10.152:2181,192.168.10.153:2181,192.168.10.170:2181
 
 
 
-
-备注：要挂到后台使用：（挂载）("2>"表示把标准错误(stderr)重定向，标准输出(stdout)是1。)
-nohup php cli.php kafka start >> log/kafka.log 2>&1 &
-
-nohup  <命令>  >> log/conf.log 2>&1 &
-nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/zookeeper.properties  >> /usr/local/system/src/kafka_2.11-1.1.0/logs/zookeeper.log &
-
-nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server.properties >> /usr/local/system/src/kafka_2.11-1.1.0/logs/service-run.log &
-nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-1.properties >> /usr/local/system/src/kafka_2.11-1.1.0/logs/service-run.log &
-nohup /usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-2.properties >> /usr/local/system/src/kafka_2.11-1.1.0/logs/service-run.log &
-
-
-zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/zookeeper.log &
-sleep 10s
-kafka-server-start.sh /usr/local/etc/kafka/server.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
-kafka-server-start.sh /usr/local/etc/kafka/server-1.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
-kafka-server-start.sh /usr/local/etc/kafka/server-2.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
-kafka-server-start.sh /usr/local/etc/kafka/server-3.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
-
-
-上午连接新的服务器搭建kafka集群线上的环境。
-/usr/local/system/src/kafka_2.11-1.1.0/bin/zookeeper-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/zookeeper.properties
-
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server.properties
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-1.properties
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-2.properties
-/usr/local/system/src/kafka_2.11-1.1.0/bin/kafka-server-start.sh /usr/local/system/src/kafka_2.11-1.1.0/config/server-3.properties
-
-
-
 "-daemon" 参数代表以守护进程的方式启动kafka server。
 官网及网上大多给的启动命令是没有"-daemon"参数，如：“bin/kafka-server-start.sh config/server.properties &”，但是这种方式启动后，如果用户退出的ssh连接，进程就有可能结束，具体不清楚为什么。
 
@@ -890,38 +744,7 @@ kafka-manager.zkhosts="my.zookeeper.host.com:2181,other.zookeeper.host.com:2181"
 或者，ZK_HOSTS如果您不想对任何值进行硬编码，请使用环境变量。
 
 ZK_HOSTS="my.zookeeper.host.com:2181"
-
-
-
-
-7月10日
-
-php安装扩展时候先phpize然后在配置安装并指定安装配置文件
-./configure --with-php-config=/usr/bin/php-config  （ /Users/apple/src/php-7.2.1/scripts/php-config(优先使用这个)  ）
-
-
-本人今天下午刚好遇到同样的问题，现象：
-1.在命令行下面查看php版本是: PHP 5.6.29
-2.使用浏览器访问,php版本是:PHP 5.5.27
-
-原因：
-我的机子是之前在一个文件(org.php.php-fpm.plist)里设置过开机启动php-fpm，那个时候的php-fpm指定路径使用的是php自带的；
-后来我又新装了PHP 5.6.29,没有及时修改这个文件里的php-fpm路径。
-
-解决办法：将文件(org.php.php-fpm.plist)里的php-fpm路径修改为php5.6的php-fpm对应路径，然后重启机子即可解决
-
- /usr/local/bin/php-fpm   7.2
-/usr/sbin/php-fpm  7.1
-
-解决方案2：我发现  ~/Library/LaunchAgents/ 目录下的开机自动启动文件中fpm的配置是原来本机自带php的fpm路径，忽然恍然大悟~我就查看了下当前使用的fpm路径   (which php-fpm）然后将该目录复制到配置文件中，最后重启电脑后，每次启动的php就是我想要的哪个7.2.1了，没问题了~
-
-flag今天apache占用80导致不能用nginx
-梁哥先查了下状态，在运行
-nginx -t
-sudo nginx
-然后就好了！！！
-
-
+  
 nginx配置location
 
 location  = / {
@@ -974,23 +797,3 @@ pstree |grep server.php
 tail -f /usr/local/var/log/nginx/error.log
   查看nginx版本信息详细信息
   nginx -V
-
-
-7月13日
-
-xdebug日志：
-tail -f /usr/local/var/log/xdebug.log
-
-
-kafka
-
-系统启动路径：()
-/usr/local/etc/kafka/server.properties
-(启动Zookeeper server)
-/usr/local/etc/kafka/zookeeper.properties
-
-Mac OS X 清理 DNS 缓存
-sudo killall -HUP mDNSResponder
-
-Linux 清理 DNS 缓存
-sudo rcnscd restart
