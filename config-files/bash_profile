@@ -52,16 +52,17 @@ alias rrf='/bin/rm -rf '
 alias fffd='find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"'
 alias bbb='bpytop'
 alias uuuu='ulimit -n 4096 '
+alias brew='arch -arm64 brew '
 
 
 #快速查看 git 快捷命令
 alias lessgit='less /Users/darren/.oh-my-zsh/plugins/git/git.plugin.zsh'
 alias lessgo='less /Users/darren/.oh-my-zsh/plugins/golang/golang.plugin.zsh'
-alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
 alias gtime='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t $branch | sed "s/origin\///g" ; done | sort -r |head -n 20'
 alias gcoo="git checkout $(git_current_branch) -- "
 alias gitresetsoft="git reset --soft "
+alias gitresethard="git reset --hard "
 #设置最大连接数
 ulimit -n 5242
 
@@ -77,6 +78,7 @@ export GOBIN=/Users/darren/go/bin
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
 #export GO111MODULE=on
 #export CGO_ENABLED=1
+export CGO_CFLAGS=-Wno-undef-prefix
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
 
@@ -100,13 +102,15 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
 #使用到的环境变量
 export PATH=$PATH:/Users/darren/go/bin/act_Darwin_arm64
-export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:/usr/local/bin
 export PATH=/opt/homebrew/bin:$PATH
 export DISPLAY=:0
 
 export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
+export PATH="/opt/homebrew/opt/libressl/bin:$PATH"
 
+export PKG_CONFIG_PATH="/opt/homebrew/opt/libressl/lib/pkgconfig"
+export LDFLAGS="-L/opt/homebrew/opt/libressl/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libressl/include"
 ###################### end  export ###########################
 
 
@@ -202,8 +206,8 @@ function proxy {
 	fi
 }
 
-function ks(){
-	~/k.sh $1
+function kills(){
+	~/kills.sh $1
 }
 
 # 定期同步配置
@@ -233,4 +237,4 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 ###################### end  other ##########################
 
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
