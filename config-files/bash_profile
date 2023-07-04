@@ -215,8 +215,10 @@ function sync_bashprofile(){
 	 if [[ $1 = "on" ]]; then
 cp ~/.bash_profile ~/.bash_profile.bak$(date "+%H:%M:%S")
 cp /Users/darren/projects/guide/config-files/bash_profile  ~/.bash_profile
+echo "成功同步从git到当前~/"
 	else
 
+echo "成功同步从当前~/ 到git "
 cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 		fi
 }
