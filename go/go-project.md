@@ -42,17 +42,21 @@ go tool pprof  -http :8884 http://xxxx:8882/debug/pprof/heap
 查看make申请内存占用的函数
 go tool pprof http://localhost:6060/debug/pprof/allocs
 
+获取当前情况拉倒本地二进制文件：
+curl -o mem.out  http://127.0.0.1:9090/debug/pprof/allocs
+curl -o heap.out  http://127.0.0.1:9090/debug/pprof/heap
+curl -o cpu.out  http://127.0.0.1:9090/debug/pprof/profile?seconds=10
 
 似于 diff 的方式找到前后两个时刻多出的 goroutine，进而找到 goroutine 泄露的原因，并没有直接使用 heap 或者 goroutine 的 profile 文件
 
 对比两个结果 查看差异 以 001 为基，看 002
 go tool pprof -base pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.001.pb.gz pprof.demo2.alloc_objects.alloc_space.inuse_objects.inuse_space.002.pb.gz
 
+
 ### fgprof  【https://github.com/felixge/fgprof 】
     主要处理的是针对CPU性能分析，Golang的On-CPU和Off-CPU的性能，可以分析到有哪些线程明显发生IO阻塞，定位到函数。
 
 go tool pprof --http=:6061 http://localhost:6060/debug/fgprof?seconds=3
-
 
 
 ### goland 编写 proto 引用 google 时需要用到的包

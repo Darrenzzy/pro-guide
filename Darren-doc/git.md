@@ -103,6 +103,9 @@ git fetch origin aaa
 具体到拉某一个分支
 git fetch origin branch1:branch2
 
+批量删除本地无用分支
+ gb |grep -v feat |grep -v hotfix |xargs  -I {} git branch -D {}
+
 查看本地所有分支
 git branch  -vv
 查看所有分支 和信息

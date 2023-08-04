@@ -54,5 +54,17 @@ function kf(){
         kubectl --kubeconfig ~/.kube/$ALI_KB_CONFIG -n $ALI_ENV logs -f $podname
 }
 
+function kdescribe(){
+        echo "kubectl --kubeconfig ~/.kube/$ALI_KB_CONFIG describe pods  -n $ALI_ENV $1"
+        kubectl --kubeconfig ~/.kube/$ALI_KB_CONFIG describe pods  -n $ALI_ENV $1
+}
 
 ```
+
+### 常用排查命令
+
+
+本地启动监听pod端口
+ kubectl  --kubeconfig  ~/.kube/config  port-forward -n test podname 9090:9090
+
+
