@@ -23,6 +23,12 @@ grpcurl -plaintext 127.0.0.1:{端口} list .....服务名
 
 调用 grpc action
 grpcurl -H 'token:cn01:a862a6eb-8c4' -d '{"params": "123456"}' -plaintext 127.0.0.1:{端口}  ....Service.HelloCoo
+
+查看对应方法的请求和返回结构体信息：
+grpcurl -plaintext 127.0.0.1:8080 describe describe proto.Greeter.SayHello
+查看对应方法的请求参数：
+grpcurl -plaintext 127.0.0.1:8080 describe proto.HelloRequest
+
 ```
 
 ### 2021 5.10

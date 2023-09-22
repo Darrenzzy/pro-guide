@@ -6,6 +6,9 @@
 
         得知是yaml中imagePullSecrets配置对应的秘钥错误导致的。因为在新的命名空间搞，所以不太清楚配置。
 
+### 代理集群节点到本地端口
+* kubectl  --kubeconfig  ~/.kube/xxxx  port-forward -n prod podname  8080:8080
+
 
 ### 重启服务时pod断开流程：
 优雅方式：收到SIGTERM信号后，对外提供服务的pod，要先断开端口监听，在依次向中心注销服务，退出进程
