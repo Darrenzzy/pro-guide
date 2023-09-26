@@ -54,9 +54,10 @@ COMMENT ON COLUMN t_account_application.manager_union_id IS '1# mobile booking, 
 insert into test1 (id) values (1);
 
 添加字段
-alter table `msgs` add `sss2` int(11) Default '0' comment '站点 id' ;
+alter table `msgs` 
+  add `sss2` int(11) Default 0 comment '站点 id',
+  ADD `platform` SMALLINT  UNSIGNED  NOT NULL  DEFAULT 0  COMMENT '平台'
 
-ALTER TABLE `monitor_data` ADD `platform` SMALLINT  UNSIGNED  NOT NULL  DEFAULT 0  COMMENT '平台'
 
 修改原来字段
 ALTER TABLE `monitor_data` CHANGE `plan_ids` `app_version` JSON  NULL  DEFAULT (json_array())  COMMENT '版本';
