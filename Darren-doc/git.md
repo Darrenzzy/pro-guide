@@ -1,5 +1,7 @@
 # git 基本操作
 
+
+
 ```
 生成ssh秘钥
 ssh-keygen -t rsa -C "darren@wx.com" -f ~/.ssh/id_rsa.wx
@@ -71,6 +73,9 @@ git push  -f 强推版本覆盖远程
 git push origin tag  标签推送到远程
 
 git commit --amend 更新上次提交的massage文案
+
+更改上次提交的作者
+git commit --amend  --author 'zhangsan <zhangsan@gmail.com>'
 
 git 配置全局信息：
 git config --global user.name "darren"

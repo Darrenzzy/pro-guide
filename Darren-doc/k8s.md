@@ -1,5 +1,9 @@
 # k8s 问题及解决方案
 
+### 查看指定集群 的普罗监控信息
+kubectl --kubeconfig ~/.kube/config -n monitor get prometheusrule -o yaml metadata_name
+
+
 ### pod 重新部署失败后，需要调研什么原因导致失败，看pod状态是 ErrImagePull
         kubectl --kubeconfig ~/.kube/xxx describe pods podname -n namespace
         拉到最后描述显示 kubelet Failed to pull image "repoxxx:names": rpc error: code = Unknown desc = failed to resolve reference "xxxx": failed to authorize: failed to fetch oauth token: unexpected status: 401 Unauthorized

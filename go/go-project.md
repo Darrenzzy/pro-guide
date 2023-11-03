@@ -1,5 +1,12 @@
 # go 项目中实在遇到的坑和解决方案
 
+### 单元测试
+gomonkey 禁止内联
+通过设置环境变量 -gcflags=all=-l
+执行覆盖率测试 go test $(go list ./... | grep -v namesvr | grep -v db | grep -v test) -v -run='^TestUnit' -covermode=count -coverprofile=coverprofile.cov -gcflags "all=-N -l" | tee report.out
+go test $(go list ./... | grep -v namesvr | grep -v db | grep -v test) -v -run='^TestUnit' -covermode=count -coverprofile=coverprofile.cov -gcflags=all=-l | tee report.out
+生成html go tool cover -html=coverprofile.cov -o cover.html
+
 ### pprof
 allocs 内存分配情况的采样信息
 blocks 阻塞操作情况的采样信息

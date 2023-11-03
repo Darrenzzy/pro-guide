@@ -1,10 +1,6 @@
 linux参数调优
 
 
-诊断tcp连接统计命令
-netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-
-
 vi /etc/security/limits.conf 追加以下内容，增加打开文件数量
 * soft nofile 1020000
 * hard nofile 1020000

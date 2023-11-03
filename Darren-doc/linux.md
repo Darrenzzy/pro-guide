@@ -1,5 +1,15 @@
 # linux 常用总结
 
+### 网络连接问题
+
+列出所有的端口
+netstat -ntlp |grep  port
+
+诊断tcp连接统计命令
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+
+
 ### 执行bash命令好方案
 ```bash
 _load config.sh
@@ -498,9 +508,6 @@ lsof -i:80
 find / -type f -size +1G 
 按文件大小 查找文件大小
 find . -type f -size +50M  -print0 | xargs -0 du -h | sort -nr  
-
-列出所有的端口
-netstat -ntlp
 
 查看Linux查看内核版本
 cat /proc/version
