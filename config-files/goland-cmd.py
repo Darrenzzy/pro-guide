@@ -19,3 +19,9 @@ cmd='open -na "GoLand.app" --args  '+line+' '+ head+arr[0]
 
 print (cmd)
 subprocess.call(shlex.split(cmd))
+
+
+# 在profile中加入：
+# ggg () {
+# 	/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@
+# }
