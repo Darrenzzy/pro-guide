@@ -79,6 +79,9 @@ docker rm id
 删除docker所有的容器
 docker rm $(docker ps -aq)
 
+删除2个月以前的镜像
+docker images -q --filter "before=$(date -d "2 months ago" +"%Y-%m-%dT%H:%M:%S")" | xargs docker rmi
+
 删除所有未在运行的容器
 docker container prune
 

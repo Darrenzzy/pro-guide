@@ -1,3 +1,7 @@
+### mac中使用剪切板 
+- 获取内容： pbpaste
+- 存入剪切板： pbcopy
+
 ### 先确保brew安装 安装brew
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
