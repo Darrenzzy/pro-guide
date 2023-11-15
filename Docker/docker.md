@@ -201,4 +201,7 @@ docker stop $(docker ps -a -q)
 // 删除所有镜像
 docker rmi $(docker images -q)
 
+// 删除指定名称镜像
+docker images --format "{{.Repository}}:{{.ID}}" | grep key | awk -F ":" '{print $2}' | xargs docker rmi
+
 ```

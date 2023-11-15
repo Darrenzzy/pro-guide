@@ -9,10 +9,6 @@ COMPOSER=composer-name.json composer install
 若存在composer.lock文件 直接composer install
 对目前以有依赖更新 composer update
 
-1.16
-将现在正在执行的linux命令放在后台执行
-1.  通过命令： ctrl + z 来将当前的命令暂停。
-2.  通过命令：bg 来启动后台暂停的任务。
 
 1.14
 交易所启动监听脚本

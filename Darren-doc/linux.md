@@ -1,5 +1,10 @@
 # linux 常用总结
 
+
+### 将现在正在执行的linux命令放在后台执行
+1. 通过命令： ctrl + z 来将当前的命令暂停。
+2. 通过命令：bg 来启动后台暂停的任务。
+
 ### 网络连接问题
 
 列出所有的端口
@@ -456,10 +461,17 @@ awk '{array[$1]++} END {for(key in array) printkey,array[key]}' 1.txt
 
 Linux命令行中使用管道查看列表的总数
 command | wc -l
-
+```
 less *2021012621.log |grep -B 5 AP010012
-     关键字前后5 行 
+//     关键字前后5 行 
 less *2021012621.log |grep -C 5 AP010012
+
+less -D 显示行号
+
+```
+
+more ./file  与less 作用差不多
+
 
 查看cpu数量：
 cat /proc/cpuinfo| grep "processor"| wc -l

@@ -228,6 +228,23 @@ https://hooks.slack.com/services/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
 #在linux中使用curl在shall中发送请求，
 curl -X POST --data-urlencode 'payload={"channel": "wc_test_server", "username": "bot", "text":"'"${MS}"'"}' https://hooks.slack.com/services/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
 
+# 运维响应 使用curl 查看api响应的内容，全部打印出来。
+curl -w '
+time_namelookup\t: %{time_namelookup}
+time_connect\t: %{time_connect}
+time_appconnect\t: %{time_appconnect}
+time_redirect\t: %{time_redirect}
+time_pretransfer\t: %{time_pretransfer}
+time_starttransfer\t: %{time_starttransfer}
+time_total\t: %{time_total}
+http_code\t: %{http_code}\n' \
+--location 'https://connect-api.cloud.huawei.com/api/oauth2/v1/token' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: HWWAFSESID=9b38d305cd; HWWAFSESTIME=1291922922564' \
+--data '{
+    "grant_type": "client_credentials",
+}'
+
 ```
 
 
