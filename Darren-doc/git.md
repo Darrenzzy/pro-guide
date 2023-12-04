@@ -99,6 +99,8 @@ git push origin :refs/tags/v1.0
 
 拉取远程分支到本地分支
  git pull origin dev:Darren
+ 拉取远程到当前分支
+ git pull origin master:
  拉取最新，并归到当前提交的后面
  git pull --rebase
  git pull --rebase origin master
