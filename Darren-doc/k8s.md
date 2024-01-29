@@ -1,5 +1,42 @@
 # k8s 问题及解决方案
+### Kubernetes 资源定义   
+apiVersion: monitoring.coreos.com/v1
 
+- k8s 的类型有 
+        Deployment 用于声明式管理 Pod 部署，提供滚动升级和回滚等功能。
+        ConfigMap 用于存储非机密性的配置数据。   kind: Secret敏感数据
+        Service  定义一组 Pod，它们共享相同的网络标识和策略
+        Namespace 用于将集群划分为多个虚拟集群，
+        ServiceAccount（ServiceAccount）：为 Pod 中的进程定义身份。
+        PersistentVolume（PersistentVolume）：集群中的永久存储。
+        Pod（Pod）：最小的可部署单元，用于承载容器
+        PrometheusRule =》监控相关
+
+
+        通过label 定义我们可以将上面的各种kind串联起来。
+        metadata:
+          labels:
+            app: kube-prometheus-stack
+
+        是一种用于 Kubernetes 环境中监控和获取数据的工具集。
+
+        spec:
+          groups:
+          - name: pixiu-adx
+          表示后面通过这个name搜索 我们设置的监控规则
+
+### 重启服务 
+        kubectl --kubeconfig ~/.kube/config rollout restart deployment consumer-pixiu-notice  -n test-1
+
+### 创建configmap文件
+        kubectl --kubeconfig ~/.kube/config -n dev-2 create configmap pixiu-ad-backend --dry-run=client -oyaml  --from-file ./configs/dev/config.yaml > ./deploy/test/base/dev/configmap.yaml
+
+        
+### 重新应用配置文件
+        kubectl --kubeconfig ~/.kube/config apply -f ./deploy/test/base/dev/configmap.yaml
+
+### 
+        kubectl --kubeconfig ~/.kube/config.hw.test delete pod cronjob-monitor-28346860-7rs88 -n test-1
 ### 查看指定集群 的普罗监控信息
 kubectl --kubeconfig ~/.kube/config -n monitor get prometheusrule -o yaml metadata_name
 

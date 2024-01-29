@@ -2,6 +2,9 @@
 - 获取内容： pbpaste
 - 存入剪切板： pbcopy
 
+### 删除当前目录下指定日期的内容
+find ./ -type f -not -newermt 2029-12-31 -delete
+
 ### 先确保brew安装 安装brew
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
