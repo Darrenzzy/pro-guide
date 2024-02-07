@@ -22,14 +22,17 @@ apiVersion: monitoring.coreos.com/v1
 
         spec:
           groups:
-          - name: pixiu-adx
+          - name: app-adx
           表示后面通过这个name搜索 我们设置的监控规则
 
+### 查看配置
+        kubectl --kubeconfig ~/.kube/config -n dev-2 describe configmap server-label 
+        
 ### 重启服务 
-        kubectl --kubeconfig ~/.kube/config rollout restart deployment consumer-pixiu-notice  -n test-1
+        kubectl --kubeconfig ~/.kube/config rollout restart deployment consumer-app-notice  -n test-1
 
 ### 创建configmap文件
-        kubectl --kubeconfig ~/.kube/config -n dev-2 create configmap pixiu-ad-backend --dry-run=client -oyaml  --from-file ./configs/dev/config.yaml > ./deploy/test/base/dev/configmap.yaml
+        kubectl --kubeconfig ~/.kube/config -n dev-2 create configmap app-ad-backend --dry-run=client -oyaml  --from-file ./configs/dev/config.yaml > ./deploy/test/base/dev/configmap.yaml
 
         
 ### 重新应用配置文件
