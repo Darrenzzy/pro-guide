@@ -99,6 +99,8 @@ git push origin :refs/tags/v1.0
 
 拉取远程分支到本地分支
  git pull origin dev:Darren
+ 拉取远程到当前分支
+ git pull origin master:
  拉取最新，并归到当前提交的后面
  git pull --rebase
  git pull --rebase origin master
@@ -145,6 +147,9 @@ git log --pretty=oneline
 
 查看每一次提交的详细内容
 git log --stat --abbrev-commit
+
+查看历史每个人提交的具体行数
+git log --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git log --author="$name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -; done
 可视化查看文件历史提交记录
 gitk --follow file
 

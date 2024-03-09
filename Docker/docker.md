@@ -204,4 +204,7 @@ docker rmi $(docker images -q)
 // 删除指定名称镜像
 docker images --format "{{.Repository}}:{{.ID}}" | grep key | awk -F ":" '{print $2}' | xargs docker rmi
 
+// 删除指定名称的容器
+docker ps -a --format "{{.ID}}\t{{.Image}}" |grep shanghai | awk '{print $1}' |xargs docker rm
+
 ```
