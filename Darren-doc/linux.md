@@ -1,7 +1,12 @@
 # linux 常用总结
 
+### 关键字搜索
+    grep -E 'PATH\='/etc/profile  ~/.*
+
+
 ### 文本关键字搜索
  ag -i foo /bar/
+ ag -i 'PATH\=' ~/.pro*
 
 ### 将现在正在执行的linux命令放在后台执行
 1. 通过命令： ctrl + z 来将当前的命令暂停。
