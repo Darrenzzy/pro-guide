@@ -52,6 +52,7 @@ alias rrf='/bin/rm -rf '
 alias fffd='find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"'
 alias bbb='bpytop'
 alias uuuu='ulimit -n 4096 '
+alias brew='arch -arm64 brew '
 
 
 #快速查看 git 快捷命令
@@ -60,7 +61,6 @@ alias lessgo='less /Users/darren/.oh-my-zsh/plugins/golang/golang.plugin.zsh'
 alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
 alias gtime='for branch in `git branch | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t $branch | sed "s/origin\///g" ; done | sort -r |head -n 20'
-
 alias gcoo="git checkout $(git_current_branch) -- "
 alias gitresetsoft="git reset --soft "
 alias gitresethard="git reset --hard "
@@ -77,15 +77,14 @@ ulimit -n 5242
 export GOPATH=/Users/darren/go
 export GOBIN=/Users/darren/go/bin
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
-#export GO111MODULE=on
 export CGO_ENABLED=1
 export CGO_CFLAGS='-O0 -g'
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
-export GOFLAGS=-mod=mod
+export GOCACHE=/Users/darren/go/go-build
 
 # 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
-#export CGO_CFLAGS=-Wno-undef-prefix
+export CGO_CFLAGS=-Wno-undef-prefix
 
 #python
 alias py="/opt/homebrew/bin/python3.10"
@@ -213,7 +212,7 @@ function kills(){
 }
 
 # 定期同步配置
-function sync_bashprofile_to_git(){
+function sync_bashprofile(){
 	 if [[ $1 = "on" ]]; then
 cp ~/.bash_profile ~/.bash_profile.bak$(date "+%H:%M:%S")
 cp /Users/darren/projects/guide/config-files/bash_profile  ~/.bash_profile
@@ -228,6 +227,10 @@ cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 # 快速打开文件用goland 指定行数
 gg(){
 /opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@
+}
+
+function iterm(){
+open -a "iTerm.app" ./
 }
 
 alias cman='man -M /usr/local/share/man/zh_CN '
