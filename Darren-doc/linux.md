@@ -1,5 +1,23 @@
 # linux 常用总结
 
+### 删除目录下所有大约10Mb文件
+
+```bash
+find ./ -type f -size +100M -delete
+#!/bin/bash
+
+# 指定要清理的目录
+target_dir="/path/to/your/directory"
+
+# 设置文件大小限制，单位为 MB
+size_limit=10
+
+# 查找大于 size_limit 的文件并删除
+find "$target_dir" -type f -size +"$size_limit"M -delete
+
+echo "已删除 $target_dir 目录下所有大于 ${size_limit}MB 的文件。"
+```
+
 ### 关键字搜索
     grep -E 'PATH\='/etc/profile  ~/.*
 
