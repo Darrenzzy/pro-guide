@@ -11,6 +11,9 @@ ssh-add -l
 
 检查ssh连接问题
 ssh -T Host
+
+清空，重启ssh
+eval `ssh-agent`
 ```
 
 ```
