@@ -1,5 +1,38 @@
 # linux 常用总结
 
+### 临时适用保持会话session 作用
+```bash
+# 新增
+$ tmux   $ tmux new -s <your_session_name>
+
+# 列出所有快捷键，及其对应的 Tmux 命令
+$ tmux list-keys
+
+# 列出所有 Tmux 命令及其参数
+$ tmux list-commands
+
+# 列出当前所有 Tmux 会话的信息
+$ tmux info
+
+# 重新加载当前的 Tmux 配置
+$ tmux source-file ~/.tmux.conf
+# session 列表
+$ tmux ls
+# 重新連線 session
+$ tmux a -t 0# OR
+$ tmux a -t <session_name>
+# 刪除 session
+$ tmux kill-session -t 0# OR
+$ tmux kill-session -t <session_name>
+# OR
+$ tmux kill-session -a # 全部
+# 刪除 tmux server
+$ tmux kill-server
+# 重新命名 session
+$ tmux rename-session -t 0 <new_session_name>
+
+```
+
 ### 删除目录下所有大约10Mb文件
 
 ```bash

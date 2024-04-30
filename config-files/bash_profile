@@ -53,6 +53,10 @@ alias fffd='find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"'
 alias bbb='bpytop'
 alias uuuu='ulimit -n 4096 '
 alias brew='arch -arm64 brew '
+alias cat='bat -p -p '
+. /opt/homebrew/etc/profile.d/z.sh
+alias power='system_profiler SPPowerDataType'
+
 
 
 #快速查看 git 快捷命令
@@ -61,6 +65,7 @@ alias lessgo='less /Users/darren/.oh-my-zsh/plugins/golang/golang.plugin.zsh'
 alias gcld='gcl --depth 1'
 # gstaa='git stash apply'
 alias gtime='for branch in `git branch | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t $branch | sed "s/origin\///g" ; done | sort -r |head -n 20'
+
 alias gcoo="git checkout $(git_current_branch) -- "
 alias gitresetsoft="git reset --soft "
 alias gitresethard="git reset --hard "
@@ -77,20 +82,22 @@ ulimit -n 5242
 export GOPATH=/Users/darren/go
 export GOBIN=/Users/darren/go/bin
 #导入 GO111MODULE=on  不使用GOPATH运行否则请手动下载下一步的包 用于go get 命令
+#export GO111MODULE=on
 export CGO_ENABLED=1
 export CGO_CFLAGS='-O0 -g'
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
-export GOCACHE=/Users/darren/go/go-build
+export GOFLAGS=-mod=mod
+export CPATH="/opt/homebrew/Cellar/hdf5/1.14.3/include"
+export LIBRARY_PATH="/opt/homebrew/Cellar/hdf5/1.14.3/lib"
 
 # 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
-export CGO_CFLAGS=-Wno-undef-prefix
+#export CGO_CFLAGS=-Wno-undef-prefix
 
 #python
-alias py="/opt/homebrew/bin/python3.10"
-#alias python="/opt/homebrew/bin/python3.10"
-#alias python-config="/opt/homebrew/bin/python3.10-config"
-
+alias py=python
+alias py3=pytho
+n
 #rust
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
@@ -100,6 +107,12 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 # export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
   export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
+
+#CPP
+#export VALID_ARCHS='armv6 armv7 armv7s arm64'
+#export ARCHS='armv7 armv7s'
+
+
 
 #使用到的环境变量
 export PATH=$PATH:/Users/darren/go/bin/act_Darwin_arm64
@@ -212,7 +225,7 @@ function kills(){
 }
 
 # 定期同步配置
-function sync_bashprofile(){
+function sync_bashprofile_to_git(){
 	 if [[ $1 = "on" ]]; then
 cp ~/.bash_profile ~/.bash_profile.bak$(date "+%H:%M:%S")
 cp /Users/darren/projects/guide/config-files/bash_profile  ~/.bash_profile
@@ -226,11 +239,7 @@ cp ~/.bash_profile /Users/darren/projects/guide/config-files/bash_profile
 
 # 快速打开文件用goland 指定行数
 gg(){
-/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@
-}
-
-function iterm(){
-open -a "iTerm.app" ./
+python /Users/darren/go/bin/goland-cmd.py $@
 }
 
 alias cman='man -M /usr/local/share/man/zh_CN '
@@ -250,3 +259,19 @@ export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottle
 # 防止每次自动执行清除过期包指令，可以在定期有时间的时候，主动来执行清除
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

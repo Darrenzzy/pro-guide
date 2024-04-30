@@ -4,70 +4,6 @@ postgres 安装指南
 select * from pg_stat_activity;
 
 
-必须先安装readline
-# mac
-brew install readline
-# linux
-yum install -y readline-devel zlib-devel
-# wget https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
-wget https://ftp.postgresql.org/pub/source/v10.4/postgresql-10.4.tar.gz
-tar -zxvf postgresql-10.4.tar.gz
-cd postgresql-10.4
-./configure
-make
-sudo make install
-
-
-
-【生产环境配置参数】
-sudo vi /etc/profile
-加入路径：
-PATH=$PATH:/usr/local/pgsql/bin:/usr/local/sbin/
-让/etc/profile文件修改后立即生效:
-source /etc/profile
-
-
-特定版本加软链：
-ln -sf /usr/pgsql-9.6 /usr/pgsql
-【开发环境配置参数】
-vi ~/.bash_profile
-加入环境变量：
-export PATH=/usr/pgsql/bin:$PATH
-
-生效
-source ~/.bash_profile
-
-初始化数据库：
-cd /usr/pgsql/bin
-./initdb -D /pgsql/data
-
-mkdir -p /pgsql/data
- chown -R postgres:postgres /pgsql/
- chmod 0700 /pgsql/data
-更新psql 配置文件：
-cd /pgsql/data/
-
-echo "host    all             all             0.0.0.0/0            md5" >>./pg_hba.conf
-
-vim postgresql.conf
-
-```
-listen_addresses = '*'
-wal_level = hot_standby
-wal_log_hints = on
-synchronous_commit = on
-max_wal_senders=5
-wal_keep_segments = 32
-hot_standby = on
-wal_sender_timeout = 5000
-wal_receiver_status_interval = 2
-max_standby_streaming_delay = -1
-max_standby_archive_delay = -1
-restart_after_crash = off
-hot_standby_feedback = on
-```
-
-
 修改指定用户 密码：
 ALTER USER postgres WITH PASSWORD 'postgres';
 
@@ -77,7 +13,7 @@ su - postgres
 pg_ctl -D /pgsql/data/ -l logfile start
 
 
-编译安装成功后，接下来要做的就是创建一个普通用户，因为默认超级用户（root）不能启动postgresql，所以需要创建一个普通用户来启动数据库，执行以下命令创建用户：
+编译安装成功后，接下来要做的就是创建一个普通用户，因为默认超级用户（root）不能启动postgresql，所以需要创建一个普通用户a来启动数据库，执行以下命令创建用户：
 useradd postgres
 #切换用户
 su -u postgres
@@ -186,10 +122,13 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
 
 CREATE USER postgres WITH PASSWORD 'XXXXXX';
 
+查询当前所有角色
+SELECT * from pg_roles;
 给新用户授权
 grant all privileges on database postgres to postgres;
  alter role postgres createrole;
   alter role postgres Superuser;
+  
   以此类推把所有原管理员的权限都授权给新用户.
 然后创建一个临时数据库,目的是删除原来的 postgres 数据库
 
@@ -271,6 +210,66 @@ is4rsync
 chmod 600  rsync.password 
 
 
+必须先安装readline
+# mac
+brew install readline
+# linux
+yum install -y readline-devel zlib-devel
+# wget https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
+wget https://ftp.postgresql.org/pub/source/v10.4/postgresql-10.4.tar.gz
+tar -zxvf postgresql-10.4.tar.gz
+cd postgresql-10.4
+./configure
+make
+sudo make install
 
 
+
+【生产环境配置参数】
+sudo vi /etc/profile
+加入路径：
+PATH=$PATH:/usr/local/pgsql/bin:/usr/local/sbin/
+让/etc/profile文件修改后立即生效:
+source /etc/profile
+
+
+特定版本加软链：
+ln -sf /usr/pgsql-9.6 /usr/pgsql
+【开发环境配置参数】
+vi ~/.bash_profile
+加入环境变量：
+export PATH=/usr/pgsql/bin:$PATH
+
+生效
+source ~/.bash_profile
+
+初始化数据库：
+cd /usr/pgsql/bin
+./initdb -D /pgsql/data
+
+mkdir -p /pgsql/data
+ chown -R postgres:postgres /pgsql/
+ chmod 0700 /pgsql/data
+更新psql 配置文件：
+cd /pgsql/data/
+
+echo "host    all             all             0.0.0.0/0            md5" >>./pg_hba.conf
+
+vim postgresql.conf
+
+```
+listen_addresses = '*'
+wal_level = hot_standby
+wal_log_hints = on
+synchronous_commit = on
+max_wal_senders=5
+wal_keep_segments = 32
+hot_standby = on
+wal_sender_timeout = 5000
+wal_receiver_status_interval = 2
+max_standby_streaming_delay = -1
+max_standby_archive_delay = -1
+restart_after_crash = off
+hot_standby_feedback = on
+```
 
