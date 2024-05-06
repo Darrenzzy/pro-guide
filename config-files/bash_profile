@@ -249,13 +249,13 @@ function sync_bashprofile_to_git(){
 
 # 快速打开文件用goland 指定行数
 gg(){
-/opt/homebrew/bin/python3 /Users/darren/go/bin/goland-cmd.py $@
+python3 /Users/darren/go/bin/goland-cmd.py $@
 }
 
 #/Users/darren/.oh-my-zsh/themes/robbyrussell.zsh-theme 这里是直接篡改主题显示的配置 以下任意终端都生效：
 #PROMPT='$(date "+%H:%M:%S") ${ret_status}%{$fg[cyan]%}%d$(git_prompt_info) '$'\n'
 PROMPT='${ret_status}%{$fg[cyan]%}%d '$''
-RPROMPT='$(date "+%m-%d %H:%M:%S")  $(git_prompt_info)'
+RPROMPT='$(git_prompt_info) $(date "+%m-%d %H:%M:%S")'
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
