@@ -94,9 +94,8 @@ export LIBRARY_PATH="/opt/homebrew/Cellar/hdf5/1.14.3/lib"
 #export CGO_CFLAGS=-Wno-undef-prefix
 
 #python
-alias py="/opt/homebrew/bin/python3.10"
-#alias python="/opt/homebrew/bin/python3.10"
-#alias python-config="/opt/homebrew/bin/python3.10-config"
+alias py=python
+alias py3=python
 
 #rust
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
@@ -272,16 +271,17 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/anaconda3/bin:$PATH"
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
     fi
 fi
+conda activate base
 unset __conda_setup
 # <<< conda initialize <<<
 
