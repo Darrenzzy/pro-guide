@@ -24,16 +24,12 @@ select id from config where `field` in
 
 ```
 
-
 创建数据库
 CREATE DATABASE mydatabase CHARACTER SET utf8
 
 UPDATE Person SET FirstName = 'Fred',FirstNamev2 = 'Fred' WHERE LastName = 'Wilson'
 
-
 update tableName set name=concat('前缀名称-',name);
-
-join
 
 SELECT Persons.id, Persons.LastName, Persons.FirstName, Orders.id,Orders.OrderNo,Orders.Pid
 FROM Persons
@@ -57,6 +53,8 @@ insert into test1 (id) values (1);
 alter table `msgs` 
   add `sss2` int(11) Default 0 comment '站点 id',
   ADD `platform` SMALLINT  UNSIGNED  NOT NULL  DEFAULT 0  COMMENT '平台'
+
+  ALTER TABLE table ALTER COLUMN app SET NOT NULL;
 
 
 修改原来字段
