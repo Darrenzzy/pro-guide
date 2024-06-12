@@ -19,7 +19,7 @@ echo "$processes"
 for process in $processes; do
     read -p "是否结束进程 $process? (Y/N): " response
     if [[ "$response" =~ ^[Yy]$ ]]; then
-        kill $process
+        kill -2 $process
         if [ $? -eq 0 ]; then
             echo "已结束进程：$process"
         else

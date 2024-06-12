@@ -1,5 +1,15 @@
 # linux 常用总结
 
+### 数学库
+bc 是一个命令行工具，用于进行任意精度的算术运算。-l 选项是 bc 的一个参数，它代表 "mathematical library"，即数学库。
+```
+10^2
+100
+sqrt(100)
+10
+quit
+```
+
 ### 临时适用保持会话session 作用
 ```bash
 # 新增
@@ -495,6 +505,25 @@ curl -O http://openresty.org/download/drizzle7-2011.07.21.tar.gz
 curl -fLo demo.yaml http://XXXX.com/json
 解压包命令
 tar -xzvf openresty-1.13.6.2.tar.gz
+
+ps aux | grep -v grep | grep IndicatorSentinel 
+=>  zzy 4183126 87.1  0.4 6425240 3332104 pts/80 SNl 11:44  62:47 command
+返回内容每一列含义：
+USER (zha): 正在运行该进程的用户名。
+PID (4183126): 进程的唯一标识符（Process ID）。
+%CPU (87.1): 进程使用的 CPU 百分比。
+%MEM (0.4): 进程使用的内存百分比。
+VSZ (6425240): 进程的虚拟内存大小（单位：KB）。
+RSS (3332104): 进程占用的实际物理内存大小（单位：KB）。
+TTY (pts/80): 终端类型，指示进程是否与终端关联。在这里，"pts/80" 表示一个伪终端（pseudo terminal）。
+STAT (SNl): 进程的状态信息，包括进程的状态标志，其中：
+S: 进程处于休眠状态。
+N: 进程没有关联的终端。
+l: 进程是多线程的（使用 CLONE_THREAD，像 Python 这样的解释型语言通常会以多线程方式执行）。
+START (11:44): 进程启动的时间。
+TIME (62:47): 进程已经消耗的 CPU 时间。
+COMMAND (/....): 正在执行的命令，包括命令及其参数。
+
 
 输出进程号：用命令： （忽略大小写）
 ps ax| grep -i 'get_orders_detail'  | grep -v grep

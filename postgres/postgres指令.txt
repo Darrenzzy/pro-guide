@@ -124,8 +124,8 @@ CREATE USER postgres WITH PASSWORD 'XXXXXX';
 
 查询当前所有角色
 SELECT * from pg_roles;
-给新用户授权
-grant all privileges on database postgres to postgres;
+给新用户授权当前db的只读权限：
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO reader;
  alter role postgres createrole;
   alter role postgres Superuser;
   
@@ -141,6 +141,7 @@ CREATE DATABASE postgres OWNER postgres;
 四、将数据库所有权限赋予postgres用户
 
 GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;
+
 五、给postgres用户添加创建数据库的属性
 
 ALTER ROLE postgres CREATEDB;

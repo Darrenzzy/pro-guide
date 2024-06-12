@@ -24,6 +24,9 @@ select id from config where `field` in
 
 ```
 
+清空表数据
+truncate table tableName restart identity ;
+
 创建数据库
 CREATE DATABASE mydatabase CHARACTER SET utf8
 
@@ -53,9 +56,9 @@ insert into test1 (id) values (1);
 alter table `msgs` 
   add `sss2` int(11) Default 0 comment '站点 id',
   ADD `platform` SMALLINT  UNSIGNED  NOT NULL  DEFAULT 0  COMMENT '平台'
-
-  ALTER TABLE table ALTER COLUMN app SET NOT NULL;
-
+  
+ALTER TABLE table ALTER COLUMN app SET NOT NULL;
+ALTER TABLE table ADD mark varchar DEFAULT NULL;
 
 修改原来字段
 ALTER TABLE `monitor_data` CHANGE `plan_ids` `app_version` JSON  NULL  DEFAULT (json_array())  COMMENT '版本';

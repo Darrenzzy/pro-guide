@@ -32,7 +32,7 @@ alias openvs='open -a Visual\ Studio\ Code '
 alias opensb='open -a Sublime\ Text '
 
 #自定义快捷命令
-alias duhd='du -h -d 1'
+alias duhd='du -hx -d 1'
 alias ppsql='psql -U postgres'
 alias sss_bash_profile='source ~/.bash_profile'
 alias pps='ps -ef |grep '
@@ -46,7 +46,7 @@ alias vimbash_pro='vim ~/.bash_profile'
 alias 查的='cd '
 alias wgetfile='wget --no-check-certificate --content-disposition '
 alias curlfile='curl  -LJO '
-alias ip='ipconfig getifaddr en6'
+#alias ip='ipconfig getifaddr en6'
 alias rrf='/bin/rm -rf '
 # 显示文件树
 alias fffd='find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"'
@@ -87,8 +87,8 @@ export CGO_CFLAGS='-O0 -g'
 export PATH=$PATH:/Users/darren/go/bin
 export GOPROXY=https://goproxy.cn,direct
 export GOFLAGS=-mod=mod
-export CPATH="/opt/homebrew/Cellar/hdf5/1.14.3/include"
-export LIBRARY_PATH="/opt/homebrew/Cellar/hdf5/1.14.3/lib"
+#export CPATH="/opt/homebrew/Cellar/hdf5/1.14.3_1/include"
+#export LIBRARY_PATH="/opt/homebrew/Cellar/hdf5/1.14.3_1/lib"
 
 # 防止报mac cpu: error: 'TARGET_OS_MAC' is not defined 加这个环境变量
 #export CGO_CFLAGS=-Wno-undef-prefix
@@ -104,8 +104,8 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 #mysql
 #  export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
 # export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
-  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-  export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
+#  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+#  export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 
 #CPP
 #export VALID_ARCHS='armv6 armv7 armv7s arm64'
@@ -253,8 +253,8 @@ python3 /Users/darren/go/bin/goland-cmd.py $@
 
 #/Users/darren/.oh-my-zsh/themes/robbyrussell.zsh-theme 这里是直接篡改主题显示的配置 以下任意终端都生效：
 #PROMPT='$(date "+%H:%M:%S") ${ret_status}%{$fg[cyan]%}%d$(git_prompt_info) '$'\n'
-PROMPT='${ret_status}%{$fg[cyan]%}%d '$''
-RPROMPT='$(git_prompt_info) $(date "+%m-%d %H:%M:%S")'
+PROMPT='$(date "+%H:%M:%S") ${ret_status}%{$fg[cyan]%}%d$(git_prompt_info)'$'\n'
+#RPROMPT='$(git_prompt_info)$(date "+%H:%M:%S")'
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
@@ -281,7 +281,14 @@ else
         export PATH="/opt/homebrew/anaconda3/bin:$PATH"
     fi
 fi
-conda activate base
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+alias dkr='remove_docker_container'
+function remove_docker_container()
+{
+    container_name=$1
+    docker stop "${container_name}"
+    docker rm "${container_name}"
+}
