@@ -1,5 +1,9 @@
 ## MAC常用
 
+### 终端输出到剪贴板
+ echo test | pbcopy
+粘贴打印：
+ pbpaste
 
 ### chrome 
 

@@ -1,0 +1,10 @@
+#!/bin/bash
+# 用于测试常驻进程脚本
+while true
+do
+   # Echo current date to stdout
+   echo `date`
+   # Echo 'error!' to stderr
+   echo 'error!' >&2
+   sleep 1
+done

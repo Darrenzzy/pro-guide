@@ -126,8 +126,9 @@ CREATE USER postgres WITH PASSWORD 'XXXXXX';
 SELECT * from pg_roles;
 给新用户授权当前db的只读权限：
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO reader;
- alter role postgres createrole;
-  alter role postgres Superuser;
+
+alter role postgres createrole;
+alter role postgres Superuser;
   
   以此类推把所有原管理员的权限都授权给新用户.
 然后创建一个临时数据库,目的是删除原来的 postgres 数据库
