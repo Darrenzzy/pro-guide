@@ -70,6 +70,7 @@ psql -U postgres -d otc_php
 \conninfo：列出当前数据库l和连接的信息。
 \password [user]: 修改用户密码
 \q：退出
+\l+ 查看所有数据库当前占用磁盘大小
 
 psql查看所有数据库的大小
 select pg_database.datname, pg_database_size(pg_database.datname) AS size from pg_database;
@@ -125,7 +126,16 @@ CREATE USER postgres WITH PASSWORD 'XXXXXX';
 查询当前所有角色
 SELECT * from pg_roles;
 给新用户授权当前db的只读权限：
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO reader;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO new_user;
+授权指定用户对于新增表，都可以有读的权限。（需要建表的用户来执行这个命令）
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO <username>;
+给新用户授权当前数据库的链接权限
+GRANT CONNECT ON DATABASE your_database TO new_user;
+授权写库权限
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO new_user;
+注意除了写库权限，还需要有写索引权限，要执行这个命令：
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO zzy;
+
 
 alter role postgres createrole;
 alter role postgres Superuser;

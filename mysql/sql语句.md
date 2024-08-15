@@ -74,6 +74,9 @@ ALTER TABLE `monitor_data` DROP `media_ids`;
  数据库创建索引：
   create index manager_id_on_groups on groups(manager_id);
 
+字段创建唯一索引
+CREATE UNIQUE INDEX logs_id_unique ON logs(id);
+
 查看数据库索引
   SHOW INDEX FROM table_name
 查看ddl：
