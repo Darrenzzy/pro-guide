@@ -1,30 +1,6 @@
 常用总结：
-4.6 批量修改块内容
-press ctrl+v
-select columns
-press shift+i
-write your text
-press esc
-press "jj"
 
-7.2 vim快速替换 
-
-    :s/old/new - 用new替换当前行第一个old。
-    :s/old/new/g - 用new替换当前行所有的old。
-    :n1,n2s/old/new/g - 用new替换文件n1行到n2行所有的old。
-    :n,$s/vivian/sky/g 替换第 n 行开始到最后一行中每一行所有 vivian 为 sky
-    :%s/^/xxx/g - 在每一行的行首插入xxx，^表示行首。
-    :%s/$/xxx/g - 在每一行的行尾插入xxx，$表示行尾。
-    所有替换命令末尾加上c，每个替换都将需要用户确认。 如：%s/old/new/gc，加上i则忽略大小写(ignore)。
-    n 为数字，若 n 为 .，表示从当前行开始到最后一行
-
-Vim 文本替换：
-%s/ salads / asdasd.  
-
-还有一种比替换更灵活的方式，它是匹配到某个模式后执行某种命令，
-语法为 :[range]g/pattern/command
-例如 :%g/^ xyz/normal dd。
-表示对于以一个空格和xyz开头的行执行normal模式下的dd命令。
+8.25 快捷键
 
 关于range的规定为：
 
@@ -48,7 +24,53 @@ ngg11  +回车
 
 "+y  复制选中内容到＋寄存器，也就是系统的剪贴板，供其他程序用 
 
- ggdG 全部删除
+ggdG 全部删除
+
+d0 从0删除到当前
+dG  从当前删除到末尾
+d0：删除光标前的全部内容
+d$：删除光标后的全部内容
+db: 删除光标前的一个单词，但保留单词前的空格。
+dB: 删除光标前的一个单词，包括单词前的空格。
+dw: 删除光标后的单词（不包括当前单词）
+
+格式化全文
+ggVG：全选整个文件。
+=：格式化选中的内容。
+
+指定区块进行格式化：
+V100j 从当前开始选中
+=： 进行格式化
+
+
+4.6 批量修改块内容
+press ctrl+v
+select columns
+press shift+i
+write your text
+press esc
+press "jj"
+
+
+7.2 vim快速替换 
+
+    :s/old/new - 用new替换当前行第一个old。
+    :s/old/new/g - 用new替换当前行所有的old。
+    :n1,n2s/old/new/g - 用new替换文件n1行到n2行所有的old。
+    :n,$s/vivian/sky/g 替换第 n 行开始到最后一行中每一行所有 vivian 为 sky
+    :%s/^/xxx/g - 在每一行的行首插入xxx，^表示行首。
+    :%s/$/xxx/g - 在每一行的行尾插入xxx，$表示行尾。
+    所有替换命令末尾加上c，每个替换都将需要用户确认。 如：%s/old/new/gc，加上i则忽略大小写(ignore)。
+    n 为数字，若 n 为 .，表示从当前行开始到最后一行
+
+Vim 文本替换：
+%s/ salads / asdasd.  
+
+还有一种比替换更灵活的方式，它是匹配到某个模式后执行某种命令，
+语法为 :[range]g/pattern/command
+例如 :%g/^ xyz/normal dd。
+表示对于以一个空格和xyz开头的行执行normal模式下的dd命令。
+
 
  d1G 删除当前到第一行
 
@@ -640,15 +662,6 @@ set makeprg=javac\ abc.java
 
 normal模式下按:进入命令行模式
 14.1 命令行模式下的快捷键：
-
-    上下方向键：上一条或者下一条命令。如果已经输入了部分命令，则找上一 条或者下一条匹配的命令。
-    左右方向键：左/右移一个字符。
-    C-w： 向前删除一个单词。
-    C-h： 向前删除一个字符，等同于Backspace。
-    C-u： 从当前位置移动到命令行开头。
-    C-b： 移动到命令行开头。
-    C-e： 移动到命令行末尾。
-    Shift-Left： 左移一个单词。
     Shift-Right： 右移一个单词。
     @： 重复上一次的冒号命令。
     q： 正常模式下，q然后按':'，打开命令行历史缓冲区， 可以像编辑文件一样编辑命令。
