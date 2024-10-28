@@ -76,6 +76,9 @@ ALTER TABLE `monitor_data` DROP `media_ids`;
 
 字段创建唯一索引
 CREATE UNIQUE INDEX logs_id_unique ON logs(id);
+CREATE UNIQUE INDEX "xxx_unique" ON public.tablename (id,name....);
+考虑左前缀匹配原则，对于索引的字段要做处理
+
 
 查看数据库索引
   SHOW INDEX FROM table_name
