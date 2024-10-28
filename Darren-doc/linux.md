@@ -1,5 +1,20 @@
 # linux 常用总结
 
+### ssh 
+```
+本地代理端口， 使用远程跳板机，代理的服务 -N 表示不进入远程，本地开代理服务
+ssh -i ~/.ssh/id_rsa.si -L 5433:192.168.0.1:5432 root@remote_ip -p 22 -N 
+
+
+常用远程命令， 拷贝复制
+ssh land@172.16.164.9999 "rm -f ~/bin/game-server"
+scp game-server land@172.16.164.9999:~/bin 
+ssh land@172.16.164.9999 "supervisorctl restart gameserver:"
+
+
+
+```
+
 ### 数学库
 bc 是一个命令行工具，用于进行任意精度的算术运算。-l 选项是 bc 的一个参数，它代表 "mathematical library"，即数学库。
 ```
@@ -404,13 +419,6 @@ iotop -oP
 -l     use a long listing format  以长列表方式显示（详细信息方式）
 -t     sort by modification time 按修改时间排序（最新的在最前面）
 -r     reverse order while sorting （反序）
-
-
-9.6常用远程命令， 拷贝复制
-ssh land@172.16.164.9999 "rm -f ~/bin/game-server"
-scp game-server land@172.16.164.9999:~/bin 
-ssh land@172.16.164.9999 "supervisorctl restart gameserver:"
-
 
 
 7.24
