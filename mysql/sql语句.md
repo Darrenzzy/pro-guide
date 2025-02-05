@@ -70,6 +70,8 @@ alter table tableName add index indexName(columnName,sync_status);
 alter table play_level_god_accept drop column grab_switch5;
 ALTER TABLE `monitor_data` DROP `media_ids`;
 
+删除表
+drop table tablename;
 
  数据库创建索引：
   create index manager_id_on_groups on groups(manager_id);

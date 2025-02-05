@@ -120,8 +120,13 @@ git fetch origin branch1:branch2
 git branch  -vv
 查看所有分支 和信息
 git branch -avvv
+查看远程所有分支信息
+git ls-remote origin
+
 绑定当前分支到远程分支
 git branch --set-upstream-to=<remote>/<branch> other_bramch
+
+git branch --set-upstream-to=git/main main
 
 创建分支
 git branch new | git checkout -b new  等效

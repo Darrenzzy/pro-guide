@@ -6,12 +6,12 @@
     UseKeychain yes
     AddKeysToAgent yes
     IdentitiesOnly=yes
-    IdentityFile /Users/darren/.ssh/id_rsa.zzygmail
+    IdentityFile /Users/darren/.ssh/id_rsa.stockbotgmail
 
 # github
     Host github.com
     HostName github.com
-    User darrenzzy
+    User darrenstockbot
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/id_rsa.darrenmac13
 

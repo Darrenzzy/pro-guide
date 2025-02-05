@@ -81,9 +81,7 @@ select pg_database.datname, pg_database_size(pg_database.datname) AS size from p
 \dt 列出所有表
 
 psql -U postgres -d postgres -h 127.0.0.1 -p 5432
-
-appledeiMac-2:postgresql-10.4 apple$ which psql
-/usr/local/pgsql/bin/psql
+ 
 
 删除数据库：
 [1]在命令行用dropdb命令删除
