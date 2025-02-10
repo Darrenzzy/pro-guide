@@ -113,6 +113,9 @@ git fetch origin aaa
 具体到拉某一个分支
 git fetch origin branch1:branch2
 
+在xxx分支，拉取远程分支合并到当前xxx分支
+git fetch origin master && git rebase origin/master
+
 批量删除本地无用分支
  gb |grep -v feat |grep -v hotfix |xargs  -I {} git branch -D {}
 
