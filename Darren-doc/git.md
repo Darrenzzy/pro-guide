@@ -39,6 +39,9 @@ git diff branch1 branch2 --stat
 
 显示指定文件的详细差异
 git diff branch1 branch2 具体文件路径
+	•	--name-status：显示文件是新增（A）、修改（M）、删除（D）：
+	•	--name-only：只看哪些文件有差异：
+	•	--stat：只看差异的文件列表和行数统计：		
 
 查看branch1分支有，而branch2中没有的log
 git log branch1 ^branch2

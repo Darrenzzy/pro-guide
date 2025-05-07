@@ -4,3 +4,5 @@
 2. 服务日志目录： tail -f /var/log/supervisor/newu.00.log
 
 3. 终端快捷删除单词：  ctrl+w
+
+ 

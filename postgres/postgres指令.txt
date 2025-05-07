@@ -3,6 +3,9 @@ postgres 安装指南
 当报告连接数超多时，查看当前ip连接数：
 select * from pg_stat_activity;
 
+从本地csv导入数据到postgres中
+\copy table(csvheaders...逗号隔开) from '/tmp/....new.csv' delimiter ',' csv header;
+
 
 修改指定用户 密码：
 ALTER USER postgres WITH PASSWORD 'postgres';
