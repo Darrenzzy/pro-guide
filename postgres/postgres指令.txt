@@ -1,5 +1,19 @@
 postgres 安装指南
 
+高频写入场景优于mysql写入场景。
+因为insert时候不会触发innodb的行锁和间隙锁。写入无阻塞。在同样mvcc机制下，还是默认走：读已提交模式，这个时候使用pg中的应用来解决
+
+插入数据流程，以及对应索引的变化：
+[INSERT SQL]
+    ↓
+[生成 Tuple 元数据]
+    ↓
+[堆表找到页 → 分配 ctid → 写入数据页]
+    ↓
+[所有索引结构中插入 (key, ctid)]
+    ↓
+[完成]
+
 当报告连接数超多时，查看当前ip连接数：
 select * from pg_stat_activity;
 

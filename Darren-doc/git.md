@@ -150,6 +150,10 @@ git checkout origin/remoteName -b localName
 git指定tag签出一个分支
 git checkout -b [new_branch_name] [tag_name]
 
+
+已经提交删除了：
+git checkout HEAD^ -- dir/
+
 git撤销本地所有为更改的提交
 git clean -df
 
