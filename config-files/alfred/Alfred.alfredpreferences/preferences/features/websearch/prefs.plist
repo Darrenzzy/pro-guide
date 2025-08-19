@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>customSites</key>
+	<dict>
+		<key>D3D6A736-4FD5-4D21-B9F6-3725BAF07D06</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>e</string>
+			<key>text</key>
+			<string>Search CODELF for '{query}'</string>
+			<key>url</key>
+			<string>https://unbug.github.io/codelf/#{query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+		<key>E399845B-59E4-4CDD-BCF6-68D56E1558AC</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>g</string>
+			<key>text</key>
+			<string>google</string>
+			<key>url</key>
+			<string>https://www.google.com.hk/search?tbs=qdr:y&amp;q={query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

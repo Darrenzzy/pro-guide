@@ -1,0 +1,81 @@
+volt开发指南
+
+1.格式要求
+{% x %} 前后必须加英文空格
+{{ x }} 前后必须加英文空格
+
+2.数组使用
+[ 'a': 2 ] 使用: , 注意后面有空格
+
+3.默认所有函数都可以使用,注意！方法名全部是小写+下划线方式
+
+
+4.常量直接使用
+比如
+{{ USER_STATUS_NORMAL }}
+{{ intval(USER_STATUS_NORMAL) }}
+
+5.类中的static使用定义使用
+class Test
+{
+	static $STATUS = array('a' => 1);
+}
+{{ Test.STATUS }}
+
+6. simple_form 表单使用
+例子
+// 如果 user的id为空，提交到create的
+{% set f = simple_form(['admin', user] ) %}
+// 删除
+{% set f = simple_form(['admin', user], ['method': 'delete']) %}
+// 修改 
+{% set f = simple_form(['admin', user]) %}
+// 其他action
+{% set f = simple_form(c('/admin/users/punish/',user.id),user,['class': 'test']) %}
+
+{{ f.input('name',['label': '用户名']) }}
+{{ f.checkbox('status', ['label': '有效', ‘checked_value': 1]) }}
+{{ f.select('user_status_eq',['label': '状态', 'collection': Users.USER_STATUS,'blank': true ]) }}
+{{ f.button('submit',['value': '提交']) }}
+{{ f.password('password',['label': '密码']) }}
+{{ f.file('avatar',['label': '头像']) }}
+{{ f.hidden('id') }}
+{{ f.submit('提交') }}
+
+{{ f.end }}
+
+simple_form 参数列表
+   第一个参数可以是字符串或者数组， 数组的最后一个必须是对象
+   第二个参数数组，会被添加到form属性中
+
+input/checkbox/select/button控件
+   第一个参数 是字段名称
+   第二个参数是 各自属性
+
+7.常见函数名使用
+ // 引用js文件，自动查找public下版本最高的文件，支持多个参数
+{{ js('jquery.min','admin') }}
+// 引用css文件，自动查找public下版本最高的文件，支持多个参数
+{{ css('jquery.min','admin') }}
+
+
+
+8.simple_table
+
+{%- macro test_link(object) %}
+<a href="{{object.name}} => {{ object.id }}">xxx</a>
+{%- endmacro %}
+class Users{
+    $xxx
+	function xxx()
+	{
+
+	}
+}
+
+{{ simple_table(users, [
+  'ID': 'id', '名称': 'yyy','密码': 'xxx',
+  '编辑': 'edit_link','删除': 'delete_link',
+  '测试': 'test_link'
+]
+) }}

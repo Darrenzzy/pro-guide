@@ -1,0 +1,23 @@
+1: 导出原始表结构和数据(一定要分别导出结构跟数据，不能导出为一个文件)
+
+mysqldump --no-data [dbname] >dbdef.sql
+mysqldump -v -nt --complete-insert=TRUE --compatible=postgresql --ignore-table=onlinewallet_development.schema_migrations --compact --no-create-info --skip-quote-names [dbname] >dbdata.sql
+这样我们得到2个文件：
+
+dbdef.sql
+dbdata.sql
+
+2: 表结构文件做一个数据转换成为postgres格式的
+
+perl mysql2pgsql.perl dbdef.sql dbdef.psql
+
+3: 导入结构跟数据
+psql -U username -d [dbname] -f dbdef.psql
+注意是后缀是 psql
+
+导入数据 psql -U username -d [dbname] -f dbdata.sql
+
+如果出现数据文件(dbdata.sql)导入出错是因为mysql默认字符串里的''是转义符，而pgsql默认不是，修改postgresql.conf:
+backslash_quote = on escape_string_warning = off standard_conforming_strings = off
+数据导入完成后可以改回默认值。
+

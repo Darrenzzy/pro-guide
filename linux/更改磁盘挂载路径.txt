@@ -1,0 +1,4 @@
+编辑文件  /etc/fstab
+
+看下/dev/vdb 后面目录修改为 /usr/loca/system
+挂载到 /usr/local/system

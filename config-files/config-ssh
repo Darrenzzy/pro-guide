@@ -1,0 +1,36 @@
+# nuoyou
+    Host nuoyou
+    HostName 119.28.10.43
+    port 22
+    User root
+    UseKeychain yes
+    AddKeysToAgent yes
+    IdentitiesOnly=yes
+    IdentityFile /Users/darren/.ssh/id_rsa.stockbotgmail
+
+# github
+    Host github.com
+    HostName github.com
+    User darrenstockbot
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa.darrenmac13
+
+# github
+    Host github2.com
+    HostName github.com
+    User darrenyjq
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa.darrenM1
+
+# gitlab
+    Host git.ztosys.com
+    HostName git.ztosys.com
+    User git
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa.zto
+
+
+Host *
+	ServerAliveInterval 600
+	TCPKeepAlive no
+   	IPQoS=throughput

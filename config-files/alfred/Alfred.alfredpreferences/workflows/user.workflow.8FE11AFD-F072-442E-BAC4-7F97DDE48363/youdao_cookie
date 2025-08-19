@@ -1,0 +1,5 @@
+#LWP-Cookies-2.0
+Set-Cookie3: DICT_UGC="be3af0da19b5c5e6aa4e17bd8d90b28a|"; path="/"; domain=".youdao.com"; domain_dot; discard; version=0
+Set-Cookie3: JSESSIONID=abcfq6yH0GnWX98gr_Yfx; path="/"; domain=".youdao.com"; path_spec; discard; version=0
+Set-Cookie3: OUTFOX_SEARCH_USER_ID="1555803245@210.22.76.173"; path="/"; domain=".youdao.com"; domain_dot; expires="2050-04-06 09:57:37Z"; version=0
+Set-Cookie3: OUTFOX_SEARCH_USER_ID="-1176017150@10.108.160.132"; path="/login/acc"; domain="logindict.youdao.com"; expires="2050-04-06 09:57:38Z"; version=0

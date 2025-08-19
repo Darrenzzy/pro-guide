@@ -1,0 +1,302 @@
+postgres 安装指南
+
+高频写入场景优于mysql写入场景。
+因为insert时候不会触发innodb的行锁和间隙锁。写入无阻塞。在同样mvcc机制下，还是默认走：读已提交模式，这个时候使用pg中的应用来解决
+
+插入数据流程，以及对应索引的变化：
+[INSERT SQL]
+    ↓
+[生成 Tuple 元数据]
+    ↓
+[堆表找到页 → 分配 ctid → 写入数据页]
+    ↓
+[所有索引结构中插入 (key, ctid)]
+    ↓
+[完成]
+
+当报告连接数超多时，查看当前ip连接数：
+select * from pg_stat_activity;
+
+从本地csv导入数据到postgres中
+\copy table(csvheaders...逗号隔开) from '/tmp/....new.csv' delimiter ',' csv header;
+
+
+修改指定用户 密码：
+ALTER USER postgres WITH PASSWORD 'postgres';
+
+切换用户
+su - postgres
+启动pg
+pg_ctl -D /pgsql/data/ -l logfile start
+
+
+编译安装成功后，接下来要做的就是创建一个普通用户，因为默认超级用户（root）不能启动postgresql，所以需要创建一个普通用户a来启动数据库，执行以下命令创建用户：
+useradd postgres
+#切换用户
+su -u postgres
+
+初始化数据库
+initdb
+
+问题: initdb: invalid locale settings; check LANG and LC_* environment variables
+解决
+LC_ALL="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+
+启动数据库
+pg_ctl start
+
+# 创建超级用户postgres
+createuser postgres -s (创建最高权限用户，相当于mysql里的root账户)
+#设置密码
+\password postgres
+
+设置完密码需要把pg_hba.conf配置的METHOD由trust改为md5，然后重启
+
+# 通过项目脚本创建数据库
+php cli.php db create 
+
+
+进入到客户端
+psql -U postgres
+
+常用命令
+\l    		#显示所有数据
+\c dbname    	#连接到dbname的数据库
+\q 		#退出客户端
+\d 		#所有当前库所有的表
+\d tablename    #查看tablename的表字段
+\password #设置密码
+设置完密码需要把pg_hba.conf配置的METHOD由trust改为md5，然后重新加载一下配置文件才能生效
+
+ 
+学习postgres:
+登录数据库用户：
+psql -U [user] -d [database] -h [host] -p [port]
+
+psql -U postgres -d otc_php
+\password：设置当前登录用户的密码
+\h：查看SQL命令的解释，比如\h select。
+\?：查看psql命令列表。
+\l：列出所有数据库。
+\c [database_name]：连接其他数据库。
+\d：列出当前数据库的所有表格。
+\d [table_name]：列出某一张表格的结构。
+\du：列出所有用户。
+\e：打开文本编辑器。
+\conninfo：列出当前数据库l和连接的信息。
+\password [user]: 修改用户密码
+\q：退出
+\l+ 查看所有数据库当前占用磁盘大小
+
+psql查看所有数据库的大小
+select pg_database.datname, pg_database_size(pg_database.datname) AS size from pg_database;
+
+ psql查看数据库所有索引  \di
+ //相当于mysql的，mysql> show index from test;
+
+\dt 列出所有表
+
+psql -U postgres -d postgres -h 127.0.0.1 -p 5432
+ 
+
+删除数据库：
+[1]在命令行用dropdb命令删除
+   dropdb -U postgres demodb,就可以实现数据库的删除
+[2]在psql命令行下删除
+   psql#DROP DATABASE demodb
+
+  在终端上查看显示已创建的列表
+psql -l
+
+号外号外：postgressql  用brew安装
+每次开机启动：
+brew services start postgresql
+
+
+安装好 psql 后 开始初始化启动 执行:
+initdb
+根据提示 的启动命令 执行即可
+pg_ctl -D /Users/darren/postgresql/data -l logfile start
+
+
+或者手动启动：
+pg_ctl -D /Users/darren/postgresql/data start
+
+启动 (brew流程)
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+停止
+pg_ctl stop
+
+(这个没效果) pg_ctl -D /usr/local/var/postgres stop -s -m fast
+查看状态
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log status
+
+
+在初次进入psql后，需要手动创建postgres用户和数据库
+一、创建postgres用户
+
+CREATE USER postgres WITH PASSWORD 'XXXXXX';
+
+查询当前所有角色
+SELECT * from pg_roles;
+给新用户授权当前db的只读权限：
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO new_user;
+授权指定用户对于新增表，都可以有读的权限。（需要建表的用户来执行这个命令）
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO <username>;
+给新用户授权当前数据库的链接权限
+GRANT CONNECT ON DATABASE your_database TO new_user;
+授权写库权限
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO new_user;
+注意除了写库权限，还需要有写索引权限，要执行这个命令：
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO zzy;
+
+
+alter role postgres createrole;
+alter role postgres Superuser;
+  
+  以此类推把所有原管理员的权限都授权给新用户.
+然后创建一个临时数据库,目的是删除原来的 postgres 数据库
+
+二、删除默认生成的postgres数据库
+
+DROP DATABASE postgres;
+三、创建属于postgres用户的postgres数据库
+
+CREATE DATABASE postgres OWNER postgres;
+四、将数据库所有权限赋予postgres用户
+
+GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;
+
+五、给postgres用户添加创建数据库的属性
+
+ALTER ROLE postgres CREATEDB;
+这样就可以使用postgres作为数据库的登录用户了，并可以使用该用户管理数据库
+
+
+
+主从配置
+1.确保主机器archive打开，将rsync配成服务器
+2.在从机器上使用rsync开始同步archive文件，同步结束后，开启crontab 一分钟同步一次！！！！
+3.在从机器运行pg_basebackup 开始复制基础备份
+pg_basebackup -D ./data -Fp -Xs -v -P -h {ip}  -U postgres
+4.在从机器data下，创建recovery.conf，添加primary和restore_dir信息
+5.从机器启动pg_ctl start
+6.看日志发现切到stream同步后，关闭crontrab对应的任务，主从完成
+
+
+
+
+recovery.conf
+
+restore_command = 'cp /usr/local/system/postgresql/remote_archive/%f %p'
+standby_mode = on
+primary_conninfo = 'host=x.x.x.x user=postgres'		
+trigger_file = '/usr/local/system/postgresql/data/postgres.trigger'
+
+
+rsync配置
+主机器
+vi /etc/rsyncd.conf
+uid = root
+gid = root
+use chroot = no
+log file = /var/log/rsyncd.log
+pid file = /var/run/rsyncd.pid
+lock file = /var/run/rsync.lock
+ignore errors = no
+exclude =  **/.svn/ .DS_Store
+[root]
+  path = /usr/local/system/postgresql/archive/
+  exclude = **/svn/ .DS_Store .log log/* tmp/* temp/* config/dump.rdb db/sphinx/
+ public/execel
+   read only = yes
+   list = no
+   auth users = postgres
+   secrets file = /etc/rsyncd.users
+
+
+vi /etc/rsyncd.users 
+postgres:is4rsync
+chmod 600 /etc/rsyncd.users 
+
+启动rsync
+rsync --daemon    
+
+
+从服务器
+同步脚本
+vi rsync_db.sh
+#!/bin/bash
+cd /usr/local/system/postgresql
+rsync -rzuP --password-file=./rsync.password  postgres@10.172.26.56::root ./remote_archive/
+
+vi  rsync.password 
+is4rsync
+
+chmod 600  rsync.password 
+
+
+必须先安装readline
+# mac
+brew install readline
+# linux
+yum install -y readline-devel zlib-devel
+# wget https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
+wget https://ftp.postgresql.org/pub/source/v10.4/postgresql-10.4.tar.gz
+tar -zxvf postgresql-10.4.tar.gz
+cd postgresql-10.4
+./configure
+make
+sudo make install
+
+
+
+【生产环境配置参数】
+sudo vi /etc/profile
+加入路径：
+PATH=$PATH:/usr/local/pgsql/bin:/usr/local/sbin/
+让/etc/profile文件修改后立即生效:
+source /etc/profile
+
+
+特定版本加软链：
+ln -sf /usr/pgsql-9.6 /usr/pgsql
+【开发环境配置参数】
+vi ~/.bash_profile
+加入环境变量：
+export PATH=/usr/pgsql/bin:$PATH
+
+生效
+source ~/.bash_profile
+
+初始化数据库：
+cd /usr/pgsql/bin
+./initdb -D /pgsql/data
+
+mkdir -p /pgsql/data
+ chown -R postgres:postgres /pgsql/
+ chmod 0700 /pgsql/data
+更新psql 配置文件：
+cd /pgsql/data/
+
+echo "host    all             all             0.0.0.0/0            md5" >>./pg_hba.conf
+
+vim postgresql.conf
+
+```
+listen_addresses = '*'
+wal_level = hot_standby
+wal_log_hints = on
+synchronous_commit = on
+max_wal_senders=5
+wal_keep_segments = 32
+hot_standby = on
+wal_sender_timeout = 5000
+wal_receiver_status_interval = 2
+max_standby_streaming_delay = -1
+max_standby_archive_delay = -1
+restart_after_crash = off
+hot_standby_feedback = on
+```
+

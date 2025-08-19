@@ -1,0 +1,36 @@
+上线流程:
+
+    1: 在kafka服务器中检查kafka以及zookeeper是否启动
+
+	ps aux |grep kafka
+	
+    2: 若没有启动，则在根目录下启动按照以下命令：
+
+    //将zookeeper和3台broker都启动
+    一键部署  zookeeper_kafka_start.sh
+
+
+    zookeeper_kafka_start.sh脚本需要自己创建其内容是：
+
+        ~/src/kafka2.11-1.1.1/bin/kafka-server-stop.sh
+        ~/src/kafka2.11-1.1.1/bin/zookeeper-server-stop.sh
+
+        zookeeper-server-start.sh /usr/local/etc/kafka/zookeeper.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/zookeeper.log &
+        sleep 10s
+        kafka-server-start.sh /usr/local/etc/kafka/server.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
+        kafka-server-start.sh /usr/local/etc/kafka/server-1.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
+        kafka-server-start.sh /usr/local/etc/kafka/server-2.properties >> /Users/apple/src/kafka2.11-1.1.1/log_run/kafka.log &
+
+        echo ok!
+ 
+  nohup ./kafka_check_logs.sh >> /tmp/kafka_check_logs.log &
+
+    3: 再次检查是否启动
+
+	ps aux |grep kafka
+
+
+	提示：配置文件目录在 ~/src/kafka2.11-1.1.1/config 中。
+
+     
+     

@@ -1,0 +1,8 @@
+elasticsearch安装
+wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.1/elasticsearch-2.4.1.tar.gz
+tar -zxvf elasticsearch-2.4.1.tar.gz
+cd elasticsearch-2.4.1
+# 安装插件
+./bin/plugin install https://github.com/NLPchina/elasticsearch-sql/releases/download/2.4.1.0/elasticsearch-sql-2.4.1.0.zip
+启动 
+bin/elasticsearch -d

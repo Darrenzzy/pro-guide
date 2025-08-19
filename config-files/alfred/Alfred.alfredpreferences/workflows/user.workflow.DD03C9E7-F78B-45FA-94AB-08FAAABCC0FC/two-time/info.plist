@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.michaelwaterfall.datetime-format-converter</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict/>
+	<key>createdby</key>
+	<string>Michael Waterfall</string>
+	<key>description</key>
+	<string>Convert timestamps and datetime strings into various formats</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Datetime Format Converter</string>
+	<key>objects</key>
+	<array/>
+	<key>readme</key>
+	<string>v0.2
+
+This workflow uses these awesome Python projects:
+
+Delorean by Mahdi Yusuf
+https://github.com/myusuf3/delorean
+
+Alfred Python by Jan Müller
+https://github.com/nikipore/alfred-python</string>
+	<key>uidata</key>
+	<dict/>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string></string>
+	<key>webaddress</key>
+	<string>twitter.com/mwaterfall</string>
+</dict>
+</plist>

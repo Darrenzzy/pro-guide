@@ -1,0 +1,24 @@
+安装openssl  mac，linux
+
+
+
+首先从git上拉取或者直接下载zip
+
+地址 git clone https://github.com/openssl/openssl
+
+解压
+tar -zxvf openssl.zip
+
+cd openssl
+
+./config --prefix=/usr/local/openssl
+
+make
+
+sudo make install
+
+安装完毕
+
+最后查看版本 openssl version
+
+

@@ -1,0 +1,16 @@
+// sublime 用户配置文件  免更新提醒
+
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"font_size": 14,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	"theme": "Default.sublime-theme",
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": true,
+	 "update_check":false,
+	 "index_files": true,
+}

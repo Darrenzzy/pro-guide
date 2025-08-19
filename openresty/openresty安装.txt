@@ -1,0 +1,49 @@
+1: 安装libdrizzle
+
+https://openresty.org/download/drizzle7-2011.07.21.tar.gz
+
+When you get the drizzle7 2011.07.21 release tarball, you can install libdrizzle-1.0 like this:
+
+tar xzvf drizzle7-2011.07.21.tar.gz
+cd drizzle7-2011.07.21/
+./configure --without-server
+make libdrizzle-1.0
+make install-libdrizzle-1.0
+
+2: 下载
+ wget https://openresty.org/download/openresty-1.13.6.2.tar.gz
+ tar -xzvf openresty-1.13.t.2.tar.gz
+
+3: 编译安装
+
+linux:
+./configure --with-cc-opt="-I/usr/local/include" --with-luajit --with-ld-opt="-L/usr/local/lib" --with-http_drizzle_module --with-http_iconv_module --with-http_postgres_module --with-poll_module --with-libpq
+
+#########################
+ngx_postgres addon was unable to detect version of the libpq library
+yum install libpqxx-devel
+#########################
+gmake
+gmake install
+
+mac:
+
+./configure --with-cc-opt="-I/usr/local/opt/openssl/include/ -I/usr/local/opt/pcre/include/" --with-ld-opt="-L/usr/local/opt/openssl/lib/ -L/usr/local/opt/pcre/lib/" --with-http_drizzle_module --with-http_iconv_module --with-http_postgres_module
+make && sudo make install
+
+
+
+4: 最佳实践
+
+https://moonbingbing.gitbooks.io/openresty-best-practices/openresty/install_osx.html
+
+默认安装目录是/usr/local/openresty
+把/usr/local/openresty/bin加入到PATH
+
+配置文件/usr/local/openresty/nginx/conf/nginx.conf
+
+启动命令: openresty
+
+启动的时候如果报libdrizzle.so.1找不到
+到/lib64目录下执行：
+sudo  ln -s /usr/local/lib/libdrizzle.so.1 libdrizzle.so.1
