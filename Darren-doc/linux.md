@@ -11,9 +11,43 @@ ssh land@172.16.164.9999 "rm -f ~/bin/game-server"
 scp game-server land@172.16.164.9999:~/bin 
 ssh land@172.16.164.9999 "supervisorctl restart gameserver:"
 
+```
 
+### 9.3
+
+找到指定目录所有文件中存在关键字，进行替换
+find ./ -type f -exec sed -i 's/preword/newword/g' {} +
+
+
+显示当前文件的文件树：
+```
+find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"
+
+# 显示当前目录下所有匹配的文件
+find . -name '*.pb.go'
 
 ```
+
+### 3.10
+linux 找出2天以前的文件
+find ./  -type f -mtime +2 -exec ls -lh {} \;
+
+linux 删除指定日期之前的文件
+两种方法：
+1. 在一个目录中保留最近三个月的文件，三个月前的文件自动删除。
+find ~ -mtime +92 -type f -name *.mail[12] -exec rm -rf {} \;
+find .  -mtime +92 -type f -name '*.log' |xargs rm -rf
+
+2. 删除 指定文件 10分钟以前的文件
+find ./  -name '*.out' -amin +10 -ls -exec rm -rf {} \;
+```
+/email/v1_bak --设置查找的目录；
+-mtime +92 --设置时间为91天前；
+-type f --设置查找的类型为文件；
+-name *.mail[12] --设置文件名称中包含mail1或者mail2；
+-exec rm -f --查找完毕后执行删除操作；
+```
+
 
 ### 数学库
 bc 是一个命令行工具，用于进行任意精度的算术运算。-l 选项是 bc 的一个参数，它代表 "mathematical library"，即数学库。
@@ -79,6 +113,8 @@ echo "已删除 $target_dir 目录下所有大于 ${size_limit}MB 的文件。"
 ### 关键字搜索
     grep -E 'PATH\='/etc/profile  ~/.*
 
+关键字匹配
+grep -r "政策"  ./*
 
 ### 文本关键字搜索
  ag -i foo /bar/
@@ -292,35 +328,7 @@ mv log/X.log log/X${datetime}.log
 
 
 
-### 3.17
-显示当前文件的文件树：
-```
-find . -print | sed -e "s;[^/]*/;|__;g;s;__|;  |;g"
 
-# 显示当前目录下所有匹配的文件
-find . -name '*.pb.go'
-
-```
-
-### 3.10
-linux 找出2天以前的文件
-find ./  -type f -mtime +2 -exec ls -lh {} \;
-
-linux 删除指定日期之前的文件
-两种方法：
-1. 在一个目录中保留最近三个月的文件，三个月前的文件自动删除。
-find ~ -mtime +92 -type f -name *.mail[12] -exec rm -rf {} \;
-find .  -mtime +92 -type f -name '*.log' |xargs rm -rf
-
-2. 删除 指定文件 10分钟以前的文件
-find ./  -name '*.out' -amin +10 -ls -exec rm -rf {} \;
-```
-/email/v1_bak --设置查找的目录；
--mtime +92 --设置时间为91天前；
--type f --设置查找的类型为文件；
--name *.mail[12] --设置文件名称中包含mail1或者mail2；
--exec rm -f --查找完毕后执行删除操作；
-```
 ### 2.5
 启动服务 发现端口起不来报：socket: too many open files
 临时解决改配置： ulimit -n 4096 
