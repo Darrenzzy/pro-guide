@@ -53,6 +53,9 @@ git diff --cached
 删除已经add提交的缓存，让git status 回归
 git rm -rf --cached path/
 
+删除指定规则的文件提交记录，重新add，commit,之后再有变化也不会跟踪了。
+git rm --cached *.csv
+
 回退指定文件
 git checkout ./filename
 若文件删除 从指定分支回退
@@ -77,6 +80,9 @@ git push -u origin master
 git push -u origin A:B
 git push  -f 强推版本覆盖远程
 git push origin tag  标签推送到远程
+
+当有https的情况，可以配置好，之后不在提醒需要再次输入账号密码
+git config --global credential.helper store
 
 git commit --amend 更新上次提交的massage文案
 
